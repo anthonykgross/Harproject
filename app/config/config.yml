@@ -73,3 +73,7 @@ fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: Harproject\AppBundle\Entity\User
+ 
+# Escape WSSE authentification bundle
+escape_wsse_authentication:
+    authentication_provider_class: Harproject\OverrideBundle\Security\WSSE\Provider
