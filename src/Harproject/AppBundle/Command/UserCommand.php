@@ -13,7 +13,7 @@ class UserCommand extends ContainerAwareCommand {
 
     protected function configure() {
         $this
-                ->setName('user:create')
+                ->setName('harproject:user:create')
                 ->setDescription('Create a new user')
                 ->addArgument('email', InputArgument::REQUIRED, 'User email')
                 ->addArgument('password', InputArgument::REQUIRED, 'User password')
@@ -21,21 +21,7 @@ class UserCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $email = $input->getArgument('email');
-        $password = $input->getArgument('password');
-
-        $newUser = new User();
-
-        $newUser->setEmail($email);
-        $newUser->setPlainPassword($password);
-        $newUser->setUsername($email);
-        $newUser->setApiKey("apiKey");
-        $newUser->setApiSecret("apiSecret");
-        
-        $em = $this->getContainer()->get('doctrine')->getEntityManager();
-        
-        $em->persist( $newUser );
-        $em->flush();
+        $this->getContainer()->get('harproject_app.user')->addUser($input->getArgument('email'), $input->getArgument('password'));
     }
 
 }

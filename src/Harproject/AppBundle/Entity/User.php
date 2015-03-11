@@ -12,6 +12,13 @@ use Harproject\OverrideBundle\Entity\FOSUserBundle\User as BaseUser;
 class User extends BaseUser {
     
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
      * @ORM\Column(type="string", length=32)
      */    
     private $apiKey;
@@ -22,18 +29,27 @@ class User extends BaseUser {
     private $apiSecret;
     
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\OneToMany(targetEntity="Member", mappedBy="user", cascade={"remove", "persist"})
      */
-    protected $id;
-
+    private $members;
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
-
+        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set apiKey
@@ -82,12 +98,35 @@ class User extends BaseUser {
     }
 
     /**
-     * Get id
+     * Add members
      *
-     * @return integer 
+     * @param \Harproject\AppBundle\Entity\Member $members
+     * @return User
      */
-    public function getId()
+    public function addMember(\Harproject\AppBundle\Entity\Member $members)
     {
-        return $this->id;
+        $this->members[] = $members;
+
+        return $this;
+    }
+
+    /**
+     * Remove members
+     *
+     * @param \Harproject\AppBundle\Entity\Member $members
+     */
+    public function removeMember(\Harproject\AppBundle\Entity\Member $members)
+    {
+        $this->members->removeElement($members);
+    }
+
+    /**
+     * Get members
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMembers()
+    {
+        return $this->members;
     }
 }

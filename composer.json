@@ -21,6 +21,7 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
+        "phpunit/phpunit": "4.6.*@dev",
         "friendsofsymfony/user-bundle": "~1.3",
         "friendsofsymfony/rest-bundle": "~1.5",
         "escapestudios/wsse-authentication-bundle": "~2.0",
