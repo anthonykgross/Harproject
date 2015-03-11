@@ -52,7 +52,7 @@ class Member
      */
     private $project;
     
-        /**
+    /**
      * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime")
