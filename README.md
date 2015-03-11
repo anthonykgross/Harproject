@@ -7,7 +7,7 @@ A Symfony project created on March 10, 2015, 4:33 pm
 ## Creators
 
 **Clement Vidal**
-- <http://www.clementvidal.com/>
+- <http://www.clement-vidal.fr/>
 - <https://github.com/ClementVidal>
 - <https://twitter.com/ClemusMars>
 
