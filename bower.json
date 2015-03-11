@@ -1,0 +1,22 @@
+{
+  "name": "Harproject",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kkuetnet/Harproject",
+  "authors": [
+    "GROSS Anthony <anthony.k.gross@gmail.com>",
+    "VIDAL Clément <clementvidalperso@gmail.com)"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/libs/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "startbootstrap-sb-admin-2": "~1.0.5"
+  }
+}
