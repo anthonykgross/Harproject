@@ -1,0 +1,8 @@
+harproject_override:
+    resource: "@HarprojectOverrideBundle/Resources/config/routing.yml"
+    prefix:   /
+
+harproject_app:
+    resource: "@HarprojectAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
