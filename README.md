@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kkuetnet/Harproject.svg?branch=develop)](https://travis-ci.org/kkuetnet/Harproject)
 Harproject - Harmonize your projects
 ==========
 
