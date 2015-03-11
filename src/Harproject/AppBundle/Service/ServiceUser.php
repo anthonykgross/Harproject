@@ -17,7 +17,7 @@ class ServiceUser {
     
     public function __construct($container) {
         $this->container    = $container;
-        $this->em           = $container->get('doctrine')->getEntityManager();
+        $this->em           = $container->get('doctrine')->getManager();
     }
     
     /**
@@ -25,6 +25,7 @@ class ServiceUser {
      * @param type $email
      * @param type $password
      * @throws Exception
+     * @return User
      */
     public function addUser($email, $password){
         $user = $this->em->getRepository("HarprojectAppBundle:User")->findOneBy(array(
@@ -46,11 +47,14 @@ class ServiceUser {
         $this->em->flush();
         
         $this->resetApiIds($user);
+        
+        return $user;
     }
     
     /**
      * Reset all API identifiers
      * @param User $user
+     * @return User
      */
     public function resetApiIds(User $user){
         $generator      = new SecureRandom();
@@ -61,6 +65,8 @@ class ServiceUser {
         $user->setApiSecret($api_secret);
         $this->em->persist($user);
         $this->em->flush();
+        
+        return $user;
     }
     
     /**
@@ -79,7 +85,7 @@ class ServiceUser {
      * @param User $user
      * @param Project $project
      * @param Role $role
-     * @return Harproject\AppBundle\Entity\Member or NULL
+     * @return Member or NULL
      */
     public function getMember(User $user, Project $project, Role $role){
         return $this->em->getRepository("HarprojectAppBundle:Member")->findOneBy(array(
@@ -95,6 +101,7 @@ class ServiceUser {
      * @param Project $project
      * @param Role $role
      * @throws Exception
+     * @return Member
      */
     public function addMember(User $user, Project $project, Role $role){
         if($this->getMember($user, $project, $role)){
@@ -105,6 +112,8 @@ class ServiceUser {
         $member->setRole($role)->setUser($user)->setProject($project);
         $this->em->persist($member);
         $this->em->flush();
+        
+        return $member;
     }
     
     /**
@@ -112,6 +121,7 @@ class ServiceUser {
      * @param Member $member
      * @param Role $role
      * @throws Exception
+     * @return Member
      */
     public function updateMember(Member $member, Role $role){
         if($this->getMember($member->getUser(), $member->getProject(), $role)){
@@ -121,5 +131,7 @@ class ServiceUser {
         $member->setRole($role)->setUpdatedAt(new \DateTime());
         $this->em->persist($member);
         $this->em->flush();
+        
+        return $member;
     }
 }
