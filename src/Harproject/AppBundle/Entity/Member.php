@@ -41,7 +41,6 @@ class Member
      */
     private $user;
 
-
     /**
      * @var \Project
      *
@@ -56,6 +55,13 @@ class Member
      * @ORM\OneToMany(targetEntity="MemberHasTask", mappedBy="member", cascade={"remove", "persist"})
      */
     private $memberHasTasks;
+    
+    /**
+     * Define the relation between this member and tasks it has created
+     * 
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="creator")
+     */
+    private $createdTasks;
     
     /**
      * @var datetime
@@ -200,5 +206,71 @@ class Member
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Add memberHasTasks
+     *
+     * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
+     * @return Member
+     */
+    public function addMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
+    {
+        $this->memberHasTasks[] = $memberHasTasks;
+
+        return $this;
+    }
+
+    /**
+     * Remove memberHasTasks
+     *
+     * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
+     */
+    public function removeMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
+    {
+        $this->memberHasTasks->removeElement($memberHasTasks);
+    }
+
+    /**
+     * Get memberHasTasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMemberHasTasks()
+    {
+        return $this->memberHasTasks;
+    }
+
+    /**
+     * Add createdTasks
+     *
+     * @param \Harproject\AppBundle\Entity\Task $createdTasks
+     * @return Member
+     */
+    public function addCreatedTask(\Harproject\AppBundle\Entity\Task $createdTasks)
+    {
+        $this->createdTasks[] = $createdTasks;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdTasks
+     *
+     * @param \Harproject\AppBundle\Entity\Task $createdTasks
+     */
+    public function removeCreatedTask(\Harproject\AppBundle\Entity\Task $createdTasks)
+    {
+        $this->createdTasks->removeElement($createdTasks);
+    }
+
+    /**
+     * Get createdTasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCreatedTasks()
+    {
+        return $this->createdTasks;
     }
 }

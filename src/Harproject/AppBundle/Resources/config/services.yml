@@ -5,3 +5,6 @@ services:
     harproject_app.role:
         class: Harproject\AppBundle\Service\ServiceRole
         arguments: [@service_container]
+    harproject_app.task:
+        class: Harproject\AppBundle\Service\ServiceTask
+        arguments: [@service_container]

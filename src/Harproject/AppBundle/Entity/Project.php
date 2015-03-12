@@ -27,6 +27,13 @@ class Project
     private $members;
     
     /**
+     * Define the relation between this projects and its related tasks
+     * 
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="project")
+     */
+    private $tasks;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -75,5 +82,38 @@ class Project
     public function getMembers()
     {
         return $this->members;
+    }
+
+    /**
+     * Add tasks
+     *
+     * @param \Harproject\AppBundle\Entity\Task $tasks
+     * @return Project
+     */
+    public function addTask(\Harproject\AppBundle\Entity\Task $tasks)
+    {
+        $this->tasks[] = $tasks;
+
+        return $this;
+    }
+
+    /**
+     * Remove tasks
+     *
+     * @param \Harproject\AppBundle\Entity\Task $tasks
+     */
+    public function removeTask(\Harproject\AppBundle\Entity\Task $tasks)
+    {
+        $this->tasks->removeElement($tasks);
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 }
