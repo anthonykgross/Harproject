@@ -22,14 +22,14 @@ class Member
     private $id;
     
     /**
-     * @var \Role
+     * @var \Group
      *
-     * @ORM\ManyToOne(targetEntity="Role", inversedBy="members")
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="members")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Role_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="Group_id", referencedColumnName="id", nullable=false)
      * })
      */
-    private $role;
+    private $group;
     
      /**
      * @var \User
@@ -77,11 +77,17 @@ class Member
      */
     private $updated_at;
     
-    
-    public function __construct() {
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->memberHasTasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
     }
+
+
 
     /**
      * Get id
@@ -140,26 +146,26 @@ class Member
     }
 
     /**
-     * Set role
+     * Set group
      *
-     * @param \Harproject\AppBundle\Entity\Role $role
+     * @param \Harproject\AppBundle\Entity\Group $group
      * @return Member
      */
-    public function setRole(\Harproject\AppBundle\Entity\Role $role)
+    public function setGroup(\Harproject\AppBundle\Entity\Group $group)
     {
-        $this->role = $role;
+        $this->group = $group;
 
         return $this;
     }
 
     /**
-     * Get role
+     * Get group
      *
-     * @return \Harproject\AppBundle\Entity\Role 
+     * @return \Harproject\AppBundle\Entity\Group 
      */
-    public function getRole()
+    public function getGroup()
     {
-        return $this->role;
+        return $this->group;
     }
 
     /**

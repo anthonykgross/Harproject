@@ -39,5 +39,16 @@ class ServiceTask {
         
         return $task;
     }
-  
+   
+    /**
+     * Remove an existing task
+     * @param type $task
+     * @throws Exception
+     * @return User
+     */
+    public function deleteTask( Task $task ) {
+        
+        $this->em->remove($task);
+        $this->em->flush();
+    }
 }

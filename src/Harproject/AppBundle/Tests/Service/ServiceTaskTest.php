@@ -4,7 +4,7 @@ namespace Harproject\AppBundle\Tests\Service;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Harproject\AppBundle\Entity\User;
 use Harproject\AppBundle\Entity\Project;
-use Harproject\AppBundle\Entity\Role;
+use Harproject\AppBundle\Entity\Group;
 use Harproject\AppBundle\Entity\Member;
 use Harproject\AppBundle\Entity\Task;
 use Harproject\AppBundle\Exception\Exception;
@@ -17,7 +17,8 @@ class ServiceTaskTest extends WebTestCase{
     
     private $project;
     private $creator;
-    private $task;
+    private $group;
+    private $user;
     
     public function __construct(){
         $this->client       = static::createClient();
@@ -27,31 +28,23 @@ class ServiceTaskTest extends WebTestCase{
        
     protected function setUp(){
         
-        $userEMail = "taskUSer";
-        
-        $user = $this->em->getRepository("HarprojectAppBundle:User")->findOneBy(array(
-            "email" => $userEMail
-        ));
-
-        if( $user ) {
-            $this->container->get("harproject_app.user")->deleteUser( $user );
-        }
+        $userEMail = "taskUser";
+                     
         
         $this->project = new Project();
+        
+        $this->group= new Group();
+        $this->group->setLabel( "test" );
+        
+        $this->user = $this->container->get("harproject_app.user")->addUser($userEMail, "test");
+        
         $this->creator = new Member();
-        
-        $role = new Role();
-        
-        $email = "taskUSer";
-        $user = $this->container->get("harproject_app.user")->addUser($email, "test");
-        
-        $role->setLabel( "test" );
-        $this->creator->setRole( $role );
+        $this->creator->setGroup( $this->group );
         $this->creator->setProject( $this->project );
-        $this->creator->setUser( $user );
+        $this->creator->setUser( $this->user );
         
-        $this->em->persist( $user );
-        $this->em->persist( $role );
+        $this->em->persist( $this->user );
+        $this->em->persist( $this->group );
         $this->em->persist( $this->project );
         $this->em->persist( $this->creator );
         
@@ -59,12 +52,21 @@ class ServiceTaskTest extends WebTestCase{
     }
      
     protected function tearDown(){
+        
+        
+        
+        //$this->em->remove( $this->task );
+        $this->em->remove( $this->creator );
+        $this->em->remove( $this->user );
+        $this->em->remove( $this->group );
+        $this->em->remove( $this->project );
+        $this->em->flush();
     }
     
     public function testAddTask(){
-        
-        $this->task = $this->container->get("harproject_app.task")->addTask( $this->project, $this->creator, "testTask" );
-        $this->assertTrue($this->task instanceof Task);
+        $taskService = $this->container->get("harproject_app.task");
+        $task = $taskService->addTask( $this->project, $this->creator, "testTask" );
+        $this->assertTrue($task instanceof Task);
         /*
         $this->user = $this->em->getRepository("HarprojectAppBundle:Task")->findOneBy(array(
            "email" =>  $email
@@ -78,6 +80,8 @@ class ServiceTaskTest extends WebTestCase{
         
         $this->setExpectedException('Exception');
         $this->container->get("harproject_app.user")->addUser($email, "test");*/
+        
+        $taskService->deleteTask( $task );
     }
     
 }

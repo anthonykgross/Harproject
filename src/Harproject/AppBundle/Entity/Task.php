@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_task")
  * @ORM\Entity
  */
-class Task
-{
+class Task {
+
     /**
      * @var integer
      *
@@ -20,49 +20,55 @@ class Task
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-        
+
     /**
      * Define the relation between this task and users that are attributed to it
      * 
      * @ORM\OneToMany(targetEntity="MemberHasTask", mappedBy="task", cascade={"remove", "persist"})
      */
     private $memberHasTasks;
-    
+
     /**
      * Define the relation between this task and it's attached project
      * 
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Project_id", referencedColumnName="id", nullable=false)
+     * })
      */
     private $project;
-    
+
     /**
      * Define the relation between this task and it's owner (i.e: it's creator)
      * 
-     * @ORM\ManyToOne(targetEntity="Member", inversedBy="createdTasks")
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="createdTasks" )
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Creator_id", referencedColumnName="id", nullable=false)
+     * }) 
      */
     private $creator;
-    
+
     /**
      * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=128)
      */
     private $name;
-   
+
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string")
      */
     private $description;
-    
+
     /**
      * Estimated task duration in hour or fraction of hour
      * 
@@ -71,7 +77,7 @@ class Task
      * @ORM\Column(name="estimated_time", type="float")
      */
     private $estimated_time;
-    
+
     /**
      * Time spended on this task in hour or fraction of hour.
      * Could be 1,2,3... or 0.1, 0.2 ...
@@ -81,15 +87,14 @@ class Task
      * @ORM\Column(name="spent_time", type="float")
      */
     private $spent_time;
-    
+
     /**
      * @var datetime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated_at;
-    
-    
+
     public function __construct() {
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
@@ -102,8 +107,7 @@ class Task
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -113,8 +117,7 @@ class Task
      * @param \DateTime $createdAt
      * @return Member
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->created_at = $createdAt;
 
         return $this;
@@ -125,8 +128,7 @@ class Task
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->created_at;
     }
 
@@ -136,8 +138,7 @@ class Task
      * @param \DateTime $updatedAt
      * @return Member
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updated_at = $updatedAt;
 
         return $this;
@@ -148,11 +149,9 @@ class Task
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updated_at;
     }
-
 
     /**
      * Set name
@@ -160,8 +159,7 @@ class Task
      * @param string $name
      * @return Task
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -172,8 +170,7 @@ class Task
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -183,8 +180,7 @@ class Task
      * @param string $description
      * @return Task
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -195,8 +191,7 @@ class Task
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -206,8 +201,7 @@ class Task
      * @param float $estimatedTime
      * @return Task
      */
-    public function setEstimatedTime($estimatedTime)
-    {
+    public function setEstimatedTime($estimatedTime) {
         $this->estimated_time = $estimatedTime;
 
         return $this;
@@ -218,8 +212,7 @@ class Task
      *
      * @return float 
      */
-    public function getEstimatedTime()
-    {
+    public function getEstimatedTime() {
         return $this->estimated_time;
     }
 
@@ -229,8 +222,7 @@ class Task
      * @param float $spentTime
      * @return Task
      */
-    public function setSpentTime($spentTime)
-    {
+    public function setSpentTime($spentTime) {
         $this->spent_time = $spentTime;
 
         return $this;
@@ -241,8 +233,7 @@ class Task
      *
      * @return float 
      */
-    public function getSpentTime()
-    {
+    public function getSpentTime() {
         return $this->spent_time;
     }
 
@@ -252,8 +243,7 @@ class Task
      * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
      * @return Task
      */
-    public function addMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
-    {
+    public function addMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks) {
         $this->memberHasTasks[] = $memberHasTasks;
 
         return $this;
@@ -264,8 +254,7 @@ class Task
      *
      * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
      */
-    public function removeMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
-    {
+    public function removeMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks) {
         $this->memberHasTasks->removeElement($memberHasTasks);
     }
 
@@ -274,8 +263,7 @@ class Task
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMemberHasTasks()
-    {
+    public function getMemberHasTasks() {
         return $this->memberHasTasks;
     }
 
@@ -285,8 +273,7 @@ class Task
      * @param \Harproject\AppBundle\Entity\Member $creator
      * @return Task
      */
-    public function setCreator(\Harproject\AppBundle\Entity\Member $creator = null)
-    {
+    public function setCreator(\Harproject\AppBundle\Entity\Member $creator = null) {
         $this->creator = $creator;
 
         return $this;
@@ -297,8 +284,7 @@ class Task
      *
      * @return \Harproject\AppBundle\Entity\Member 
      */
-    public function getCreator()
-    {
+    public function getCreator() {
         return $this->creator;
     }
 
@@ -308,8 +294,7 @@ class Task
      * @param \Harproject\AppBundle\Entity\Project $project
      * @return Task
      */
-    public function setProject(\Harproject\AppBundle\Entity\Project $project = null)
-    {
+    public function setProject(\Harproject\AppBundle\Entity\Project $project = null) {
         $this->project = $project;
 
         return $this;
@@ -320,8 +305,8 @@ class Task
      *
      * @return \Harproject\AppBundle\Entity\Project 
      */
-    public function getProject()
-    {
+    public function getProject() {
         return $this->project;
     }
+
 }

@@ -2,8 +2,8 @@ services:
     harproject_app.user:
         class: Harproject\AppBundle\Service\ServiceUser
         arguments: [@service_container]
-    harproject_app.role:
-        class: Harproject\AppBundle\Service\ServiceRole
+    harproject_app.group:
+        class: Harproject\AppBundle\Service\ServiceGroup
         arguments: [@service_container]
     harproject_app.task:
         class: Harproject\AppBundle\Service\ServiceTask

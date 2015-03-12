@@ -5,12 +5,12 @@ namespace Harproject\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Role
+ * Group
  *
- * @ORM\Table(name="harp_role")
+ * @ORM\Table(name="harp_group")
  * @ORM\Entity
  */
-class Role
+class Group
 {
     static $basic_roles = array(
         "PROJECT_VIEW",
@@ -69,7 +69,7 @@ class Role
     private $roles;
     
     /**
-     * @ORM\OneToMany(targetEntity="Member", mappedBy="role", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Member", mappedBy="group", cascade={"remove", "persist"})
      */
     private $members;
     
@@ -95,7 +95,7 @@ class Role
      * Set label
      *
      * @param string $label
-     * @return Role
+     * @return Group
      */
     public function setLabel($label)
     {
@@ -118,7 +118,7 @@ class Role
      * Set roles
      *
      * @param array $roles
-     * @return Role
+     * @return Group
      */
     public function setRoles($roles)
     {
@@ -141,7 +141,7 @@ class Role
      * Add members
      *
      * @param \Harproject\AppBundle\Entity\Member $members
-     * @return Role
+     * @return Group
      */
     public function addMember(\Harproject\AppBundle\Entity\Member $members)
     {

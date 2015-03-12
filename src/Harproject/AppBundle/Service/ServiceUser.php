@@ -4,7 +4,7 @@ namespace Harproject\AppBundle\Service;
 
 use Harproject\AppBundle\Entity\User;
 use Harproject\AppBundle\Entity\Project;
-use Harproject\AppBundle\Entity\Role;
+use Harproject\AppBundle\Entity\Group;
 use Harproject\AppBundle\Entity\Member;
 use Harproject\AppBundle\Exception\Exception;
 use Symfony\Component\Security\Core\Util\SecureRandom;
@@ -51,7 +51,6 @@ class ServiceUser {
     }
 
  
-
     /**
      * Remove an existing user
      * @param type $email
@@ -84,20 +83,19 @@ class ServiceUser {
     }
 
     /**
-     * Return True if the User has Role for the project otherwise False
+     * Return True if the Member has Role for the project otherwise False
      * @param Member $member
-     * @param Role $role
+     * @param String $role
      * @return boolean
      */
-    public function hasRole(Member $member, Role $role) {
-        return ($member->getRole()->getId() === $role->getId());
+    public function hasRole(Member $member, $role){
+        return in_array($role, $member->getGroup()->getRoles());
     }
 
     /**
-     * Return the mêmber if the User has a Role for the project otherwise NULL
+     * Return the mêmber if the User has a group for the project otherwise NULL
      * @param User $user
      * @param Project $project
-     * @param Role $role
      * @return Member or NULL
      */
     public function getMember(User $user, Project $project) {
@@ -111,17 +109,17 @@ class ServiceUser {
      * Add an User to the Project with a given Role
      * @param User $user
      * @param Project $project
-     * @param Role $role
+     * @param Group $group
      * @throws Exception
      * @return Member
      */
-    public function addMember(User $user, Project $project, Role $role) {
-        if ($this->getMember($user, $project)) {
+    public function addMember(User $user, Project $project, Group $group){
+        if($this->getMember($user, $project)){
             throw new Exception("This user is already member of project");
         }
 
         $member = new Member();
-        $member->setRole($role)->setUser($user)->setProject($project);
+        $member->setGroup($group)->setUser($user)->setProject($project);
         $this->em->persist($member);
         $this->em->flush();
 
@@ -129,14 +127,15 @@ class ServiceUser {
     }
 
     /**
-     * Update the role for a member
+     * Update the group for a member
      * @param Member $member
-     * @param Role $role
+     * @param Group $group
      * @throws Exception
      * @return Member
      */
-    public function updateMember(Member $member, Role $role) {
-        $member->setRole($role)->setUpdatedAt(new \DateTime());
+
+    public function updateMember(Member $member, Group $group){
+        $member->setGroup($group)->setUpdatedAt(new \DateTime());
         $this->em->persist($member);
         $this->em->flush();
 
