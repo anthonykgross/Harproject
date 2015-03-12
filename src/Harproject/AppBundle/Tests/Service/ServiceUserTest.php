@@ -4,7 +4,7 @@ namespace Harproject\AppBundle\Tests\Service;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Harproject\AppBundle\Entity\User;
 use Harproject\AppBundle\Entity\Project;
-use Harproject\AppBundle\Entity\Role;
+use Harproject\AppBundle\Entity\Group;
 use Harproject\AppBundle\Entity\Member;
 use Harproject\AppBundle\Exception\Exception;
 
@@ -79,20 +79,20 @@ class ServiceUserTest extends WebTestCase{
         $this->em->persist($project);
         $this->em->flush();
         
-        $roles = $this->em->getRepository("HarprojectAppBundle:Role")->findAll();
-        if(count($roles)==0){
-            $this->container->get("harproject_app.role")->initDefaultRole();
+        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
+        if(count($groups)==0){
+            $this->container->get("harproject_app.group")->initDefaultGroup();
         }
         
-        $role_customer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
+        $group_customer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
             "label" => "Customer"
         ));
         
-        $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $role_customer);
+        $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
         $this->assertTrue(($member1 instanceof Member));
         
         try{
-            $this->container->get("harproject_app.user")->addMember($this->user, $project, $role_customer);
+            $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
             $this->assertFalse(False);
         }
         catch(Exception $e){
@@ -109,25 +109,24 @@ class ServiceUserTest extends WebTestCase{
         $this->em->persist($project);
         $this->em->flush();
         
-        $roles = $this->em->getRepository("HarprojectAppBundle:Role")->findAll();
-        if(count($roles)==0){
-            $this->container->get("harproject_app.role")->initDefaultRole();
+        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
+        if(count($groups)==0){
+            $this->container->get("harproject_app.group")->initDefaultGroup();
         }
         
-        $role_customer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
+        $group_customer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
             "label" => "Customer"
         ));
-        $role_developer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
+        $group_developer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
             "label" => "Developer"
         ));
         
-        $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $role_customer);
+        $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
         $this->assertTrue(($member1 instanceof Member));
         
-        $hasRoleCustomer  = $this->container->get("harproject_app.user")->hasRole($member1, $role_customer);
-        $hasRoleDeveloper = $this->container->get("harproject_app.user")->hasRole($member1, $role_developer);
-        $this->assertTrue($hasRoleCustomer);
-        $this->assertTrue(!$hasRoleDeveloper);
+        //By default, only the developer can add a project
+        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "PROJECT_ADD");
+        $this->assertTrue(!$hasRoleProjectAdd);
         
         $this->em->remove($member1);
         $this->em->flush();
@@ -141,33 +140,31 @@ class ServiceUserTest extends WebTestCase{
         $this->em->persist($project);
         $this->em->flush();
         
-        $roles = $this->em->getRepository("HarprojectAppBundle:Role")->findAll();
-        if(count($roles)==0){
-            $this->container->get("harproject_app.role")->initDefaultRole();
+        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
+        if(count($groups)==0){
+            $this->container->get("harproject_app.group")->initDefaultGroup();
         }
         
-        $role_customer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
+        $group_customer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
             "label" => "Customer"
         ));
-        $role_developer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
+        $group_developer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
             "label" => "Developer"
         ));
         
-        $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $role_customer);
+        $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
         $this->assertTrue(($member1 instanceof Member));
         
-        $hasRoleCustomer  = $this->container->get("harproject_app.user")->hasRole($member1, $role_customer);
-        $hasRoleDeveloper = $this->container->get("harproject_app.user")->hasRole($member1, $role_developer);
-        $this->assertTrue($hasRoleCustomer);
-        $this->assertTrue(!$hasRoleDeveloper);
+        //By default, only the developer can add a project
+        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "PROJECT_ADD");
+        $this->assertTrue(!$hasRoleProjectAdd);
         
-        $member1 = $this->container->get("harproject_app.user")->updateMember($member1, $role_developer);
+        $member1 = $this->container->get("harproject_app.user")->updateMember($member1, $group_developer);
         $this->assertTrue(($member1 instanceof Member));
         
-        $hasRoleCustomer  = $this->container->get("harproject_app.user")->hasRole($member1, $role_customer);
-        $hasRoleDeveloper = $this->container->get("harproject_app.user")->hasRole($member1, $role_developer);
-        $this->assertTrue(!$hasRoleCustomer);
-        $this->assertTrue($hasRoleDeveloper);
+        //By default, only the developer can add a project
+        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "PROJECT_ADD");
+        $this->assertTrue($hasRoleProjectAdd);
         
         $this->em->remove($member1);
         $this->em->flush();

@@ -1,9 +1,9 @@
 <?php
 
 namespace Harproject\AppBundle\Service;
-use Harproject\AppBundle\Entity\Role;
+use Harproject\AppBundle\Entity\Group;
 
-class ServiceRole {
+class ServiceGroup {
     
     private $em;
     private $container;
@@ -13,8 +13,8 @@ class ServiceRole {
         $this->em           = $container->get('doctrine')->getManager();
     }
     
-    public function initDefaultRole(){
-        $roles      = Role::$basic_roles;
+    public function initDefaultGroup(){
+        $roles      = Group::$basic_roles;
         
         $developer  = $roles;
         $customer   = array(
@@ -28,13 +28,13 @@ class ServiceRole {
             "TIMETRACKER_VIEW",
         );
         
-        $developer_role     = new Role();
-        $developer_role->setLabel("Developer")->setRoles($developer);
-        $customer_role      = new Role();
-        $customer_role->setLabel("Customer")->setRoles($customer);
+        $developer_group     = new Group();
+        $developer_group->setLabel("Developer")->setRoles($developer);
+        $customer_group      = new Group();
+        $customer_group->setLabel("Customer")->setRoles($customer);
         
-        $this->em->persist($developer_role);
-        $this->em->persist($customer_role);
+        $this->em->persist($developer_group);
+        $this->em->persist($customer_group);
         $this->em->flush();
     }
 }
