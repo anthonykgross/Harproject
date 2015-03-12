@@ -22,9 +22,9 @@ class Task
     private $id;
         
     /**
-     * @ORM\OneToMany(targetEntity="Member", mappedBy="task")
+     * @ORM\OneToMany(targetEntity="MemberHasTask", mappedBy="task", cascade={"remove", "persist"})
      */
-    private $members;
+    private $memberHasTasks;
     
     /**
      * @var datetime

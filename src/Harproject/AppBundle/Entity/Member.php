@@ -53,6 +53,11 @@ class Member
     private $project;
     
     /**
+     * @ORM\OneToMany(targetEntity="MemberHasTask", mappedBy="member", cascade={"remove", "persist"})
+     */
+    private $memberHasTasks;
+    
+    /**
      * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime")
