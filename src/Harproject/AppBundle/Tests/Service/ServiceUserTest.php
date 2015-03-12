@@ -81,7 +81,7 @@ class ServiceUserTest extends WebTestCase{
         
         $roles = $this->em->getRepository("HarprojectAppBundle:Role")->findAll();
         if(count($roles)==0){
-            $this->container->get("harproject_app.user")->initDefaultRole();
+            $this->container->get("harproject_app.role")->initDefaultRole();
         }
         
         $role_customer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
@@ -111,7 +111,7 @@ class ServiceUserTest extends WebTestCase{
         
         $roles = $this->em->getRepository("HarprojectAppBundle:Role")->findAll();
         if(count($roles)==0){
-            $this->container->get("harproject_app.user")->initDefaultRole();
+            $this->container->get("harproject_app.role")->initDefaultRole();
         }
         
         $role_customer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(
@@ -143,7 +143,7 @@ class ServiceUserTest extends WebTestCase{
         
         $roles = $this->em->getRepository("HarprojectAppBundle:Role")->findAll();
         if(count($roles)==0){
-            $this->container->get("harproject_app.user")->initDefaultRole();
+            $this->container->get("harproject_app.role")->initDefaultRole();
         }
         
         $role_customer = $this->em->getRepository("HarprojectAppBundle:Role")->findOneBy(array(

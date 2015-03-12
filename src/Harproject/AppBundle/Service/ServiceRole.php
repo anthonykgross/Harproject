@@ -1,7 +1,7 @@
 <?php
 
 namespace Harproject\AppBundle\Service;
-use Harproject\AppBundle\Service\Role;
+use Harproject\AppBundle\Entity\Role;
 
 class ServiceRole {
     
