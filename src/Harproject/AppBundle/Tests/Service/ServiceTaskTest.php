@@ -67,19 +67,14 @@ class ServiceTaskTest extends WebTestCase{
         $taskService = $this->container->get("harproject_app.task");
         $task = $taskService->addTask( $this->project, $this->creator, "testTask" );
         $this->assertTrue($task instanceof Task);
-        /*
-        $this->user = $this->em->getRepository("HarprojectAppBundle:Task")->findOneBy(array(
-           "email" =>  $email
+        
+        $createdTask = $this->em->getRepository("HarprojectAppBundle:Task")->findOneBy(array(
+           "id" =>  $task->getId()
         ));
         
-        $this->assertTrue(!is_null($this->user));
-        $this->assertTrue(($this->user instanceof User));
+        $this->assertTrue(!is_null($createdTask));
+        $this->assertTrue($createdTask instanceof Task);        
         
-        $this->assertTrue((strlen($this->user->getApiKey())==32));
-        $this->assertTrue((strlen($this->user->getApiSecret())==32));
-        
-        $this->setExpectedException('Exception');
-        $this->container->get("harproject_app.user")->addUser($email, "test");*/
         
         $taskService->deleteTask( $task );
     }
