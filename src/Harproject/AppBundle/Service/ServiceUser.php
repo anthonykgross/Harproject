@@ -4,7 +4,7 @@ namespace Harproject\AppBundle\Service;
 
 use Harproject\AppBundle\Entity\User;
 use Harproject\AppBundle\Entity\Project;
-use Harproject\AppBundle\Service\Role;
+use Harproject\AppBundle\Entity\Role;
 use Harproject\AppBundle\Entity\Member;
 
 use Harproject\AppBundle\Exception\Exception;
@@ -71,26 +71,24 @@ class ServiceUser {
     
     /**
      * Return True if the User has Role for the project otherwise False
-     * @param User $user
-     * @param Project $project
+     * @param Member $member
      * @param Role $role
      * @return boolean
      */
-    public function hasRole(User $user, Project $project, Role $role){
-        return ($this->getMember($user, $project, $role));
+    public function hasRole(Member $member, Role $role){
+        return ($member->getRole()->getId()===$role->getId());
     }
     
     /**
-     * Return the mêmber if the User has Role for the project otherwise NULL
+     * Return the mêmber if the User has a Role for the project otherwise NULL
      * @param User $user
      * @param Project $project
      * @param Role $role
      * @return Member or NULL
      */
-    public function getMember(User $user, Project $project, Role $role){
+    public function getMember(User $user, Project $project){
         return $this->em->getRepository("HarprojectAppBundle:Member")->findOneBy(array(
             "user"      => $user,
-            "role"      => $role,
             "project"   => $project
         ));
     }
@@ -104,7 +102,7 @@ class ServiceUser {
      * @return Member
      */
     public function addMember(User $user, Project $project, Role $role){
-        if($this->getMember($user, $project, $role)){
+        if($this->getMember($user, $project)){
             throw new Exception("This user is already member of project");
         }
         
@@ -124,10 +122,6 @@ class ServiceUser {
      * @return Member
      */
     public function updateMember(Member $member, Role $role){
-        if($this->getMember($member->getUser(), $member->getProject(), $role)){
-            throw new Exception("This user has already role for the project");
-        }
-        
         $member->setRole($role)->setUpdatedAt(new \DateTime());
         $this->em->persist($member);
         $this->em->flush();

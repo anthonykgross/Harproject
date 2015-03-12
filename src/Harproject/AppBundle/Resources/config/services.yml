@@ -2,3 +2,6 @@ services:
     harproject_app.user:
         class: Harproject\AppBundle\Service\ServiceUser
         arguments: [@service_container]
+    harproject_app.role:
+        class: Harproject\AppBundle\Service\ServiceRole
+        arguments: [@service_container]

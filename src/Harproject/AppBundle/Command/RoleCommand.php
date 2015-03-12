@@ -19,29 +19,8 @@ class RoleCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $em         = $this->getContainer()->get('doctrine')->getEntityManager();
-        $roles      = Role::$basic_roles;
+        $em         = $this->getContainer()->get('harproject_app.role')->initDefaultRole();
         
-        $developer  = $roles;
-        $customer   = array(
-            "PROJECT_VIEW",
-            "MEMBER_VIEW",
-            "TICKET_VIEW",
-            "TICKET_ADD",
-            "TICKET_EDIT",
-            "TASK_VIEW",
-            "STATUS_VIEW",
-            "TIMETRACKER_VIEW",
-        );
-        
-        $developer_role     = new Role();
-        $developer_role->setLabel("Developer")->setRoles($developer);
-        $customer_role      = new Role();
-        $customer_role->setLabel("Customer")->setRoles($customer);
-        
-        $em->persist($developer_role);
-        $em->persist($customer_role);
-        $em->flush();
     }
 
 }
