@@ -21,5 +21,6 @@ services:
     #TWIG
     harproject_app.twig.user:
         class: Harproject\AppBundle\Twig\UserExtension
+        arguments: [@service_container]
         tags:
             -  { name: twig.extension}
