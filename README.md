@@ -4,6 +4,14 @@ Harproject - Harmonize your projects
 
 A Symfony project created on March 10, 2015, 4:33 pm
 
+## How to Install
+- php composer.phar install
+- bower install
+- copy app/config/parameters.dist to app/config/parameters.yml
+- Add your database identifiers in parameters.yml
+- php app/console doctrine:schema:update --force
+- It works !
+
 ## Creators
 
 **Clement Vidal**
@@ -16,7 +24,11 @@ A Symfony project created on March 10, 2015, 4:33 pm
 - <https://twitter.com/anthonykgross>
 - <https://github.com/kkuetnet>
 
-
+## Technologies
+- Symfony 2.3 - Composer - PhpUnit
+- LESS
+- Boostrap
+- Bower
 
 ## Copyright and license
 
