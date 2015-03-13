@@ -20,6 +20,6 @@ services:
             
     #TWIG
     harproject_app.twig.user:
-    class: Harproject\AppBundle\Twig\UserExtension
-    tags:
-        -  { name: twig.extension}
+        class: Harproject\AppBundle\Twig\UserExtension
+        tags:
+            -  { name: twig.extension}
