@@ -1,3 +1,7 @@
+#home:
+#    path:   /t/{name}
+#    defaults:  { _controller: HarprojectAppBundle:Default:index }
+    
 api_test:
     path:   /api/test
     defaults:  { _controller: HarprojectAppBundle:Api:test }

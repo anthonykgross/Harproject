@@ -9,6 +9,9 @@ use Harproject\AppBundle\Entity\Member;
 use Harproject\AppBundle\Exception\Exception;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
+/**
+ * @author Anthony K GROSS <anthony.k.gross@gmail.com>
+ */
 class ServiceUser {
 
     private $em;
@@ -100,8 +103,8 @@ class ServiceUser {
      */
     public function getMember(User $user, Project $project) {
         return $this->em->getRepository("HarprojectAppBundle:Member")->findOneBy(array(
-                    "user" => $user,
-                    "project" => $project
+            "user" => $user,
+            "project" => $project
         ));
     }
 

@@ -1,4 +1,5 @@
 services:
+    #SERVICES
     harproject_app.user:
         class: Harproject\AppBundle\Service\ServiceUser
         arguments: [@service_container]
@@ -8,3 +9,17 @@ services:
     harproject_app.task:
         class: Harproject\AppBundle\Service\ServiceTask
         arguments: [@service_container]
+
+
+    #LISTENERS
+    harproject_app.role_listener:
+        class: Harproject\AppBundle\Request\HarprojectRoleListener
+        arguments: [@annotation_reader, @service_container]
+        tags:
+            -  { name: kernel.event_listener,  event: kernel.controller, method: onKernelController, priority: -1}
+            
+    #TWIG
+    harproject_app.twig.user:
+    class: Harproject\AppBundle\Twig\UserExtension
+    tags:
+        -  { name: twig.extension}
