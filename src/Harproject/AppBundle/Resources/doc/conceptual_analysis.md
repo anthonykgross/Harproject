@@ -1,4 +1,8 @@
 # Conceptual Analysis
+
+![MCD](https://raw.githubusercontent.com/kkuetnet/Harproject/develop/src/Harproject/AppBundle/Resources/doc/MCD.png)
+
+## Context
 Harproject is a software to easily manage your projects. Its main goal is to help users to evaluate each task's durations with suggestions due to own statistics. 
 
 ### Group
