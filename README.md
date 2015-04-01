@@ -12,6 +12,10 @@ A Symfony project created on March 10, 2015, 4:33 pm
 - php app/console doctrine:schema:update --force
 - It works !
 
+## Documentation
+
+- [Conceptual Analysis](https://github.com/kkuetnet/Harproject/blob/develop/src/Harproject/AppBundle/Resources/doc/conceptual_analysis.md)
+
 ## Creators
 
 **Clement Vidal**
