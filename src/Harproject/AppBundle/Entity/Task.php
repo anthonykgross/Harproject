@@ -39,15 +39,30 @@ class Task {
     private $project;
 
     /**
-     * Define the relation between this task and it's owner (i.e: it's creator)
+     * Define the relation between this task and it's owner (i.e: it's author)
      * 
      * @ORM\ManyToOne(targetEntity="Member", inversedBy="createdTasks" )
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Creator_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="Author_id", referencedColumnName="id", nullable=false)
      * }) 
      */
-    private $creator;
+    private $author;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="parent")
+     **/
+    private $children;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Task", inversedBy="children")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Parent_id", referencedColumnName="id", nullable=true)
+     * })* 
+     **/
+    private $parent;
+    
     /**
      * @var datetime
      *
@@ -309,4 +324,83 @@ class Task {
         return $this->project;
     }
 
+
+    /**
+     * Set author
+     *
+     * @param \Harproject\AppBundle\Entity\Member $author
+     * @return Task
+     */
+    public function setAuthor(\Harproject\AppBundle\Entity\Member $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Harproject\AppBundle\Entity\Member 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Harproject\AppBundle\Entity\Task $children
+     * @return Task
+     */
+    public function addChild(\Harproject\AppBundle\Entity\Task $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Harproject\AppBundle\Entity\Task $children
+     */
+    public function removeChild(\Harproject\AppBundle\Entity\Task $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Harproject\AppBundle\Entity\Task $parent
+     * @return Task
+     */
+    public function setParent(\Harproject\AppBundle\Entity\Task $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Harproject\AppBundle\Entity\Task 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

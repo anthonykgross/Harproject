@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Clement Vidal <clemenvidalperso@gmail.com>
+ */
 
 namespace Harproject\AppBundle\Service;
 
@@ -21,15 +24,15 @@ class ServiceTask {
     
     /**
      * Register a new user
-     * @param type $project
-     * @param type $creator
-     * @throws Exception
-     * @return User
+     * @param Project $project
+     * @param Member $author
+     * @param string $name
+     * @return Task
      */
-    public function addTask( Project $project, Member $creator, $name ){
+    public function addTask( Project $project, Member $author, $name ){
         
         $task = new Task();
-        $task->setCreator( $creator );
+        $task->setAuthor( $author );
         $task->setName($name);
         $task->setProject( $project );
         $task->setDescription("");
@@ -42,13 +45,22 @@ class ServiceTask {
    
     /**
      * Remove an existing task
-     * @param type $task
-     * @throws Exception
-     * @return User
+     * @param Task $task
      */
     public function deleteTask( Task $task ) {
         
         $this->em->remove($task);
         $this->em->flush();
+    }
+    
+    /**
+     * Get all tasks assigned to one Member
+     * @param type $member
+     * @return HarTask[]
+     */
+    public function getTask( Member $assigne ){
+        
+ 
+        return $task;
     }
 }

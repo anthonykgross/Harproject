@@ -36,27 +36,29 @@ class ServiceTaskTest extends WebTestCase{
         $this->group= new Group();
         $this->group->setLabel( "test" );
         
-        $this->user = $this->container->get("harproject_app.user")->addUser($userEMail, "test");
+        $this->user = $this->em->getRepository("HarprojectAppBundle:User")->findOneBy(array(
+            "email" => $userEMail
+        ));
+        if( $this->user == NULL )
+            $this->user = $this->container->get("harproject_app.user")->addUser($userEMail, "test");
         
-        $this->creator = new Member();
-        $this->creator->setGroup( $this->group );
-        $this->creator->setProject( $this->project );
-        $this->creator->setUser( $this->user );
+        $this->author = new Member();
+        $this->author->setGroup( $this->group );
+        $this->author->setProject( $this->project );
+        $this->author->setUser( $this->user );
         
         $this->em->persist( $this->user );
         $this->em->persist( $this->group );
         $this->em->persist( $this->project );
-        $this->em->persist( $this->creator );
+        $this->em->persist( $this->author );
         
         $this->em->flush();
     }
      
     protected function tearDown(){
-        
-        
-        
+       
         //$this->em->remove( $this->task );
-        $this->em->remove( $this->creator );
+        $this->em->remove( $this->author );
         $this->em->remove( $this->user );
         $this->em->remove( $this->group );
         $this->em->remove( $this->project );
@@ -65,7 +67,7 @@ class ServiceTaskTest extends WebTestCase{
     
     public function testAddTask(){
         $taskService = $this->container->get("harproject_app.task");
-        $task = $taskService->addTask( $this->project, $this->creator, "testTask" );
+        $task = $taskService->addTask( $this->project, $this->author, "testTask" );
         $this->assertTrue($task instanceof Task);
         
         $createdTask = $this->em->getRepository("HarprojectAppBundle:Task")->findOneBy(array(
@@ -77,6 +79,8 @@ class ServiceTaskTest extends WebTestCase{
         
         
         $taskService->deleteTask( $task );
+        
+        
     }
-    
+        
 }
