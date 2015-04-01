@@ -25,15 +25,24 @@ Harproject is a software to easily manage your projects. Its main goal is to hel
 - A **User** MAY be assigned to a **Project** with given persmissions via a **Member**
 
 ### Member:
-- **Member** is a registered **User** which belongs to a **Project** with one **Group**. 
+- **Member** MUST be a registered **User**.
+- **Member** MUST be assigned to one **Project**.
+- **Member** MUST be assigned to one  **Group**.
+ - *ex:* Member1 = { John, Project1, Developer }
+ - *ex:* Member2 = { John, Project1, Customer }
+ - *ex:* Member3 = { John, Project2, Developer }
+ - *ex:* Member4 = { John, Project2, Customer }
+- **Member** 's name MUST be the name of the corresponding **User**
+
 - **User** can belongs to several **Groups** in one Project.
- - *ex:* John is Dev in Prj1 and John is also Dev in Prj1
-- **Member** can be assigned to serveral **Tasks**.
-- **Member** can be assigned to serveral **Projects**.
-- **Member** can be an author of several **Tasks**.
-- **Member** can be an author of several **Tickets**. 
-- **Member** can update the Status of any of it's assigned **Task**.
-- **Member** can get several **TimeTrackers**. 
+ - *ex:* John is Dev in Prj1 and John is also Client in Prj1
+
+- **Member** MAY be assigned to serveral **Tasks**.
+- **Member** MUST be assigned to one **Projects**.
+- **Member** MAY be an author of several **Tasks**.
+- **Member** MAY be an author of several **Tickets**. 
+- **Member** MAY update the Status of any of it's assigned **Task**.
+- **Member** MAY get several **TimeTrackers**. 
 
 ### Task
 - **Task** MUST refer to one **Project**.
