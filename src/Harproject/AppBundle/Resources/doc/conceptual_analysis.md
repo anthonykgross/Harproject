@@ -39,14 +39,14 @@ Harproject is a software to easily manage your projects. Its main goal is to hel
 
 - **Member** MAY be assigned to serveral **Tasks**.
 - **Member** MUST be assigned to one **Projects**.
-- **Member** MAY be an author of several **Tasks**.
-- **Member** MAY be an author of several **Tickets**. 
+- **Member** MAY be an **author** of several **Tasks**.
+- **Member** MAY be an **author** of several **Tickets**. 
 - **Member** MAY update the Status of any of it's assigned **Task**.
 - **Member** MAY get several **TimeTrackers**. 
 
 ### Task
 - **Task** MUST refer to one **Project**.
-- **Task** MUST refer to one **Member** known as author.
+- **Task** MUST refer to one **Member** known as **author**.
 - **Task** MAY refer to several **Tags**.
 - **Task** MAY be assigned to several **Members**.
 - **Task** MAY refer to several **Tickets**.
@@ -59,13 +59,16 @@ Harproject is a software to easily manage your projects. Its main goal is to hel
 - **TimeTracker** MAY have an comment.
 - **TimeTracker** MUST refer to one **Member**.
 - **TimeTracker** MUST refer to one **Task**.
-- **TimeTracker** MUST have a start date.
-- **TimeTracker** MAY jave an end date.
+- **TimeTracker** MUST have a **start date**.
+- **TimeTracker** MAY have an **end date**.
+- **TimeTracker without and end date is considered as **ongoing**.
+- **TimeTracker with and end date is considered as **finished**.
+- New **TimeTracker** MUST NOT be created is there is one **ongoing** **TimeTracker** for the concerned **Member**.
 
 ### Ticket
 - **Ticket** MAY refer to several **Tags**.
 - **Ticket** MAY be refered by several **Tasks**.
-- **Ticket** MUST refer to one **Member** known as author.
+- **Ticket** MUST refer to one **Member** known as **author**.
 
 ### Status
 - **Status** is the state of **Task**.

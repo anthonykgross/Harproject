@@ -11,3 +11,5 @@
 /web/bundles/
 /nbproject
 /web/libs/
+
+src/Harproject/AppBundle/Resources/doc/*.bak
