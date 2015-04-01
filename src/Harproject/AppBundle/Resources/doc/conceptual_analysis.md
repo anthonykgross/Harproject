@@ -61,9 +61,9 @@ Harproject is a software to easily manage your projects. Its main goal is to hel
 - **TimeTracker** MUST refer to one **Task**.
 - **TimeTracker** MUST have a **start date**.
 - **TimeTracker** MAY have an **end date**.
-- **TimeTracker without and end date is considered as **ongoing**.
-- **TimeTracker with and end date is considered as **finished**.
-- New **TimeTracker** MUST NOT be created is there is one **ongoing** **TimeTracker** for the concerned **Member**.
+- **TimeTracker** without and end date is considered as **ongoing**.
+- **TimeTracker** with and end date is considered as **finished**.
+- New **TimeTracker** MUST NOT be created if there is one **ongoing** **TimeTracker** for the concerned **Member**.
 
 ### Ticket
 - **Ticket** MAY refer to several **Tags**.
