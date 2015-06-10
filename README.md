@@ -31,7 +31,7 @@ A Symfony project created on March 10, 2015, 4:33 pm
 ## Technologies
 - Symfony 2.3 - Composer - PhpUnit
 - LESS
-- Boostrap
+- Bootstrap
 - Bower
 
 ## Copyright and license

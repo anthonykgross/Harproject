@@ -93,12 +93,13 @@ class ServiceUserTest extends WebTestCase{
         
         try{
             $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
-            $this->assertFalse(False);
         }
         catch(Exception $e){
-            $this->em->remove($member1);
-            $this->em->flush();
+            
         }
+        $this->em->remove($member1);
+        $this->em->remove($project);
+        $this->em->flush();
     }
     
     public function testHasRole(){
@@ -129,6 +130,7 @@ class ServiceUserTest extends WebTestCase{
         $this->assertTrue(!$hasRoleProjectAdd);
         
         $this->em->remove($member1);
+        $this->em->remove($project);
         $this->em->flush();
     }
     
@@ -167,6 +169,7 @@ class ServiceUserTest extends WebTestCase{
         $this->assertTrue($hasRoleProjectAdd);
         
         $this->em->remove($member1);
+        $this->em->remove($project);
         $this->em->flush();
     }
 }
