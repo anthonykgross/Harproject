@@ -110,11 +110,34 @@ class Task {
      */
     private $updated_at;
 
-    public function __construct() {
+    /**
+     * @ORM\OneToMany(targetEntity="TaskHasStatus", mappedBy="task", cascade={"remove", "persist"})
+     */
+    private $taskHasStatuss;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="TaskHasTicket", mappedBy="task", cascade={"remove", "persist"})
+     */
+    private $taskHasTickets;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="TaskHasTag", mappedBy="task", cascade={"remove", "persist"})
+     */
+    private $taskHasTags;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->memberHasTasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasStatuss = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasTickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasTags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->created_at = new \DateTime();
-        $this->updated_at = new \DateTime();
         $this->estimated_time = 0;
         $this->spent_time = 0;
+        $this->updated_at = new \DateTime();
     }
 
     /**
@@ -122,7 +145,8 @@ class Task {
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -130,9 +154,10 @@ class Task {
      * Set created_at
      *
      * @param \DateTime $createdAt
-     * @return Member
+     * @return Task
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->created_at = $createdAt;
 
         return $this;
@@ -143,29 +168,9 @@ class Task {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->created_at;
-    }
-
-    /**
-     * Set updated_at
-     *
-     * @param \DateTime $updatedAt
-     * @return Member
-     */
-    public function setUpdatedAt($updatedAt) {
-        $this->updated_at = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updated_at
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt() {
-        return $this->updated_at;
     }
 
     /**
@@ -174,7 +179,8 @@ class Task {
      * @param string $name
      * @return Task
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -185,7 +191,8 @@ class Task {
      *
      * @return string 
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -195,7 +202,8 @@ class Task {
      * @param string $description
      * @return Task
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -206,7 +214,8 @@ class Task {
      *
      * @return string 
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -216,7 +225,8 @@ class Task {
      * @param float $estimatedTime
      * @return Task
      */
-    public function setEstimatedTime($estimatedTime) {
+    public function setEstimatedTime($estimatedTime)
+    {
         $this->estimated_time = $estimatedTime;
 
         return $this;
@@ -227,7 +237,8 @@ class Task {
      *
      * @return float 
      */
-    public function getEstimatedTime() {
+    public function getEstimatedTime()
+    {
         return $this->estimated_time;
     }
 
@@ -237,7 +248,8 @@ class Task {
      * @param float $spentTime
      * @return Task
      */
-    public function setSpentTime($spentTime) {
+    public function setSpentTime($spentTime)
+    {
         $this->spent_time = $spentTime;
 
         return $this;
@@ -248,8 +260,32 @@ class Task {
      *
      * @return float 
      */
-    public function getSpentTime() {
+    public function getSpentTime()
+    {
         return $this->spent_time;
+    }
+
+    /**
+     * Set updated_at
+     *
+     * @param \DateTime $updatedAt
+     * @return Task
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
     }
 
     /**
@@ -258,7 +294,8 @@ class Task {
      * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
      * @return Task
      */
-    public function addMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks) {
+    public function addMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
+    {
         $this->memberHasTasks[] = $memberHasTasks;
 
         return $this;
@@ -269,7 +306,8 @@ class Task {
      *
      * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
      */
-    public function removeMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks) {
+    public function removeMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
+    {
         $this->memberHasTasks->removeElement($memberHasTasks);
     }
 
@@ -278,29 +316,9 @@ class Task {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMemberHasTasks() {
+    public function getMemberHasTasks()
+    {
         return $this->memberHasTasks;
-    }
-
-    /**
-     * Set creator
-     *
-     * @param \Harproject\AppBundle\Entity\Member $creator
-     * @return Task
-     */
-    public function setCreator(\Harproject\AppBundle\Entity\Member $creator = null) {
-        $this->creator = $creator;
-
-        return $this;
-    }
-
-    /**
-     * Get creator
-     *
-     * @return \Harproject\AppBundle\Entity\Member 
-     */
-    public function getCreator() {
-        return $this->creator;
     }
 
     /**
@@ -309,7 +327,8 @@ class Task {
      * @param \Harproject\AppBundle\Entity\Project $project
      * @return Task
      */
-    public function setProject(\Harproject\AppBundle\Entity\Project $project = null) {
+    public function setProject(\Harproject\AppBundle\Entity\Project $project)
+    {
         $this->project = $project;
 
         return $this;
@@ -320,10 +339,10 @@ class Task {
      *
      * @return \Harproject\AppBundle\Entity\Project 
      */
-    public function getProject() {
+    public function getProject()
+    {
         return $this->project;
     }
-
 
     /**
      * Set author
@@ -402,5 +421,104 @@ class Task {
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Add taskHasStatuss
+     *
+     * @param \Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss
+     * @return Task
+     */
+    public function addTaskHasStatuss(\Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss)
+    {
+        $this->taskHasStatuss[] = $taskHasStatuss;
+
+        return $this;
+    }
+
+    /**
+     * Remove taskHasStatuss
+     *
+     * @param \Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss
+     */
+    public function removeTaskHasStatuss(\Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss)
+    {
+        $this->taskHasStatuss->removeElement($taskHasStatuss);
+    }
+
+    /**
+     * Get taskHasStatuss
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaskHasStatuss()
+    {
+        return $this->taskHasStatuss;
+    }
+
+    /**
+     * Add taskHasTickets
+     *
+     * @param \Harproject\AppBundle\Entity\TaskHasTicket $taskHasTickets
+     * @return Task
+     */
+    public function addTaskHasTicket(\Harproject\AppBundle\Entity\TaskHasTicket $taskHasTickets)
+    {
+        $this->taskHasTickets[] = $taskHasTickets;
+
+        return $this;
+    }
+
+    /**
+     * Remove taskHasTickets
+     *
+     * @param \Harproject\AppBundle\Entity\TaskHasTicket $taskHasTickets
+     */
+    public function removeTaskHasTicket(\Harproject\AppBundle\Entity\TaskHasTicket $taskHasTickets)
+    {
+        $this->taskHasTickets->removeElement($taskHasTickets);
+    }
+
+    /**
+     * Get taskHasTickets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaskHasTickets()
+    {
+        return $this->taskHasTickets;
+    }
+
+    /**
+     * Add taskHasTags
+     *
+     * @param \Harproject\AppBundle\Entity\TaskHasTag $taskHasTags
+     * @return Task
+     */
+    public function addTaskHasTag(\Harproject\AppBundle\Entity\TaskHasTag $taskHasTags)
+    {
+        $this->taskHasTags[] = $taskHasTags;
+
+        return $this;
+    }
+
+    /**
+     * Remove taskHasTags
+     *
+     * @param \Harproject\AppBundle\Entity\TaskHasTag $taskHasTags
+     */
+    public function removeTaskHasTag(\Harproject\AppBundle\Entity\TaskHasTag $taskHasTags)
+    {
+        $this->taskHasTags->removeElement($taskHasTags);
+    }
+
+    /**
+     * Get taskHasTags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTaskHasTags()
+    {
+        return $this->taskHasTags;
     }
 }

@@ -59,7 +59,7 @@ class Member
     /**
      * Define the relation between this member and tasks it has created
      * 
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="creator")
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="author")
      */
     private $createdTasks;
     
@@ -78,16 +78,21 @@ class Member
     private $updated_at;
     
     /**
+     * @ORM\OneToMany(targetEntity="Ticket", mappedBy="member", cascade={"remove", "persist"})
+     */
+    private $tickets;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->memberHasTasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdTasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
         $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
     }
-
-
 
     /**
      * Get id
@@ -278,5 +283,38 @@ class Member
     public function getCreatedTasks()
     {
         return $this->createdTasks;
+    }
+
+    /**
+     * Add tickets
+     *
+     * @param \Harproject\AppBundle\Entity\Ticket $tickets
+     * @return Member
+     */
+    public function addTicket(\Harproject\AppBundle\Entity\Ticket $tickets)
+    {
+        $this->tickets[] = $tickets;
+
+        return $this;
+    }
+
+    /**
+     * Remove tickets
+     *
+     * @param \Harproject\AppBundle\Entity\Ticket $tickets
+     */
+    public function removeTicket(\Harproject\AppBundle\Entity\Ticket $tickets)
+    {
+        $this->tickets->removeElement($tickets);
+    }
+
+    /**
+     * Get tickets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
     }
 }

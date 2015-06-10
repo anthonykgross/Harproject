@@ -39,6 +39,7 @@ class Project
     public function __construct()
     {
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

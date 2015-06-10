@@ -48,8 +48,17 @@ class MemberHasTask
      */
     private $task;
 
-    public function __construct() {
-        $this->created_at = new \DateTime();
+     /**
+     * @ORM\OneToMany(targetEntity="TimeTracker", mappedBy="memberHasTasks", cascade={"remove", "persist"})
+     */
+    private $timeTrackers;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->timeTrackers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -62,4 +71,105 @@ class MemberHasTask
         return $this->id;
     }
 
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return MemberHasTask
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set member
+     *
+     * @param \Harproject\AppBundle\Entity\Member $member
+     * @return MemberHasTask
+     */
+    public function setMember(\Harproject\AppBundle\Entity\Member $member)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    /**
+     * Get member
+     *
+     * @return \Harproject\AppBundle\Entity\Member 
+     */
+    public function getMember()
+    {
+        return $this->member;
+    }
+
+    /**
+     * Set task
+     *
+     * @param \Harproject\AppBundle\Entity\Task $task
+     * @return MemberHasTask
+     */
+    public function setTask(\Harproject\AppBundle\Entity\Task $task)
+    {
+        $this->task = $task;
+
+        return $this;
+    }
+
+    /**
+     * Get task
+     *
+     * @return \Harproject\AppBundle\Entity\Task 
+     */
+    public function getTask()
+    {
+        return $this->task;
+    }
+
+    /**
+     * Add timeTrackers
+     *
+     * @param \Harproject\AppBundle\Entity\TimeTracker $timeTrackers
+     * @return MemberHasTask
+     */
+    public function addTimeTracker(\Harproject\AppBundle\Entity\TimeTracker $timeTrackers)
+    {
+        $this->timeTrackers[] = $timeTrackers;
+
+        return $this;
+    }
+
+    /**
+     * Remove timeTrackers
+     *
+     * @param \Harproject\AppBundle\Entity\TimeTracker $timeTrackers
+     */
+    public function removeTimeTracker(\Harproject\AppBundle\Entity\TimeTracker $timeTrackers)
+    {
+        $this->timeTrackers->removeElement($timeTrackers);
+    }
+
+    /**
+     * Get timeTrackers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTimeTrackers()
+    {
+        return $this->timeTrackers;
+    }
 }
