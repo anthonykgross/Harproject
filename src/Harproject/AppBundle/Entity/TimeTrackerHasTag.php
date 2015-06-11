@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TimeTrackerHasTag
  *
- * @ORM\Table(name="harp_timetracker_has_tag", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"TimeTracker_id", "Tag_id"})})
+ * @ORM\Table(name="harp_TimeTracker_has_Tag", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"TimeTracker_id", "Tag_id"})})
  * @ORM\Entity
  */
 class TimeTrackerHasTag

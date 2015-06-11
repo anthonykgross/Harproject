@@ -7,7 +7,7 @@ use Harproject\OverrideBundle\Entity\FOSUserBundle\User as BaseUser;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="harp_user")
+ * @ORM\Table(name="harp_User")
  */
 class User extends BaseUser {
     

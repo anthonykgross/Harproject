@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TaskHasTicket
  *
- * @ORM\Table(name="harp_task_has_ticket", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"Ticket_id", "Task_id"})})
+ * @ORM\Table(name="harp_Task_has_Ticket", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"Ticket_id", "Task_id"})})
  * @ORM\Entity
  */
 class TaskHasTicket

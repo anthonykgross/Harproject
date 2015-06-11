@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Role
  *
- * @ORM\Table(name="harp_project")
+ * @ORM\Table(name="harp_Project")
  * @ORM\Entity
  */
 class Project
@@ -34,6 +34,41 @@ class Project
     private $tasks;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="site_url", type="string", length=45, nullable=true)
+     */
+    private $site_url;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="git", type="string", length=45, nullable=true)
+     */
+    private $git;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="svn", type="string", length=45, nullable=true)
+     */
+    private $svn;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     */
+    private $name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+    /**
      * Constructor
      */
     public function __construct()
@@ -50,6 +85,121 @@ class Project
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set site_url
+     *
+     * @param string $siteUrl
+     * @return Project
+     */
+    public function setSiteUrl($siteUrl)
+    {
+        $this->site_url = $siteUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get site_url
+     *
+     * @return string 
+     */
+    public function getSiteUrl()
+    {
+        return $this->site_url;
+    }
+
+    /**
+     * Set git
+     *
+     * @param string $git
+     * @return Project
+     */
+    public function setGit($git)
+    {
+        $this->git = $git;
+
+        return $this;
+    }
+
+    /**
+     * Get git
+     *
+     * @return string 
+     */
+    public function getGit()
+    {
+        return $this->git;
+    }
+
+    /**
+     * Set svn
+     *
+     * @param string $svn
+     * @return Project
+     */
+    public function setSvn($svn)
+    {
+        $this->svn = $svn;
+
+        return $this;
+    }
+
+    /**
+     * Get svn
+     *
+     * @return string 
+     */
+    public function getSvn()
+    {
+        return $this->svn;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Project
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Project
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Status
  *
- * @ORM\Table(name="harp_status")
+ * @ORM\Table(name="harp_Status")
  * @ORM\Entity
  */
 class Status

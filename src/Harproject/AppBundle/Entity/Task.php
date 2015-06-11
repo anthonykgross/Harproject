@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Task
  *
- * @ORM\Table(name="harp_task")
+ * @ORM\Table(name="harp_Task")
  * @ORM\Entity
  */
 class Task {
