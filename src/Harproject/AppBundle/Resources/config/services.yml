@@ -9,7 +9,14 @@ services:
     harproject_app.task:
         class: Harproject\AppBundle\Service\ServiceTask
         arguments: [@service_container]
-
+    harproject_app.timetracker:
+        class: Harproject\AppBundle\Service\ServiceTimeTracker
+        arguments: [@service_container]
+        
+    harproject_app.tag:
+        class: Harproject\AppBundle\Service\ServiceTag
+        arguments: [@service_container]
+        
 
     #LISTENERS
     harproject_app.role_listener:

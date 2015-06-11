@@ -29,13 +29,13 @@ class ServiceTask {
      * @param string $name
      * @return Task
      */
-    public function addTask( Project $project, Member $author, $name ){
+    public function addTask( Project $project, Member $author, $name , $description = null){
         
         $task = new Task();
         $task->setAuthor( $author );
         $task->setName($name);
         $task->setProject( $project );
-        $task->setDescription("");
+        $task->setDescription($description);
         
         $this->em->persist($task);
         $this->em->flush();

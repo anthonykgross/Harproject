@@ -80,7 +80,7 @@ class Task {
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="description", type="string", nullable=true)
      */
     private $description;
 
@@ -129,15 +129,15 @@ class Task {
      */
     public function __construct()
     {
-        $this->memberHasTasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->taskHasStatuss = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->taskHasTickets = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->taskHasTags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at = new \DateTime();
-        $this->estimated_time = 0;
-        $this->spent_time = 0;
-        $this->updated_at = new \DateTime();
+        $this->memberHasTasks   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children         = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasStatuss   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasTickets   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasTags      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created_at       = new \DateTime();
+        $this->estimated_time   = 0;
+        $this->spent_time       = 0;
+        $this->updated_at       = new \DateTime();
     }
 
     /**

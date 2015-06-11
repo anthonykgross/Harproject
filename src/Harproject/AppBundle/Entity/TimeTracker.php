@@ -57,4 +57,146 @@ class TimeTracker
      * @ORM\OneToMany(targetEntity="TimeTrackerHasTag", mappedBy="timeTracker", cascade={"remove", "persist"})
      */
     private $timeTrackerHasTags;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->timeTrackerHasTags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set start_date
+     *
+     * @param \DateTime $startDate
+     * @return TimeTracker
+     */
+    public function setStartDate($startDate)
+    {
+        $this->start_date = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Get start_date
+     *
+     * @return \DateTime 
+     */
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
+
+    /**
+     * Set end_date
+     *
+     * @param \DateTime $endDate
+     * @return TimeTracker
+     */
+    public function setEndDate($endDate)
+    {
+        $this->end_date = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get end_date
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->end_date;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return TimeTracker
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set memberHasTasks
+     *
+     * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
+     * @return TimeTracker
+     */
+    public function setMemberHasTasks(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
+    {
+        $this->memberHasTasks = $memberHasTasks;
+
+        return $this;
+    }
+
+    /**
+     * Get memberHasTasks
+     *
+     * @return \Harproject\AppBundle\Entity\MemberHasTask 
+     */
+    public function getMemberHasTasks()
+    {
+        return $this->memberHasTasks;
+    }
+
+    /**
+     * Add timeTrackerHasTags
+     *
+     * @param \Harproject\AppBundle\Entity\TimeTrackerHasTag $timeTrackerHasTags
+     * @return TimeTracker
+     */
+    public function addTimeTrackerHasTag(\Harproject\AppBundle\Entity\TimeTrackerHasTag $timeTrackerHasTags)
+    {
+        $this->timeTrackerHasTags[] = $timeTrackerHasTags;
+
+        return $this;
+    }
+
+    /**
+     * Remove timeTrackerHasTags
+     *
+     * @param \Harproject\AppBundle\Entity\TimeTrackerHasTag $timeTrackerHasTags
+     */
+    public function removeTimeTrackerHasTag(\Harproject\AppBundle\Entity\TimeTrackerHasTag $timeTrackerHasTags)
+    {
+        $this->timeTrackerHasTags->removeElement($timeTrackerHasTags);
+    }
+
+    /**
+     * Get timeTrackerHasTags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTimeTrackerHasTags()
+    {
+        return $this->timeTrackerHasTags;
+    }
 }
