@@ -22,7 +22,11 @@ class ServiceUserTest extends WebTestCase{
         $this->em           = $this->container->get('doctrine')->getManager();
     }
     
-     protected function tearDown(){
+    protected function setUp(){
+        $this->container->get("harproject_app.group")->initDefaultGroup();
+    }
+    
+    protected function tearDown(){
         $email = "test@test.fr";
         $this->user = $this->em->getRepository("HarprojectAppBundle:User")->findOneBy(array(
            "email" =>  $email
@@ -32,6 +36,12 @@ class ServiceUserTest extends WebTestCase{
             $this->em->remove($this->user);
             $this->em->flush();
         }
+        
+        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
+        foreach($groups as $g){
+            $this->em->remove($g);
+        }
+        $this->em->flush();
     }
     
     public function testAddUser(){
@@ -78,12 +88,7 @@ class ServiceUserTest extends WebTestCase{
         $project    = new Project();
         $this->em->persist($project);
         $this->em->flush();
-        
-        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
-        if(count($groups)==0){
-            $this->container->get("harproject_app.group")->initDefaultGroup();
-        }
-        
+
         $group_customer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
             "label" => "Customer"
         ));

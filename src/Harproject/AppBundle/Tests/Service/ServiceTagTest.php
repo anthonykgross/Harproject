@@ -3,29 +3,12 @@ namespace Harproject\AppBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Harproject\AppBundle\Entity\Tag;
+use Harproject\AppBundle\Entity\Project;
+use Harproject\AppBundle\Entity\Task;
+use Harproject\AppBundle\Tests\FixturedWebTestCase;
+use Harproject\AppBundle\Entity\TaskHasTag;
 
-class ServiceTagTest extends WebTestCase{
-
-    private $em;
-    private $container;
-    private $client;
-    
-    private $user;
-    
-    public function __construct(){
-        $this->client       = static::createClient();
-        $this->container    = $this->client->getContainer();
-        $this->em           = $this->container->get('doctrine')->getManager();
-    }
-    
-    protected function tearDown(){
-        $tags = $this->em->getRepository("HarprojectAppBundle:Tag")->findAll();
-        
-        foreach($tags as $t){
-            $this->em->remove($t);
-        }
-        $this->em->flush();
-    }
+class ServiceTagTest extends FixturedWebTestCase{
     
     public function testGetOrCreateTag(){
         $tag = $this->container->get("harproject_app.tag")->getOrCreate("un_tag");
@@ -68,6 +51,21 @@ class ServiceTagTest extends WebTestCase{
         
         $obj = $this->container->get("harproject_app.tag")->assignTag($tag, $tag);
         $this->assertTrue(is_null($obj));
+        
+        $tasks = $this->project->getTasks();
+        $task1 = $tasks[0];
+        
+        //Add a tag to Task
+        $obj = $this->container->get("harproject_app.tag")->assignTag($tag, $task1);
+        $this->assertTrue(!is_null($obj));
+        $this->assertTrue($obj instanceof TaskHasTag);
+        
+        $this->em->refresh($task1);
+        $this->assertTrue(count($task1->getTaskHasTags())==1);
+        
+        //Add a tag to Ticket
+        
+        //Add a tag to TimeTracker
         
         /**
          * @todo Faire les tests de ASSIGNTAG  avec un parametre TAG, TASK, TICKET ET TIMETRACKER

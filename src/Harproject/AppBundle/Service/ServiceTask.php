@@ -59,8 +59,6 @@ class ServiceTask {
      * @return HarTask[]
      */
     public function getTask( Member $assigne ){
-        
- 
         return $task;
     }
 }

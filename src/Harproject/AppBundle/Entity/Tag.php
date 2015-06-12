@@ -42,6 +42,14 @@ class Tag
      * @ORM\OneToMany(targetEntity="TimeTrackerHasTag", mappedBy="tag", cascade={"remove", "persist"})
      */
     private $timeTrackerHasTags;
+    
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created_at;
+
     /**
      * Constructor
      */
@@ -50,6 +58,7 @@ class Tag
         $this->ticketHasTags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->timeTrackerHasTags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created_at = new \DateTime();
     }
 
     /**
@@ -182,5 +191,28 @@ class Tag
     public function getTimeTrackerHasTags()
     {
         return $this->timeTrackerHasTags;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Tag
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 }

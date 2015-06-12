@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Anthony K GROSS <anthony.k.gross@gmail.com>
+ */
 
 namespace Harproject\AppBundle\Service;
 
@@ -9,9 +12,7 @@ use Harproject\AppBundle\Entity\Member;
 use Harproject\AppBundle\Exception\Exception;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
-/**
- * @author Anthony K GROSS <anthony.k.gross@gmail.com>
- */
+
 class ServiceUser {
 
     private $em;

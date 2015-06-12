@@ -41,6 +41,17 @@ class TicketHasTag
      */
     private $ticket;
 
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created_at;
+    
+
+    public function __construct() {
+        $this->created_at = new \DateTime();
+    }
 
     /**
      * Get id
@@ -96,5 +107,28 @@ class TicketHasTag
     public function getTicket()
     {
         return $this->ticket;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return TicketHasTag
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 }

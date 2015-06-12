@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @author Anthony K GROSS <anthony.k.gross@gmail.com>
+ */
 namespace Harproject\AppBundle\Service;
 use Harproject\AppBundle\Entity\Group;
 

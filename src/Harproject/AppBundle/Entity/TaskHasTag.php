@@ -44,6 +44,18 @@ class TaskHasTag
 
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created_at;
+    
+
+    public function __construct() {
+        $this->created_at = new \DateTime();
+    }
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -51,6 +63,29 @@ class TaskHasTag
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return TaskHasTag
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 
     /**

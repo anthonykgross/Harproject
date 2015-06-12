@@ -47,6 +47,14 @@ class Ticket
      * @ORM\OneToMany(targetEntity="TaskHasTicket", mappedBy="ticket", cascade={"remove", "persist"})
      */
     private $taskHasTickets;
+    
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created_at;
+    
     /**
      * Constructor
      */
@@ -54,6 +62,7 @@ class Ticket
     {
         $this->ticketHasTags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created_at = new \DateTime();
     }
 
     /**
@@ -87,6 +96,29 @@ class Ticket
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Ticket
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
     }
 
     /**
