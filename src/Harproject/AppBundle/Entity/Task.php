@@ -47,21 +47,16 @@ class Task {
      * }) 
      */
     private $author;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="parent")
-     **/
-    private $children;
-    
     
     /**
-     * @ORM\ManyToOne(targetEntity="Task", inversedBy="children")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Parent_id", referencedColumnName="id", nullable=true)
-     * })* 
-     **/
-    private $parent;
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="task_a", cascade={"remove", "persist"})
+     */
+    private $relationAs;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="task_b", cascade={"remove", "persist"})
+     */
+    private $relationBs;
     
     /**
      * @var datetime
@@ -124,13 +119,15 @@ class Task {
      * @ORM\OneToMany(targetEntity="TaskHasTag", mappedBy="task", cascade={"remove", "persist"})
      */
     private $taskHasTags;
+    
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->memberHasTasks   = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->children         = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->relationAs       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->relationBs       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasStatuss   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTickets   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTags      = new \Doctrine\Common\Collections\ArrayCollection();
@@ -368,59 +365,69 @@ class Task {
     }
 
     /**
-     * Add children
+     * Add relationAs
      *
-     * @param \Harproject\AppBundle\Entity\Task $children
+     * @param \Harproject\AppBundle\Entity\Relation $relationAs
      * @return Task
      */
-    public function addChild(\Harproject\AppBundle\Entity\Task $children)
+    public function addRelationA(\Harproject\AppBundle\Entity\Relation $relationAs)
     {
-        $this->children[] = $children;
+        $this->relationAs[] = $relationAs;
 
         return $this;
     }
 
     /**
-     * Remove children
+     * Remove relationAs
      *
-     * @param \Harproject\AppBundle\Entity\Task $children
+     * @param \Harproject\AppBundle\Entity\Relation $relationAs
      */
-    public function removeChild(\Harproject\AppBundle\Entity\Task $children)
+    public function removeRelationA(\Harproject\AppBundle\Entity\Relation $relationAs)
     {
-        $this->children->removeElement($children);
+        $this->relationAs->removeElement($relationAs);
     }
 
     /**
-     * Get children
+     * Get relationAs
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getChildren()
+    public function getRelationAs()
     {
-        return $this->children;
+        return $this->relationAs;
     }
 
     /**
-     * Set parent
+     * Add relationBs
      *
-     * @param \Harproject\AppBundle\Entity\Task $parent
+     * @param \Harproject\AppBundle\Entity\Relation $relationBs
      * @return Task
      */
-    public function setParent(\Harproject\AppBundle\Entity\Task $parent = null)
+    public function addRelationB(\Harproject\AppBundle\Entity\Relation $relationBs)
     {
-        $this->parent = $parent;
+        $this->relationBs[] = $relationBs;
 
         return $this;
     }
 
     /**
-     * Get parent
+     * Remove relationBs
      *
-     * @return \Harproject\AppBundle\Entity\Task 
+     * @param \Harproject\AppBundle\Entity\Relation $relationBs
      */
-    public function getParent()
+    public function removeRelationB(\Harproject\AppBundle\Entity\Relation $relationBs)
     {
-        return $this->parent;
+        $this->relationBs->removeElement($relationBs);
+    }
+
+    /**
+     * Get relationBs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRelationBs()
+    {
+        return $this->relationBs;
     }
 
     /**

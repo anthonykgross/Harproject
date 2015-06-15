@@ -5,12 +5,12 @@ namespace Harproject\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Status
+ * RelationType
  *
- * @ORM\Table(name="harp_Status")
+ * @ORM\Table(name="harp_Relation_Type")
  * @ORM\Entity
  */
-class Status
+class RelationType
 {
     /**
      * @var integer
@@ -29,12 +29,6 @@ class Status
      */
     private $label;
     
-
-    /**
-     * @ORM\OneToMany(targetEntity="TaskHasStatus", mappedBy="status", cascade={"remove", "persist"})
-     */
-    private $taskHasStatuss;
-    
     /**
      * @var datetime
      *
@@ -43,12 +37,16 @@ class Status
     private $created_at;
     
     /**
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="relationType")
+     */
+    private $relations;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->taskHasStatuss = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at           = new \DateTime();
+        $this->relations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -65,7 +63,7 @@ class Status
      * Set label
      *
      * @param string $label
-     * @return Status
+     * @return RelationType
      */
     public function setLabel($label)
     {
@@ -88,7 +86,7 @@ class Status
      * Set created_at
      *
      * @param \DateTime $createdAt
-     * @return Status
+     * @return RelationType
      */
     public function setCreatedAt($createdAt)
     {
@@ -108,35 +106,35 @@ class Status
     }
 
     /**
-     * Add taskHasStatuss
+     * Add relations
      *
-     * @param \Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss
-     * @return Status
+     * @param \Harproject\AppBundle\Entity\Relation $relations
+     * @return RelationType
      */
-    public function addTaskHasStatuss(\Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss)
+    public function addRelation(\Harproject\AppBundle\Entity\Relation $relations)
     {
-        $this->taskHasStatuss[] = $taskHasStatuss;
+        $this->relations[] = $relations;
 
         return $this;
     }
 
     /**
-     * Remove taskHasStatuss
+     * Remove relations
      *
-     * @param \Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss
+     * @param \Harproject\AppBundle\Entity\Relation $relations
      */
-    public function removeTaskHasStatuss(\Harproject\AppBundle\Entity\TaskHasStatus $taskHasStatuss)
+    public function removeRelation(\Harproject\AppBundle\Entity\Relation $relations)
     {
-        $this->taskHasStatuss->removeElement($taskHasStatuss);
+        $this->relations->removeElement($relations);
     }
 
     /**
-     * Get taskHasStatuss
+     * Get relations
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTaskHasStatuss()
+    public function getRelations()
     {
-        return $this->taskHasStatuss;
+        return $this->relations;
     }
 }

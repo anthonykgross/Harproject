@@ -22,18 +22,18 @@ class TimeTracker
     private $id;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
-     * @ORM\Column(name="startDate", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private $start_date;
+    private $created_at;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
-     * @ORM\Column(name="endDate", type="datetime", nullable=true)
+     * @ORM\Column(name="finished_at", type="datetime")
      */
-    private $end_date;
+    private $finished_at;
 
     /**
      * @var string
@@ -57,12 +57,14 @@ class TimeTracker
      * @ORM\OneToMany(targetEntity="TimeTrackerHasTag", mappedBy="timeTracker", cascade={"remove", "persist"})
      */
     private $timeTrackerHasTags;
+    
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->timeTrackerHasTags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->timeTrackerHasTags   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created_at           = new \DateTime();
     }
 
     /**
@@ -76,49 +78,49 @@ class TimeTracker
     }
 
     /**
-     * Set start_date
+     * Set created_at
      *
-     * @param \DateTime $startDate
+     * @param \DateTime $createdAt
      * @return TimeTracker
      */
-    public function setStartDate($startDate)
+    public function setCreatedAt($createdAt)
     {
-        $this->start_date = $startDate;
+        $this->created_at = $createdAt;
 
         return $this;
     }
 
     /**
-     * Get start_date
+     * Get created_at
      *
      * @return \DateTime 
      */
-    public function getStartDate()
+    public function getCreatedAt()
     {
-        return $this->start_date;
+        return $this->created_at;
     }
 
     /**
-     * Set end_date
+     * Set finished_at
      *
-     * @param \DateTime $endDate
+     * @param \DateTime $finishedAt
      * @return TimeTracker
      */
-    public function setEndDate($endDate)
+    public function setFinishedAt($finishedAt)
     {
-        $this->end_date = $endDate;
+        $this->finished_at = $finishedAt;
 
         return $this;
     }
 
     /**
-     * Get end_date
+     * Get finished_at
      *
      * @return \DateTime 
      */
-    public function getEndDate()
+    public function getFinishedAt()
     {
-        return $this->end_date;
+        return $this->finished_at;
     }
 
     /**
