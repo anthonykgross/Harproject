@@ -1,7 +1,11 @@
-home:
+harproject_app_dashboard_homepage:
     path:   /
-    defaults:  { _controller: HarprojectAppBundle:Default:index }
+    defaults:  { _controller: HarprojectAppBundle:Dashboard:homepage }
     
+harproject_app_dashboard_index:
+    path:   /dashboard
+    defaults:  { _controller: HarprojectAppBundle:Dashboard:index }
+  
 api_test:
     path:   /api/test
     defaults:  { _controller: HarprojectAppBundle:Api:test }
