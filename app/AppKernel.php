@@ -19,7 +19,10 @@ class AppKernel extends Kernel
             new Harproject\AppBundle\HarprojectAppBundle(),
             new Harproject\OverrideBundle\HarprojectOverrideBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Escape\WSSEAuthenticationBundle\EscapeWSSEAuthenticationBundle()
+            new Escape\WSSEAuthenticationBundle\EscapeWSSEAuthenticationBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -27,7 +30,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
-
+ 
         return $bundles;
     }
 

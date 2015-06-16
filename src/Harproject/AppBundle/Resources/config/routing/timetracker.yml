@@ -1,0 +1,30 @@
+harproject_app_timetracker:
+    path:     /
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:index" }
+
+harproject_app_timetracker_show:
+    path:     /{id}/show
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:show" }
+
+harproject_app_timetracker_new:
+    path:     /new
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:new" }
+
+harproject_app_timetracker_create:
+    path:     /create
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:create" }
+    requirements: { _method: post }
+
+harproject_app_timetracker_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:edit" }
+
+harproject_app_timetracker_update:
+    path:     /{id}/update
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:update" }
+    requirements: { _method: post|put }
+
+harproject_app_timetracker_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HarprojectAppBundle:TimeTracker:delete" }
+    requirements: { _method: get }

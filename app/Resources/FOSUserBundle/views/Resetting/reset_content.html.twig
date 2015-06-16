@@ -9,7 +9,7 @@
         <div class="form-group">
             {{ form_label(form.new.second) }}
             {{ form_widget(form.new.second, { 'attr': {'class': 'form-control'} }) }}
-            {% if form.new.second.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.new.second, { 'attr': {'class': 'alert alert-danger'} })}}</div>{% endif %}
+            {% if form.new.second.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.new.second)}}</div>{% endif %}
         </div>
         {{ form_widget(form._token) }}
         <div class="row">

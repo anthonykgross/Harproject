@@ -208,7 +208,29 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-list-ul fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="{{ path("harproject_app_project") }}"><i class="fa fa-list fa-fw"></i> All projects</a>
+                        </li>
+                        <li>
+                            <a href="{{ path("harproject_app_project_new") }}"><i class="fa fa-plus fa-fw"></i> New project</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <i class="fa fa-user fa-fw"></i> Admin
+                        {% elseif is_granted("ROLE_MANAGER") %}
+                            <i class="fa fa-user fa-fw"></i> Manager
+                        {% else %}
+                            <i class="fa fa-user fa-fw"></i> User
+                        {% endif %}
+                        <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="{{ path("fos_user_profile_show") }}"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -245,55 +267,19 @@
                             <a href="{{  path("harproject_app_dashboard_index") }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>                                
-                            <a href="#"> <i class="fa fa-list-ul fa-fw"></i> Projects<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href=""><i class="fa fa-list fa-fw"></i> List</a>
-                                </li>
-                                <li>
-                                    <a href=""><i class="fa fa-plus fa-fw"></i> New</a>
-                                </li>
-                            </ul>
+                            <a href="{{  path("harproject_app_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
                         </li>
                         <li>                                
-                            <a href="#"> <i class="fa fa-tasks fa-fw"></i> Tasks<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href=""><i class="fa fa-list fa-fw"></i> List</a>
-                                </li>
-                            </ul>
+                            <a href="{{  path("harproject_app_tag") }}"><i class="fa fa-tags fa-fw"></i> Tags</a>
                         </li>
                         <li>                                
-                            <a href="#"> <i class="fa fa-tags fa-fw"></i> Tags<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href=""><i class="fa fa-list fa-fw"></i> List</a>
-                                </li>
-                            </ul>
+                            <a href="{{  path("harproject_app_user") }}"><i class="fa fa-user fa-fw"></i> Users</a>
                         </li>
                         <li>                                
-                            <a href="#"> <i class="fa fa-user fa-fw"></i> Users<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href=""><i class="fa fa-list fa-fw"></i> List</a>
-                                </li>
-                            </ul>
+                            <a href="{{  path("harproject_app_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
                         </li>
                         <li>                                
-                            <a href="#"> <i class="fa fa-clock-o fa-fw"></i> TimeTrackers<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href=""><i class="fa fa-list fa-fw"></i> List</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>                                
-                            <a href="#"> <i class="fa fa-ticket fa-fw"></i> Tickets<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href=""><i class="fa fa-list fa-fw"></i> List</a>
-                                </li>
-                            </ul>
+                            <a href="{{  path("harproject_app_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
                         </li>
                         <li>                                
                             <a href="#"> <i class="fa fa-folder fa-fw"></i> Harproject<span class="fa arrow"></span></a>
@@ -307,7 +293,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#"> <i class="fa fa-user-md fa-fw"></i> Contributors<span class="fa arrow"></span></a>
+                                    <a href="#"> <i class="fa fa-user-md fa-fw"></i>Contributors<span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
                                             <a href="http://www.clement-vidal.fr/" target="_blank"><i class="fa fa-thumbs-up fa-fw"></i> Clement Vidal</a>

@@ -59,6 +59,11 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        
+# JMS SECURITY EXTRA
+jms_security_extra:
+    secure_all_services: true
+    expressions: false
 
 # Swiftmailer Configuration
 swiftmailer:

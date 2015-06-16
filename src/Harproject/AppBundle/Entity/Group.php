@@ -13,11 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Group
 {
     static $basic_roles = array(
-        "PROJECT_VIEW",
-        "PROJECT_ADD",
-        "PROJECT_DELETE",
-        "PROJECT_EDIT",
-        
         "MEMBER_VIEW",
         "MEMBER_ADD",
         "MEMBER_DELETE",

@@ -131,7 +131,7 @@ class ServiceUserTest extends WebTestCase{
         $this->assertTrue(($member1 instanceof Member));
         
         //By default, only the developer can add a project
-        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "PROJECT_ADD");
+        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "MEMBER_ADD");
         $this->assertTrue(!$hasRoleProjectAdd);
         
         $this->em->remove($member1);
@@ -163,14 +163,14 @@ class ServiceUserTest extends WebTestCase{
         $this->assertTrue(($member1 instanceof Member));
         
         //By default, only the developer can add a project
-        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "PROJECT_ADD");
+        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "MEMBER_ADD");
         $this->assertTrue(!$hasRoleProjectAdd);
         
         $member1 = $this->container->get("harproject_app.user")->updateMember($member1, $group_developer);
         $this->assertTrue(($member1 instanceof Member));
         
         //By default, only the developer can add a project
-        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "PROJECT_ADD");
+        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "MEMBER_ADD");
         $this->assertTrue($hasRoleProjectAdd);
         
         $this->em->remove($member1);

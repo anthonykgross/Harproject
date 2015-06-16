@@ -1,3 +1,27 @@
+harproject_app_ticket:
+    resource: "@HarprojectAppBundle/Resources/config/routing/ticket.yml"
+    prefix:   /dashboard/ticket
+
+harproject_app_timetracker:
+    resource: "@HarprojectAppBundle/Resources/config/routing/timetracker.yml"
+    prefix:   /dashboard/timetracker
+
+harproject_app_user:
+    resource: "@HarprojectAppBundle/Resources/config/routing/user.yml"
+    prefix:   /dashboard/user
+
+harproject_app_tag:
+    resource: "@HarprojectAppBundle/Resources/config/routing/tag.yml"
+    prefix:   /dashboard/tag
+
+harproject_app_task:
+    resource: "@HarprojectAppBundle/Resources/config/routing/task.yml"
+    prefix:   /dashboard/task
+
+harproject_app_project:
+    resource: "@HarprojectAppBundle/Resources/config/routing/project.yml"
+    prefix:   /dashboard/project
+
 harproject_app_dashboard_homepage:
     path:   /
     defaults:  { _controller: HarprojectAppBundle:Dashboard:homepage }
@@ -5,7 +29,7 @@ harproject_app_dashboard_homepage:
 harproject_app_dashboard_index:
     path:   /dashboard
     defaults:  { _controller: HarprojectAppBundle:Dashboard:index }
-  
+    
 api_test:
     path:   /api/test
     defaults:  { _controller: HarprojectAppBundle:Api:test }
