@@ -26,8 +26,15 @@
                                         <input name="_remember_me" type="checkbox" value="on">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <input type="submit" name="_submit" class="btn btn-lg btn-success btn-block" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                                <div class="row">
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <div class="col-lg-6">
+                                        <input type="submit" name="_submit" class="btn btn-lg btn-success btn-block" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a href="{{ path("fos_user_resetting_request") }}" class="btn btn-lg btn-warning btn-block">{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</a>
+                                    </div>
+                                </div>
                             </fieldset>
                         </form>
                     </div>

@@ -1,6 +1,21 @@
-<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
-    </div>
+ 
+<form role="form" action="{{ path('fos_user_resetting_reset', {'token': token}) }}" method="POST" class="fos_user_resetting_request">
+    <fieldset>
+        <div class="form-group">
+            {{ form_label(form.new.first) }}
+            {{ form_widget(form.new.first, { 'attr': {'class': 'form-control'} }) }}
+            {% if form.new.first.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.new.first)}}</div>{% endif %}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.new.second) }}
+            {{ form_widget(form.new.second, { 'attr': {'class': 'form-control'} }) }}
+            {% if form.new.second.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.new.second, { 'attr': {'class': 'alert alert-danger'} })}}</div>{% endif %}
+        </div>
+        {{ form_widget(form._token) }}
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="submit"  class="btn btn-lg btn-success btn-block" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+            </div>
+        </div>
+    </fieldset>
 </form>
