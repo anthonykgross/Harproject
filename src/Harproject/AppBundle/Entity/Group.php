@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * Group
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_Group")
  * @ORM\Entity
  */
-class Group
+class Group extends Harproject
 {
     static $basic_roles = array(
         "MEMBER_VIEW",
@@ -38,15 +39,6 @@ class Group
         "TIMETRACKER_DELETE",
         "TIMETRACKER_EDIT",
     );
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @var string
@@ -54,7 +46,6 @@ class Group
      * @ORM\Column(name="label", type="string", length=32)
      */
     private $label;
-
 
     /**
      * @var string
@@ -69,29 +60,12 @@ class Group
     private $members;
     
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-    
-    /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at           = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -138,29 +112,6 @@ class Group
     public function getRoles()
     {
         return $this->roles;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Group
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
     }
 
     /**

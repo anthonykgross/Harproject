@@ -54,20 +54,6 @@ class ServiceUser {
         return $user;
     }
 
- 
-    /**
-     * Remove an existing user
-     * @param type $email
-     * @param type $password
-     * @throws Exception
-     * @return User
-     */
-    public function deleteUser( User $user ) {
-        
-        $this->em->remove($user);
-        $this->em->flush();
-    }
-    
     /**
      * Reset all API identifiers
      * @param User $user
@@ -93,7 +79,7 @@ class ServiceUser {
      * @return boolean
      */
     public function hasRole(Member $member, $role){
-        return in_array($role, $member->getGroup()->getRoles());
+        return (in_array($role, $member->getGroup()->getRoles()) && $member->getEnabled());
     }
 
     /**
@@ -104,8 +90,9 @@ class ServiceUser {
      */
     public function getMember(User $user, Project $project) {
         return $this->em->getRepository("HarprojectAppBundle:Member")->findOneBy(array(
-            "user" => $user,
-            "project" => $project
+            "user"      => $user,
+            "project"   => $project, 
+            "enabled"   => true
         ));
     }
 
@@ -146,4 +133,18 @@ class ServiceUser {
         return $member;
     }
 
+    /**
+     * Delete a member
+     * @param Member $member
+     * @return Member
+     */
+    public function deleteMember(Member $member) {
+        $member->setEnabled(false)
+               ->setUpdatedAt(new \DateTime());
+        $this->em->persist($member);
+        $this->em->flush();
+        
+        return $member;
+    }
+    
 }

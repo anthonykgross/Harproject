@@ -1,6 +1,6 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block body_title %}User{% endblock %}
+{% block body_title %}Group{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
@@ -14,18 +14,27 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Email</th>
+                                    <th>Label</th>
+                                    <th>Roles</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for entity in entities %}
                                 <tr>
-                                    <td><a href="{{ path('harproject_app_user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                                    <td>{{ entity.email }}</td>
+                                    <td><a href="{{ path('harproject_app_group_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                    <td>{{ entity.label }}</td>
                                     <td>
-                                        <a class="btn btn-default" href="{{ path('harproject_app_user_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
-                                        <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_user_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                        <ul>
+                                        {% for role in  entity.roles %}
+                                            <li>{{role}}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default" href="{{ path('harproject_app_group_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
+                                        <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_group_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
+                                        <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_group_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}

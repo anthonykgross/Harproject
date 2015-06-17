@@ -1,49 +1,15 @@
 <?php
 namespace Harproject\AppBundle\Tests\Service;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Harproject\AppBundle\Tests\FixturedWebTestCase;
 use Harproject\AppBundle\Entity\User;
 use Harproject\AppBundle\Entity\Project;
 use Harproject\AppBundle\Entity\Group;
 use Harproject\AppBundle\Entity\Member;
 use Harproject\AppBundle\Exception\Exception;
 
-class ServiceUserTest extends WebTestCase{
+class ServiceUserTest extends FixturedWebTestCase{
 
-    private $em;
-    private $container;
-    private $client;
-    
-    private $user;
-    
-    public function __construct(){
-        $this->client       = static::createClient();
-        $this->container    = $this->client->getContainer();
-        $this->em           = $this->container->get('doctrine')->getManager();
-    }
-    
-    protected function setUp(){
-        $this->container->get("harproject_app.group")->initDefaultGroup();
-    }
-    
-    protected function tearDown(){
-        $email = "test@test.fr";
-        $this->user = $this->em->getRepository("HarprojectAppBundle:User")->findOneBy(array(
-           "email" =>  $email
-        ));
-        
-        if($this->user){
-            $this->em->remove($this->user);
-            $this->em->flush();
-        }
-        
-        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
-        foreach($groups as $g){
-            $this->em->remove($g);
-        }
-        $this->em->flush();
-    }
-    
     public function testAddUser(){
         $email = "test@test.fr";
 

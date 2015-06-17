@@ -1,36 +1,45 @@
-{% extends '::base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block body -%}
-    <h1>User</h1>
+{% block body_title %}User{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-user fa-fw"></i>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Apikey</th>
-                <td>{{ entity.apiKey }}</td>
-            </tr>
-            <tr>
-                <th>Apisecret</th>
-                <td>{{ entity.apiSecret }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('user_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu slidedown">
+                        <li>
+                            <a href="{{ path("harproject_app_user") }}"><i class="fa fa-user fa-fw"></i> User</a>
+                        </li>
+                        <li>
+                            <a href="{{ path("harproject_app_user_delete" , {"id": entity.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Email</div>
+                    <div class="col-lg-10">{{ entity.email }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Project</div>
+                    <ul class="col-lg-10">
+                        {% for member in entity.members %}
+                            <li>
+                                {{member.project.name}} / {{member.group.label}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                       
 {% endblock %}

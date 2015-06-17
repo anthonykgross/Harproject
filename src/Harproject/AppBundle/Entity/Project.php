@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * Role
@@ -10,16 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_Project")
  * @ORM\Entity
  */
-class Project
+class Project extends Harproject
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     
     /**
      * @ORM\OneToMany(targetEntity="Member", mappedBy="project", cascade={"remove", "persist"})
@@ -54,7 +47,6 @@ class Project
      */
     private $svn;
     
-    
     /**
      * @var string
      *
@@ -70,38 +62,13 @@ class Project
     private $description;
     
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-    
-    /**
-     * @var datetime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    private $updated_at;
-    
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->members      = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tasks        = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at   = new \DateTime();
-        $this->updated_at   = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+        parent::__construct();
+        $this->members  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tasks    = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -283,51 +250,5 @@ class Project
     public function getTasks()
     {
         return $this->tasks;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Project
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * Set updated_at
-     *
-     * @param \DateTime $updatedAt
-     * @return Project
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updated_at
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
     }
 }

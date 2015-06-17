@@ -38,7 +38,7 @@ class User extends BaseUser {
     public function __construct()
     {
         parent::__construct();
-        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->members      = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

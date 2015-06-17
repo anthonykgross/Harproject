@@ -69,7 +69,9 @@ class ServiceTicket {
      * @param Ticket $ticket
      */
     public function deleteTicket(Ticket $ticket) {
-        $this->em->remove($ticket);
+        $ticket->setEnabled(false)
+               ->setUpdatedAt(new \DateTime());
+        $this->em->persist($ticket);
         $this->em->flush();
     }
     

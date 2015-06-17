@@ -3,24 +3,17 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
+
 
 /**
  * Member
  *
- * @ORM\Table(name="harp_Member", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"User_id", "Project_id", "Group_id"})})
+ * @ORM\Table(name="harp_Member")
  * @ORM\Entity
  */
-class Member
+class Member extends Harproject
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-    
     /**
      * @var \Group
      *
@@ -64,20 +57,6 @@ class Member
     private $createdTasks;
     
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-    
-    /**
-     * @var datetime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    private $updated_at;
-    
-    /**
      * @ORM\OneToMany(targetEntity="Ticket", mappedBy="member", cascade={"remove", "persist"})
      */
     private $tickets;
@@ -87,67 +66,10 @@ class Member
      */
     public function __construct()
     {
-        $this->memberHasTasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->createdTasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at = new \DateTime();
-        $this->updated_at = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Member
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * Set updated_at
-     *
-     * @param \DateTime $updatedAt
-     * @return Member
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updated_at
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
+        parent::__construct();
+        $this->memberHasTasks   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdTasks     = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tickets          = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

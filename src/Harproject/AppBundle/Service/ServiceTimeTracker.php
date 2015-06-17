@@ -33,11 +33,10 @@ class ServiceTimeTracker {
         ));
         
         if($timetracker){
-            $timetracker->setEndDate(new \DateTime());
+            $timetracker->setFinishedAt(new \DateTime());
         }
         else{
             $timetracker = new TimeTracker();
-            $timetracker->setStartDate(new \DateTime());
         }
         
         if(!is_null($comment)){

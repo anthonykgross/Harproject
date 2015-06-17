@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * TimeTracker
@@ -10,24 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_TimeTracker")
  * @ORM\Entity
  */
-class TimeTracker
+class TimeTracker extends Harproject
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-
     /**
      * @var datetime
      *
@@ -41,7 +26,6 @@ class TimeTracker
      * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
-
 
     /**
      * @var \MemberHasTask
@@ -63,41 +47,8 @@ class TimeTracker
      */
     public function __construct()
     {
-        $this->timeTrackerHasTags   = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at           = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return TimeTracker
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
+        parent::__construct();
+        $this->timeTrackerHasTags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * Task
@@ -10,17 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_Task")
  * @ORM\Entity
  */
-class Task {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
+class Task extends Harproject{
     /**
      * Define the relation between this task and users that are attributed to it
      * 
@@ -57,14 +48,7 @@ class Task {
      * @ORM\OneToMany(targetEntity="Relation", mappedBy="task_b", cascade={"remove", "persist"})
      */
     private $relationBs;
-    
-    /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-
+   
     /**
      * @var string
      *
@@ -99,13 +83,6 @@ class Task {
     private $spent_time;
 
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    private $updated_at;
-
-    /**
      * @ORM\OneToMany(targetEntity="TaskHasStatus", mappedBy="task", cascade={"remove", "persist"})
      */
     private $taskHasStatuss;
@@ -125,49 +102,13 @@ class Task {
      */
     public function __construct()
     {
+        parent::__construct();
         $this->memberHasTasks   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->relationAs       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->relationBs       = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasStatuss   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTickets   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTags      = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at       = new \DateTime();
-        $this->estimated_time   = 0;
-        $this->spent_time       = 0;
-        $this->updated_at       = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Task
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
     }
 
     /**
@@ -260,29 +201,6 @@ class Task {
     public function getSpentTime()
     {
         return $this->spent_time;
-    }
-
-    /**
-     * Set updated_at
-     *
-     * @param \DateTime $updatedAt
-     * @return Task
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updated_at
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
     }
 
     /**

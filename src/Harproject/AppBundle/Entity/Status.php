@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * Status
@@ -10,18 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_Status")
  * @ORM\Entity
  */
-class Status
+class Status extends Harproject
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-
     /**
      * @var string
      *
@@ -36,29 +27,12 @@ class Status
     private $taskHasStatuss;
     
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-    
-    /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->taskHasStatuss = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at           = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -82,29 +56,6 @@ class Status
     public function getLabel()
     {
         return $this->label;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Status
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
     }
 
     /**

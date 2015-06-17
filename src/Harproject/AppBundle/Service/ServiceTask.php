@@ -29,14 +29,15 @@ class ServiceTask {
      * @param string $name
      * @return Task
      */
-    public function addTask( Project $project, Member $author, $name , $description = null){
+    public function addTask( Project $project, Member $author, $name , $description = null, $estimatedTime = 0, $spentTime = 0){
         
         $task = new Task();
         $task->setAuthor( $author );
         $task->setName($name);
         $task->setProject( $project );
         $task->setDescription($description);
-        
+        $task->setEstimatedTime($estimatedTime);
+        $task->setSpentTime($spentTime);
         $this->em->persist($task);
         $this->em->flush();
         
@@ -47,9 +48,10 @@ class ServiceTask {
      * Remove an existing task
      * @param Task $task
      */
-    public function deleteTask( Task $task ) {
-        
-        $this->em->remove($task);
+    public function deleteTask(Task $task) {
+        $task->setEnabled(false)
+             ->setUpdatedAt(new \DateTime());
+        $this->em->persist($task);
         $this->em->flush();
     }
     

@@ -1,3 +1,11 @@
+harproject_app_member:
+    resource: "@HarprojectAppBundle/Resources/config/routing/member.yml"
+    prefix:   /member
+
+harproject_app_group:
+    resource: "@HarprojectAppBundle/Resources/config/routing/group.yml"
+    prefix:   /group
+
 harproject_app_ticket:
     resource: "@HarprojectAppBundle/Resources/config/routing/ticket.yml"
     prefix:   /dashboard/ticket

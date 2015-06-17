@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * Tag
@@ -10,17 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_Tag")
  * @ORM\Entity
  */
-class Tag
+class Tag extends Harproject
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -44,31 +36,14 @@ class Tag
     private $timeTrackerHasTags;
     
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->ticketHasTags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->taskHasTags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->timeTrackerHasTags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+        parent::__construct();
+        $this->ticketHasTags        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasTags          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->timeTrackerHasTags   = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -191,28 +166,5 @@ class Tag
     public function getTimeTrackerHasTags()
     {
         return $this->timeTrackerHasTags;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Tag
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
     }
 }

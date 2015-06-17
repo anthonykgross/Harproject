@@ -12,9 +12,11 @@ services:
     harproject_app.timetracker:
         class: Harproject\AppBundle\Service\ServiceTimeTracker
         arguments: [@service_container]
-        
     harproject_app.tag:
         class: Harproject\AppBundle\Service\ServiceTag
+        arguments: [@service_container]
+    harproject_app.project:
+        class: Harproject\AppBundle\Service\ServiceProject
         arguments: [@service_container]
         
 

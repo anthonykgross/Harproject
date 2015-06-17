@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class GroupType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,9 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('label')
+            ->add('roles')
+            ->add('created_at')
         ;
     }
     
@@ -25,20 +27,15 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Harproject\AppBundle\Entity\User'
+            'data_class' => 'Harproject\AppBundle\Entity\Group'
         ));
     }
 
-    public function getParent()
-    {
-        return 'fos_user_registration';
-    }
-    
     /**
      * @return string
      */
     public function getName()
     {
-        return 'harproject_appbundle_user';
+        return 'harproject_appbundle_group';
     }
 }

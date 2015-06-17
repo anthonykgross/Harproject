@@ -3,6 +3,7 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\Harproject;
 
 /**
  * Ticket
@@ -10,17 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="harp_Ticket")
  * @ORM\Entity
  */
-class Ticket
+class Ticket extends Harproject
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -49,30 +41,13 @@ class Ticket
     private $taskHasTickets;
     
     /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-    
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->ticketHasTags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->taskHasTickets = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->created_at = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+        parent::__construct();
+        $this->ticketHasTags    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->taskHasTickets   = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -96,29 +71,6 @@ class Ticket
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Ticket
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
     }
 
     /**

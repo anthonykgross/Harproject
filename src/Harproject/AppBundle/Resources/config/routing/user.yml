@@ -6,24 +6,6 @@ harproject_app_user_show:
     path:     /{id}/show
     defaults: { _controller: "HarprojectAppBundle:User:show" }
 
-harproject_app_user_new:
-    path:     /new
-    defaults: { _controller: "HarprojectAppBundle:User:new" }
-
-harproject_app_user_create:
-    path:     /create
-    defaults: { _controller: "HarprojectAppBundle:User:create" }
-    requirements: { _method: post }
-
-harproject_app_user_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "HarprojectAppBundle:User:edit" }
-
-harproject_app_user_update:
-    path:     /{id}/update
-    defaults: { _controller: "HarprojectAppBundle:User:update" }
-    requirements: { _method: post|put }
-
 harproject_app_user_delete:
     path:     /{id}/delete
     defaults: { _controller: "HarprojectAppBundle:User:delete" }

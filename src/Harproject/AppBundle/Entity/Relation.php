@@ -4,25 +4,17 @@ namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Harproject\AppBundle\Entity\Harproject;
+
 /**
  * Relation
  *
  * @ORM\Table(name="harp_Relation", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"Task_A_id", "Task_B_id", "Relation_Type_id"})})
  * @ORM\Entity
  */
-class Relation
+class Relation extends Harproject
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-
      * @ORM\ManyToOne(targetEntity="Task", inversedBy="relationAs" )
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Task_A_id", referencedColumnName="id", nullable=false)
@@ -46,48 +38,10 @@ class Relation
      */
     private $relationType;
 
-    /**
-     * @var datetime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $created_at;
-
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+    public function __construct() {
+        parent::__construct();
     }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Relation
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
+    
     /**
      * Set task_a
      *

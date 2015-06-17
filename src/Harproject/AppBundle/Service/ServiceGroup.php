@@ -39,4 +39,40 @@ class ServiceGroup {
         $this->em->persist($customer_group);
         $this->em->flush();
     }
+    
+    /**
+     * Create a group
+     * @param String $label
+     * @param array $roles
+     * @return Group
+     */
+    public function createGroup($label, Array $roles){
+        $valid_roles = array();
+        
+        foreach($roles as $r){
+            if(in_array($r, Group::$basic_roles)){
+                $valid_roles[] = $r;
+            }
+        }
+        
+        $group = new Group();
+        $group->setLabel($label)->setRoles($valid_roles);
+        $this->em->persist($group);
+        $this->em->flush();
+        return $group;
+    }
+    
+    /**
+     * Delete a group
+     * @param String $label
+     * @param array $roles
+     * @return Group
+     */
+    public function deleteGroup(Group $group){
+        $group->setEnabled(false)
+              ->setUpdatedAt(new \DateTime());
+        $this->em->persist($group);
+        $this->em->flush();
+        return $group;
+    }
 }

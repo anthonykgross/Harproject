@@ -5,37 +5,37 @@ namespace Harproject\AppBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Harproject\AppBundle\Entity\Tag;
-use Harproject\AppBundle\Form\TagType;
+use Harproject\AppBundle\Entity\Group;
+use Harproject\AppBundle\Form\GroupType;
 
 /**
- * Tag controller.
+ * Group controller.
  *
  */
-class TagController extends Controller
+class GroupController extends Controller
 {
 
     /**
-     * Lists all Tag entities.
+     * Lists all Group entities.
      *
      */
     public function indexAction()
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $entities   = $em->getRepository('HarprojectAppBundle:Tag')->findAll();
+        $entities = $em->getRepository('HarprojectAppBundle:Group')->findAll();
 
-        return $this->render('HarprojectAppBundle:Tag:index.html.twig', array(
+        return $this->render('HarprojectAppBundle:Group:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Tag entity.
+     * Creates a new Group entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Tag();
+        $entity = new Group();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class TagController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('harproject_app_group_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('HarprojectAppBundle:Tag:new.html.twig', array(
+        return $this->render('HarprojectAppBundle:Group:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Tag entity.
+     * Creates a form to create a Group entity.
      *
-     * @param Tag $entity The entity
+     * @param Group $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Tag $entity)
+    private function createCreateForm(Group $entity)
     {
-        $form = $this->createForm(new TagType(), $entity, array(
-            'action' => $this->generateUrl('tag_create'),
+        $form = $this->createForm(new GroupType(), $entity, array(
+            'action' => $this->generateUrl('harproject_app_group_create'),
             'method' => 'POST',
         ));
 
@@ -73,60 +73,60 @@ class TagController extends Controller
     }
 
     /**
-     * Displays a form to create a new Tag entity.
+     * Displays a form to create a new Group entity.
      *
      */
     public function newAction()
     {
-        $entity = new Tag();
+        $entity = new Group();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('HarprojectAppBundle:Tag:new.html.twig', array(
+        return $this->render('HarprojectAppBundle:Group:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Tag entity.
+     * Finds and displays a Group entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HarprojectAppBundle:Tag')->find($id);
+        $entity = $em->getRepository('HarprojectAppBundle:Group')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tag entity.');
+            throw $this->createNotFoundException('Unable to find Group entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('HarprojectAppBundle:Tag:show.html.twig', array(
+        return $this->render('HarprojectAppBundle:Group:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Tag entity.
+     * Displays a form to edit an existing Group entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HarprojectAppBundle:Tag')->find($id);
+        $entity = $em->getRepository('HarprojectAppBundle:Group')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tag entity.');
+            throw $this->createNotFoundException('Unable to find Group entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('HarprojectAppBundle:Tag:edit.html.twig', array(
+        return $this->render('HarprojectAppBundle:Group:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -134,16 +134,16 @@ class TagController extends Controller
     }
 
     /**
-    * Creates a form to edit a Tag entity.
+    * Creates a form to edit a Group entity.
     *
-    * @param Tag $entity The entity
+    * @param Group $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Tag $entity)
+    private function createEditForm(Group $entity)
     {
-        $form = $this->createForm(new TagType(), $entity, array(
-            'action' => $this->generateUrl('tag_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new GroupType(), $entity, array(
+            'action' => $this->generateUrl('harproject_app_group_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -152,17 +152,17 @@ class TagController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Tag entity.
+     * Edits an existing Group entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HarprojectAppBundle:Tag')->find($id);
+        $entity = $em->getRepository('HarprojectAppBundle:Group')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tag entity.');
+            throw $this->createNotFoundException('Unable to find Group entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -172,17 +172,17 @@ class TagController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('harproject_app_group_edit', array('id' => $id)));
         }
 
-        return $this->render('HarprojectAppBundle:Tag:edit.html.twig', array(
+        return $this->render('HarprojectAppBundle:Group:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Tag entity.
+     * Deletes a Group entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -192,21 +192,21 @@ class TagController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HarprojectAppBundle:Tag')->find($id);
+            $entity = $em->getRepository('HarprojectAppBundle:Group')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tag entity.');
+                throw $this->createNotFoundException('Unable to find Group entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('tag'));
+        return $this->redirect($this->generateUrl('harproject_app_group'));
     }
 
     /**
-     * Creates a form to delete a Tag entity by id.
+     * Creates a form to delete a Group entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -215,7 +215,7 @@ class TagController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tag_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('harproject_app_group_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
