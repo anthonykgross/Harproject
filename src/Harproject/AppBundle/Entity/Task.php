@@ -34,7 +34,7 @@ class Task extends Harproject{
      * 
      * @ORM\ManyToOne(targetEntity="Member", inversedBy="createdTasks" )
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Author_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="Author_id", referencedColumnName="id")
      * }) 
      */
     private $author;
@@ -78,7 +78,7 @@ class Task extends Harproject{
      * 
      * @var float
      *
-     * @ORM\Column(name="spent_time", type="float")
+     * @ORM\Column(name="spent_time", type="float", nullable=true)
      */
     private $spent_time;
 

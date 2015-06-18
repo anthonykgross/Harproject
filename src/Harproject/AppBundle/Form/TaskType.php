@@ -15,14 +15,18 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('created_at')
             ->add('name')
             ->add('description')
             ->add('estimated_time')
             ->add('spent_time')
-            ->add('updated_at')
-            ->add('project')
-            ->add('author')
+            ->add('project', 'entity', array(
+                "class" => 'HarprojectAppBundle:Project',
+                "property" => 'name',
+            ))
+            ->add('author', 'entity', array(
+                "class" => 'HarprojectAppBundle:Member',
+                "property" => 'id',
+            ))
         ;
     }
     

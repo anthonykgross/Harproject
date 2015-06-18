@@ -144,7 +144,7 @@ class MemberController extends Controller
     {
         $form = $this->createForm(new MemberType(), $entity, array(
             'action' => $this->generateUrl('harproject_app_member_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

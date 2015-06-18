@@ -79,7 +79,7 @@ class ServiceUser {
      * @return boolean
      */
     public function hasRole(Member $member, $role){
-        return (in_array($role, $member->getGroup()->getRoles()) && $member->getEnabled());
+        return (in_array($role, $member->getGroup()->getRoles()) && is_null($member->getDeletedAt()));
     }
 
     /**
@@ -90,9 +90,9 @@ class ServiceUser {
      */
     public function getMember(User $user, Project $project) {
         return $this->em->getRepository("HarprojectAppBundle:Member")->findOneBy(array(
-            "user"      => $user,
-            "project"   => $project, 
-            "enabled"   => true
+            "user"          => $user,
+            "project"       => $project, 
+            "deleted_at"    => null
         ));
     }
 
@@ -139,8 +139,7 @@ class ServiceUser {
      * @return Member
      */
     public function deleteMember(Member $member) {
-        $member->setEnabled(false)
-               ->setUpdatedAt(new \DateTime());
+        $member->setDeletedAt(new \DateTime());
         $this->em->persist($member);
         $this->em->flush();
         

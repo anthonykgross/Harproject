@@ -144,7 +144,7 @@ class TicketController extends Controller
     {
         $form = $this->createForm(new TicketType(), $entity, array(
             'action' => $this->generateUrl('ticket_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

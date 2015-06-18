@@ -5,6 +5,7 @@ namespace Harproject\AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Harproject\AppBundle\Entity\Group;
 
 class GroupType extends AbstractType
 {
@@ -14,10 +15,18 @@ class GroupType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $groups = array();
+        foreach(Group::$basic_roles as $g){
+            $groups[$g] = $g;
+        }
+        
         $builder
             ->add('label')
-            ->add('roles')
-            ->add('created_at')
+            ->add('roles', 'choice', array(
+                'choices'  => $groups,
+                'expanded' => true,
+                'multiple' => true
+            ))
         ;
     }
     

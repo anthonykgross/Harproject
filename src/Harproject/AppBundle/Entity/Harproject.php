@@ -40,17 +40,25 @@ abstract class Harproject {
     /**
      * @var boolean
      *
-     * @ORM\Column(name="enabled", type="boolean")
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
-    private $enabled;
+    private $deleted_at;
 
     public function __construct() {
-        $this->enabled      = true;
-        $this->created_at   = new \DateTime();
-        $this->updated_at   = new \DateTime();
-        
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
     }
     
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set created_at
      *
@@ -98,35 +106,25 @@ abstract class Harproject {
     }
 
     /**
-     * Set enabled
+     * Set deleted_at
      *
-     * @param boolean $enabled
+     * @param \DateTime $deletedAt
      * @return Harproject
      */
-    public function setEnabled($enabled)
+    public function setDeletedAt($deletedAt)
     {
-        $this->enabled = $enabled;
+        $this->deleted_at = $deletedAt;
 
         return $this;
     }
 
     /**
-     * Get enabled
+     * Get deleted_at
      *
-     * @return boolean 
+     * @return \DateTime 
      */
-    public function getEnabled()
+    public function getDeletedAt()
     {
-        return $this->enabled;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+        return $this->deleted_at;
     }
 }

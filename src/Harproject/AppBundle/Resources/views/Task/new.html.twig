@@ -1,15 +1,61 @@
-{% extends '::base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block body -%}
-    <h1>Task creation</h1>
+{% block body_title %}Task{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-tasks fa-fw"></i>
 
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu slidedown">
+                        <li>
+                            <a href="{{ path("harproject_app_task") }}"><i class="fa fa-list-ul fa-fw"></i> Task</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form action="{{ path('harproject_app_task_create') }}" {{ form_enctype(form) }} method="POST">
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.name.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.name)}}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.description) }}
+                            {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.description.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.description)}}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.estimated_time) }}
+                            {{ form_widget(form.estimated_time, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.estimated_time.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.estimated_time)}}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.spent_time) }}
+                            {{ form_widget(form.spent_time, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.spent_time.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.spent_time)}}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.project) }}
+                            {{ form_widget(form.project, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.project.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.project)}}</div>{% endif %}
+                        </div>
+                    </fieldset>
+                    {{ form_widget(form._token) }}
+                    <div>
+                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Create" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                        
 {% endblock %}

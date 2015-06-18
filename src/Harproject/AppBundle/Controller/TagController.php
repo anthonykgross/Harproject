@@ -144,7 +144,7 @@ class TagController extends Controller
     {
         $form = $this->createForm(new TagType(), $entity, array(
             'action' => $this->generateUrl('tag_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

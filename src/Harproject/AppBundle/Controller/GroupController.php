@@ -101,11 +101,8 @@ class GroupController extends Controller
             throw $this->createNotFoundException('Unable to find Group entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('HarprojectAppBundle:Group:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -124,12 +121,10 @@ class GroupController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HarprojectAppBundle:Group:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
 
@@ -144,7 +139,7 @@ class GroupController extends Controller
     {
         $form = $this->createForm(new GroupType(), $entity, array(
             'action' => $this->generateUrl('harproject_app_group_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -164,8 +159,7 @@ class GroupController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Group entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
+        $entity->setUpdatedAt(new \DateTime());
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -176,49 +170,27 @@ class GroupController extends Controller
         }
 
         return $this->render('HarprojectAppBundle:Group:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'entity'        => $entity,
+            'form'          => $editForm->createView()
         ));
     }
+    
     /**
      * Deletes a Group entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HarprojectAppBundle:Group')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HarprojectAppBundle:Group')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Group entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Group entity.');
         }
 
-        return $this->redirect($this->generateUrl('harproject_app_group'));
-    }
+        $em->remove($entity);
+        $em->flush();
 
-    /**
-     * Creates a form to delete a Group entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('harproject_app_group_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('harproject_app_group'));
     }
 }

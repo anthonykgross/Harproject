@@ -144,7 +144,7 @@ class TimeTrackerController extends Controller
     {
         $form = $this->createForm(new TimeTrackerType(), $entity, array(
             'action' => $this->generateUrl('timetracker_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

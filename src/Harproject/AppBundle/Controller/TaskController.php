@@ -44,7 +44,7 @@ class TaskController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('task_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('harproject_app_task_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HarprojectAppBundle:Task:new.html.twig', array(
@@ -63,7 +63,7 @@ class TaskController extends Controller
     private function createCreateForm(Task $entity)
     {
         $form = $this->createForm(new TaskType(), $entity, array(
-            'action' => $this->generateUrl('task_create'),
+            'action' => $this->generateUrl('harproject_app_task_create'),
             'method' => 'POST',
         ));
 
@@ -143,8 +143,8 @@ class TaskController extends Controller
     private function createEditForm(Task $entity)
     {
         $form = $this->createForm(new TaskType(), $entity, array(
-            'action' => $this->generateUrl('task_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'action' => $this->generateUrl('harproject_app_task_update', array('id' => $entity->getId())),
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -172,7 +172,7 @@ class TaskController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('task_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('harproject_app_task_edit', array('id' => $id)));
         }
 
         return $this->render('HarprojectAppBundle:Task:edit.html.twig', array(
@@ -202,7 +202,7 @@ class TaskController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('task'));
+        return $this->redirect($this->generateUrl('harproject_app_task'));
     }
 
     /**
@@ -215,7 +215,7 @@ class TaskController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('task_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('harproject_app_task_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

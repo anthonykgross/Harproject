@@ -69,8 +69,7 @@ class ServiceGroup {
      * @return Group
      */
     public function deleteGroup(Group $group){
-        $group->setEnabled(false)
-              ->setUpdatedAt(new \DateTime());
+        $group->setDeletedAt(new \DateTime());
         $this->em->persist($group);
         $this->em->flush();
         return $group;
