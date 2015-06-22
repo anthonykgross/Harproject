@@ -21,6 +21,7 @@ abstract class FixturedWebTestCase  extends WebTestCase{
     
     protected $user;
     protected $project;
+    protected $member;
     
     public function __construct(){
         $this->client       = static::createClient();
@@ -38,11 +39,11 @@ abstract class FixturedWebTestCase  extends WebTestCase{
             "label" => "Developer"
         ));
         
-        $member = $this->container->get("harproject_app.user")->addMember($this->user, $this->project, $group_developer);
+        $this->member = $this->container->get("harproject_app.user")->addMember($this->user, $this->project, $group_developer);
          
         $taskService = $this->container->get("harproject_app.task");
-        $taskService->addTask($this->project, $member, "Task1");
-        $taskService->addTask($this->project, $member, "Task2");
+        $taskService->addTask($this->project, $this->member, "Task1");
+        $taskService->addTask($this->project, $this->member, "Task2");
         
         $this->em->refresh($this->project);
         $this->em->flush();

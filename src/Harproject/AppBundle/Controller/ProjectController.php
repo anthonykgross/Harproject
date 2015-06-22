@@ -23,7 +23,9 @@ class ProjectController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('HarprojectAppBundle:Project')->findAll();
+        $entities = $em->getRepository('HarprojectAppBundle:Project')->findProjects(array(1, 264));
+        
+        //$entities = $em->getRepository('HarprojectAppBundle:Project')->findAll();
 
         return $this->render('HarprojectAppBundle:Project:index.html.twig', array(
             'entities' => $entities,

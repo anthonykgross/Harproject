@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Anthony K GROSS <anthony.k.gross@gmail.com>
+ */
 namespace Harproject\AppBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

@@ -83,17 +83,22 @@ class ServiceUser {
     }
 
     /**
-     * Return the mêmber if the User has a group for the project otherwise NULL
+     * Return the mêmbers if the User has groups for the project
      * @param User $user
      * @param Project $project
-     * @return Member or NULL
+     * @return Member[]
      */
-    public function getMember(User $user, Project $project) {
-        return $this->em->getRepository("HarprojectAppBundle:Member")->findOneBy(array(
+    public function getMembers(User $user, Project $project, Group $group = null) {
+        $params = array(
             "user"          => $user,
-            "project"       => $project, 
+            "project"       => $project,
             "deleted_at"    => null
-        ));
+        );
+        
+        if(!is_null($group)){
+            $params['group'] = $group;
+        }
+        return $this->em->getRepository("HarprojectAppBundle:Member")->findBy($params);
     }
 
     /**
@@ -105,8 +110,8 @@ class ServiceUser {
      * @return Member
      */
     public function addMember(User $user, Project $project, Group $group){
-        if($this->getMember($user, $project)){
-            throw new Exception("This user is already member of project");
+        if(count($this->getMembers($user, $project, $group)) > 1){
+            throw new Exception("This user is already member of project with the group.");
         }
 
         $member = new Member();
@@ -120,13 +125,12 @@ class ServiceUser {
     /**
      * Update the group for a member
      * @param Member $member
-     * @param Group $group
      * @throws Exception
      * @return Member
      */
 
-    public function updateMember(Member $member, Group $group){
-        $member->setGroup($group)->setUpdatedAt(new \DateTime());
+    public function updateMember(Member $member){
+        $member->setUpdatedAt(new \DateTime());
         $this->em->persist($member);
         $this->em->flush();
 

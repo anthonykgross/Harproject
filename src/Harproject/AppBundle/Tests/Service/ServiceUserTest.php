@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Anthony K GROSS <anthony.k.gross@gmail.com>
+ */
 namespace Harproject\AppBundle\Tests\Service;
 
 use Harproject\AppBundle\Tests\FixturedWebTestCase;
@@ -59,8 +62,15 @@ class ServiceUserTest extends FixturedWebTestCase{
             "label" => "Customer"
         ));
         
+        $group_developer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
+            "label" => "Developer"
+        ));
+        
         $member1 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
         $this->assertTrue(($member1 instanceof Member));
+        
+        $member2 = $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_developer);
+        $this->assertTrue(($member2 instanceof Member));
         
         try{
             $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
@@ -68,9 +78,6 @@ class ServiceUserTest extends FixturedWebTestCase{
         catch(Exception $e){
             
         }
-        $this->em->remove($member1);
-        $this->em->remove($project);
-        $this->em->flush();
     }
     
     public function testHasRole(){
@@ -99,10 +106,6 @@ class ServiceUserTest extends FixturedWebTestCase{
         //By default, only the developer can add a project
         $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "MEMBER_ADD");
         $this->assertTrue(!$hasRoleProjectAdd);
-        
-        $this->em->remove($member1);
-        $this->em->remove($project);
-        $this->em->flush();
     }
     
     public function testUpdateMember(){
@@ -132,15 +135,12 @@ class ServiceUserTest extends FixturedWebTestCase{
         $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "MEMBER_ADD");
         $this->assertTrue(!$hasRoleProjectAdd);
         
-        $member1 = $this->container->get("harproject_app.user")->updateMember($member1, $group_developer);
+        $old_member = clone $member1;
+        sleep(1);
+        
+        $member1 = $this->container->get("harproject_app.user")->updateMember($member1);
         $this->assertTrue(($member1 instanceof Member));
-        
-        //By default, only the developer can add a project
-        $hasRoleProjectAdd  = $this->container->get("harproject_app.user")->hasRole($member1, "MEMBER_ADD");
-        $this->assertTrue($hasRoleProjectAdd);
-        
-        $this->em->remove($member1);
-        $this->em->remove($project);
-        $this->em->flush();
+
+        $this->assertTrue($member1->getUpdatedAt()->getTimestamp()!=$old_member->getUpdatedAt()->getTimestamp());
     }
 }
