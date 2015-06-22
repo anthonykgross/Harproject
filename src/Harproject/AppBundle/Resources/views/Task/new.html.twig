@@ -47,6 +47,11 @@
                             {{ form_widget(form.project, { 'attr': {'class': 'form-control'} }) }}
                             {% if form.project.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.project)}}</div>{% endif %}
                         </div>
+                        <div class="form-group">
+                            {{ form_label(form.author) }}
+                            {{ form_widget(form.author, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.author.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.author)}}</div>{% endif %}
+                        </div>
                     </fieldset>
                     {{ form_widget(form._token) }}
                     <div>

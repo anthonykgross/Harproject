@@ -101,11 +101,8 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('HarprojectAppBundle:Task:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -124,12 +121,10 @@ class TaskController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HarprojectAppBundle:Task:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
 
@@ -165,7 +160,6 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -177,8 +171,7 @@ class TaskController extends Controller
 
         return $this->render('HarprojectAppBundle:Task:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
     /**
@@ -187,20 +180,16 @@ class TaskController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HarprojectAppBundle:Task')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HarprojectAppBundle:Task')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Task entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
         }
+
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('harproject_app_task'));
     }

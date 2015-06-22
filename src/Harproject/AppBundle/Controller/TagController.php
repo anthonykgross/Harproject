@@ -44,7 +44,7 @@ class TagController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('harproject_app_tag_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HarprojectAppBundle:Tag:new.html.twig', array(
@@ -63,7 +63,7 @@ class TagController extends Controller
     private function createCreateForm(Tag $entity)
     {
         $form = $this->createForm(new TagType(), $entity, array(
-            'action' => $this->generateUrl('tag_create'),
+            'action' => $this->generateUrl('harproject_app_tag_create'),
             'method' => 'POST',
         ));
 
@@ -101,11 +101,8 @@ class TagController extends Controller
             throw $this->createNotFoundException('Unable to find Tag entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('HarprojectAppBundle:Tag:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -124,12 +121,10 @@ class TagController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HarprojectAppBundle:Tag:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
 
@@ -143,7 +138,7 @@ class TagController extends Controller
     private function createEditForm(Tag $entity)
     {
         $form = $this->createForm(new TagType(), $entity, array(
-            'action' => $this->generateUrl('tag_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('harproject_app_tag_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -164,21 +159,20 @@ class TagController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tag entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
+        
+        $entity->setUpdatedAt(new \DateTime());
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('harproject_app_tag_edit', array('id' => $id)));
         }
 
         return $this->render('HarprojectAppBundle:Tag:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
     /**
@@ -187,38 +181,17 @@ class TagController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HarprojectAppBundle:Tag')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HarprojectAppBundle:Tag')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tag entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tag entity.');
         }
 
-        return $this->redirect($this->generateUrl('tag'));
-    }
+        $em->remove($entity);
+        $em->flush();
 
-    /**
-     * Creates a form to delete a Tag entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tag_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('harproject_app_tag'));
     }
 }

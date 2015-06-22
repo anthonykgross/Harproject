@@ -44,7 +44,7 @@ class TicketController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ticket_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('harproject_app_ticket_show', array('id' => $entity->getId())));
         }
 
         return $this->render('HarprojectAppBundle:Ticket:new.html.twig', array(
@@ -63,7 +63,7 @@ class TicketController extends Controller
     private function createCreateForm(Ticket $entity)
     {
         $form = $this->createForm(new TicketType(), $entity, array(
-            'action' => $this->generateUrl('ticket_create'),
+            'action' => $this->generateUrl('harproject_app_ticket_create'),
             'method' => 'POST',
         ));
 
@@ -101,11 +101,8 @@ class TicketController extends Controller
             throw $this->createNotFoundException('Unable to find Ticket entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('HarprojectAppBundle:Ticket:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -124,12 +121,10 @@ class TicketController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('HarprojectAppBundle:Ticket:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
 
@@ -143,7 +138,7 @@ class TicketController extends Controller
     private function createEditForm(Ticket $entity)
     {
         $form = $this->createForm(new TicketType(), $entity, array(
-            'action' => $this->generateUrl('ticket_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('harproject_app_ticket_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -164,21 +159,19 @@ class TicketController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Ticket entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
+        $entity->setUpdatedAt(new \DateTime());
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ticket_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('harproject_app_ticket_edit', array('id' => $id)));
         }
 
         return $this->render('HarprojectAppBundle:Ticket:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
     /**
@@ -187,22 +180,16 @@ class TicketController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('HarprojectAppBundle:Ticket')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('HarprojectAppBundle:Ticket')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Ticket entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Ticket entity.');
         }
 
-        return $this->redirect($this->generateUrl('ticket'));
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('harproject_app_ticket'));
     }
 
     /**
@@ -215,7 +202,7 @@ class TicketController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ticket_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('harproject_app_ticket_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

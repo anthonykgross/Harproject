@@ -15,11 +15,18 @@ class MemberType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('created_at')
-            ->add('updated_at')
-            ->add('group')
-            ->add('user')
-            ->add('project')
+            ->add('group', 'entity', array(
+                "class" => 'HarprojectAppBundle:Group',
+                "property" => 'label',
+            ))
+            ->add('user', 'entity', array(
+                "class" => 'HarprojectAppBundle:User',
+                "property" => 'email',
+            ))
+            ->add('project', 'entity', array(
+                "class" => 'HarprojectAppBundle:Project',
+                "property" => 'name',
+            ))
         ;
     }
     

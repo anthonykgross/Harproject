@@ -15,10 +15,7 @@ class TimeTrackerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('created_at')
-            ->add('finished_at')
             ->add('comment')
-            ->add('memberHasTasks')
         ;
     }
     

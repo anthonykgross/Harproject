@@ -16,8 +16,10 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('created_at')
-            ->add('member')
+            ->add('member', 'entity', array(
+                "class" => 'HarprojectAppBundle:Member',
+                "property" => 'id',
+            ))
         ;
     }
     
