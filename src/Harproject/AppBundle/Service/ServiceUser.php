@@ -83,6 +83,16 @@ class ServiceUser {
     }
 
     /**
+     * Return True if the User is a Member for the project
+     * @param User $user
+     * @param Project $project
+     * @return Boolean
+     */
+    public function isMember(User $user, Project $project){
+        return (count($this->getMembers($user, $project))>0);
+    }
+    
+    /**
      * Return the mêmbers if the User has groups for the project
      * @param User $user
      * @param Project $project

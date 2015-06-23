@@ -5,11 +5,12 @@
 namespace Harproject\AppBundle\Tests\Repository;
 
 use Harproject\AppBundle\Entity\Group;
+use Harproject\AppBundle\Entity\Task;
 use Harproject\AppBundle\Tests\FixturedWebTestCase;
 
-class ProjectTest extends FixturedWebTestCase{
+class TaskTest extends FixturedWebTestCase{
     
-    public function testFindProjects(){
+    public function testFindTasks(){
         $group1 = new Group();
         $group1->setLabel("group1")->setRoles(Group::$basic_roles);
         
@@ -20,11 +21,21 @@ class ProjectTest extends FixturedWebTestCase{
         $this->em->persist($group2);
         $this->em->flush();
         
+        $task3 = new Task();
+        $task4 = new Task();
+        
+        $task3->setAuthor($this->member)->setEstimatedTime(0)->setProject($this->project)->setSpentTime(0)->setName("task3");
+        $task4->setAuthor($this->member)->setEstimatedTime(0)->setProject($this->project)->setSpentTime(0)->setName("task4");
+        
+        $this->em->persist($task3);
+        $this->em->persist($task4);
+        $this->em->flush();
+        
         $member1 = $this->member;
         $member2 = $this->container->get("harproject_app.user")->addMember($this->user, $this->project, $group1);
         $member3 = $this->container->get("harproject_app.user")->addMember($this->user, $this->project, $group2);
         
-        $projects = $this->em->getRepository("HarprojectAppBundle:Project")->findProjects(array($member1->getId(), $member2->getId(), $member3->getId()));
-        $this->assertTrue(count($projects)==1);
+        $tasks = $this->em->getRepository("HarprojectAppBundle:Task")->findTasks(array($member1->getId(), $member2->getId(), $member3->getId()));
+        $this->assertTrue(count($tasks)==4);
     }
 }

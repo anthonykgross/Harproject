@@ -9,7 +9,7 @@ use Harproject\AppBundle\Entity\Harproject;
  * Task
  *
  * @ORM\Table(name="harp_Task")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Harproject\AppBundle\Entity\Repository\Task")
  */
 class Task extends Harproject{
     /**

@@ -108,6 +108,34 @@ class ServiceUserTest extends FixturedWebTestCase{
         $this->assertTrue(!$hasRoleProjectAdd);
     }
     
+    public function testIsMember(){
+        $email      = "test@test.fr";
+        $this->user = $this->container->get("harproject_app.user")->addUser($email, "test");
+        
+        $isMember   = $this->container->get("harproject_app.user")->isMember($this->user, $this->project);
+        $this->assertTrue(!$isMember);
+        
+        $project    = new Project();
+        $this->em->persist($project);
+        $this->em->flush();
+        
+        $groups = $this->em->getRepository("HarprojectAppBundle:Group")->findAll();
+        if(count($groups)==0){
+            $this->container->get("harproject_app.group")->initDefaultGroup();
+        }
+        
+        $group_customer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
+            "label" => "Customer"
+        ));
+        $group_developer = $this->em->getRepository("HarprojectAppBundle:Group")->findOneBy(array(
+            "label" => "Developer"
+        ));
+        
+        $member1    = $this->container->get("harproject_app.user")->addMember($this->user, $project, $group_customer);
+        $isMember   = $this->container->get("harproject_app.user")->isMember($this->user, $project);
+        $this->assertTrue($isMember);
+    }
+    
     public function testUpdateMember(){
         $email = "test@test.fr";
         $this->user = $this->container->get("harproject_app.user")->addUser($email, "test");

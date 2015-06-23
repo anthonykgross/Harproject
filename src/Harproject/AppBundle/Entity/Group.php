@@ -38,6 +38,11 @@ class Group extends Harproject
         "TIMETRACKER_ADD",
         "TIMETRACKER_DELETE",
         "TIMETRACKER_EDIT",
+        
+        "RELATION_VIEW",
+        "RELATION_ADD",
+        "RELATION_DELETE",
+        "RELATION_EDIT",
     );
 
     /**
