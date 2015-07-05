@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kkuetnet/Harproject.svg?branch=develop)](https://travis-ci.org/kkuetnet/Harproject)
+[![Build Status](https://travis-ci.org/anthonykgross/Harproject.svg?branch=develop)](https://travis-ci.org/anthonykgross/Harproject)
 Harproject - Harmonize your projects
 ==========
 
@@ -26,7 +26,7 @@ A Symfony project created on March 10, 2015, 4:33 pm
 **Anthony K GROSS**
 - <http://anthonykgross.fr>
 - <https://twitter.com/anthonykgross>
-- <https://github.com/kkuetnet>
+- <https://github.com/anthonykgross>
 
 ## Technologies
 - Symfony 2.3 - Composer - PhpUnit
