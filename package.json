@@ -1,0 +1,30 @@
+{
+  "name": "harproject",
+  "version": "0.0.1",
+  "description": "",
+  "main": "harproject",
+  "author": "Anthony K GROSS",
+  "contributors":[
+    {
+      "name": "Clément VIDAL",
+      "email": "clementvidalpro@gmail.com",
+      "url": "https://github.com/ClementVidal"
+    },
+    {
+      "name": "Anthony K GROSS",
+      "email": "anthony.k.gross@gmail.com",
+      "url": "https://github.com/anthonykgross"
+    }
+  ],
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "gulp": "~3.9.0",
+    "gulp-concat": "~2.6.0",
+    "gulp-header": "~1.2.2",
+    "gulp-rename": "~1.2.2",
+    "gulp-uglify": "~1.2.0",
+    "gulp-util": "~3.0.6",
+    "gulp-bower": "~0.0.10"
+  }
+}
