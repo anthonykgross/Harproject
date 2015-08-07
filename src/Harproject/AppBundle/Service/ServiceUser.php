@@ -83,6 +83,23 @@ class ServiceUser {
     }
 
     /**
+     * Return True if the User has Role for the project otherwise False
+     * @param User $user
+     * @param String $role
+     * @return boolean
+     */
+    public function userHasRole(User $user, $role){
+        $bOk = false;
+        
+        foreach($user->getMembers() as $member){
+            if(!$bOk){
+                $bOk = $this->hasRole($member, $role);
+            }
+        }
+        return $bOk;
+    }
+    
+    /**
      * Return True if the User is a Member for the project
      * @param User $user
      * @param Project $project

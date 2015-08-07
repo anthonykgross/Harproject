@@ -26,15 +26,15 @@ class ServiceProject {
      */
     public function chooseProject(User $user, Project $project){
         $members = $this->em->getRepository("HarprojectAppBundle:Member")->findBy(array(
-            "User"      => $user,
-            "Project"   => $project
+            "user"      => $user,
+            "project"   => $project
         ));
         
         if(count($members)==0){
             throw new AccessDeniedException();
         }
         
-        $session = $this->container->$this->container->get('session');
+        $session = $this->container->get('session');
         $session->set('project_id', $project->getId());
         
         return $members;

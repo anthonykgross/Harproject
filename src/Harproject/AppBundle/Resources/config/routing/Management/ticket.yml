@@ -1,0 +1,30 @@
+harproject_app_management_ticket:
+    path:     /
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:index" }
+
+harproject_app_management_ticket_show:
+    path:     /{id}/show
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:show" }
+
+harproject_app_management_ticket_new:
+    path:     /new
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:new" }
+
+harproject_app_management_ticket_create:
+    path:     /create
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:create" }
+    requirements: { _method: post }
+
+harproject_app_management_ticket_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:edit" }
+
+harproject_app_management_ticket_update:
+    path:     /{id}/update
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:update" }
+    requirements: { _method: post|put }
+
+harproject_app_management_ticket_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HarprojectAppBundle:Management\Ticket:delete" }
+    requirements: { _method: get }

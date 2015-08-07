@@ -205,6 +205,7 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
+                {% if is_granted("ROLE_MANAGER") %}
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -212,14 +213,15 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="{{ path("harproject_app_project") }}"><i class="fa fa-list fa-fw"></i> All projects</a>
+                            <a href="{{ path("harproject_app_management_project") }}"><i class="fa fa-list fa-fw"></i> All projects</a>
                         </li>
                         <li>
-                            <a href="{{ path("harproject_app_project_new") }}"><i class="fa fa-plus fa-fw"></i> New project</a>
+                            <a href="{{ path("harproject_app_management_project_new") }}"><i class="fa fa-plus fa-fw"></i> New project</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+                {% endif %}
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -263,51 +265,87 @@
                             </form>
                             <!-- /input-group -->
                         </li>
+                        <li class="sidebar-search">
+                            <form action="" method="GET" role="search">
+                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-default btn-sm dropdown-toggle form-control" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          {% if not app.session.get('project_id') %}
+                                              Projects 
+                                          {% else %}
+                                              {{ (app.session.get('project_id')|getProject).name }}
+                                          {% endif %}
+                                          <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {% for p in app.user|findProjects %}
+                                                <li><a href="{{ path("harproject_app_project_choose", {"id": p.id }) }} ">{{p.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /input-group -->
+                        </li>
+                        {% if app.session.get('project_id') %}
+                            <li class="side-title">PROJECT : {{ (app.session.get('project_id')|getProject).name }}</li>
+                            <li>
+                                <a href="{{  path("harproject_app_dashboard_index") }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_member") }}"> <i class="fa fa-graduation-cap fa-fw"></i> Members</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted("ROLE_MANAGER") %}
+                            <li class="side-title">MANAGEMENT</li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_tag") }}"><i class="fa fa-tags fa-fw"></i> Tags</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_user") }}"><i class="fa fa-user fa-fw"></i> Users</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_member") }}"> <i class="fa fa-graduation-cap fa-fw"></i> Members</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_group") }}"> <i class="fa fa-group fa-fw"></i> Groups</a>
+                            </li>
+                        {% endif %}
+                        <li class="side-title">HARPROJECT</li>
                         <li>
-                            <a href="{{  path("harproject_app_dashboard_index") }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_tag") }}"><i class="fa fa-tags fa-fw"></i> Tags</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_user") }}"><i class="fa fa-user fa-fw"></i> Users</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_member") }}"> <i class="fa fa-graduation-cap fa-fw"></i> Members</a>
-                        </li>
-                        <li>                                
-                            <a href="{{  path("harproject_app_group") }}"> <i class="fa fa-group fa-fw"></i> Groups</a>
-                        </li>
-                        <li>                                
-                            <a href="#"> <i class="fa fa-folder fa-fw"></i> Harproject<span class="fa arrow"></span></a>
+                            <a href="#"> <i class="fa fa-users fa-fw"></i> Social<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"> <i class="fa fa-users fa-fw"></i> Social<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="https://github.com/kkuetnet/Harproject" target="_blank"><i class="fa fa-github fa-fw"></i> Github</a>
-                                        </li>
-                                    </ul>
+                                    <a href="https://github.com/kkuetnet/Harproject" target="_blank"><i class="fa fa-github fa-fw"></i> Github</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fa fa-user-md fa-fw"></i>Contributors<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="http://www.clement-vidal.fr/" target="_blank"><i class="fa fa-thumbs-up fa-fw"></i> Clement Vidal</a>
                                 </li>
                                 <li>
-                                    <a href="#"> <i class="fa fa-user-md fa-fw"></i>Contributors<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="http://www.clement-vidal.fr/" target="_blank"><i class="fa fa-thumbs-up fa-fw"></i> Clement Vidal</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://anthonykgross.fr" target="_blank"><i class="fa fa-thumbs-up fa-fw"></i> Anthony K GROSS</a>
-                                        </li>
-                                    </ul>
+                                    <a href="http://anthonykgross.fr" target="_blank"><i class="fa fa-thumbs-up fa-fw"></i> Anthony K GROSS</a>
                                 </li>
                             </ul>
                         </li>

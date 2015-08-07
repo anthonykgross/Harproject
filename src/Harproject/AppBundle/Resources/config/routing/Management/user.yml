@@ -1,0 +1,12 @@
+harproject_app_management_user:
+    path:     /
+    defaults: { _controller: "HarprojectAppBundle:Management\User:index" }
+
+harproject_app_management_user_show:
+    path:     /{id}/show
+    defaults: { _controller: "HarprojectAppBundle:Management\User:show" }
+
+harproject_app_management_user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "HarprojectAppBundle:Management\User:delete" }
+    requirements: { _method: get }

@@ -67,18 +67,20 @@ class HarprojectRoleListener
      */
     private function checkRoleFromAnnotations(array $annotations)
     {
+        $user                       = $this->container->get('security.context')->getToken()->getUser();
+        
         // requirements (@Role)
         foreach ($annotations as $annotation) {
             if ($annotation instanceof HarprojectRole) {
 
-                $member = $this->getMember();
+                $members = $this->getMembers();
                 
-                if(is_null($member)){
+                if(count($members)==0){
                     throw new UnauthorizedHttpException('', "This user isn't a member of the Project");
                 }
                 
-                if(!$this->container->get('harproject_app.user')->hasRole($member, $annotation->getRole())){
-                    throw new AccessDeniedException("Acces denied for this group");
+                if(!$this->container->get('harproject_app.user')->userHasRole($user, $annotation->getRole())){
+                    throw new AccessDeniedException("Acces denied for this user");
                 }
             }
         }
@@ -93,7 +95,7 @@ class HarprojectRoleListener
         return substr($className, $pos + 8);
     }
     
-    private function getMember(){
+    private function getMembers(){
         $request                    = $this->container->get('request');
         $em                         = $this->container->get('doctrine')->getManager();
         $service_harproject_user    = $this->container->get('harproject_app.user');
@@ -120,6 +122,6 @@ class HarprojectRoleListener
         if($user == "anon."){
             throw new UnauthorizedHttpException("",'User not found');
         }
-        return $service_harproject_user->getMember($user, $project);
+        return $service_harproject_user->getMembers($user, $project);
     }
 }

@@ -26,7 +26,8 @@
         "friendsofsymfony/rest-bundle": "~1.5",
         "escapestudios/wsse-authentication-bundle": "~2.0",
         "nelmio/api-doc-bundle": "~2.8",
-        "jms/security-extra-bundle": "dev-master"
+        "jms/security-extra-bundle": "dev-master",
+        "leaseweb/secure-controller-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

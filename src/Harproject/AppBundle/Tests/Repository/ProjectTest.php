@@ -24,7 +24,7 @@ class ProjectTest extends FixturedWebTestCase{
         $member2 = $this->container->get("harproject_app.user")->addMember($this->user, $this->project, $group1);
         $member3 = $this->container->get("harproject_app.user")->addMember($this->user, $this->project, $group2);
         
-        $projects = $this->em->getRepository("HarprojectAppBundle:Project")->findProjects(array($member1->getId(), $member2->getId(), $member3->getId()));
+        $projects = $this->em->getRepository("HarprojectAppBundle:Project")->findProjects($this->user);
         $this->assertTrue(count($projects)==1);
     }
 }

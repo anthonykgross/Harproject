@@ -5,18 +5,21 @@
 namespace Harproject\AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Harproject\AppBundle\Entity\User;
 
 class Project extends EntityRepository {
     
-    public function findProjects(Array $member_ids) {
+    public function findProjects(User $user) {
         return $this->getEntityManager()
                 ->createQuery(
                     '   SELECT p 
                         FROM HarprojectAppBundle:Project p 
                             JOIN p.members m 
-                        WHERE m.id IN (:member_ids)'
+                            JOIN m.user u
+                        WHERE u.id = :user_id
+                        AND m.deleted_at IS NULL'
                 )
-                ->setParameter(":member_ids", $member_ids)
+                ->setParameter(":user_id", $user->getId())
                 ->getResult();
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50ec29c21acbdde5f03cb12f28c3c616",
+    "hash": "51ca2e90f6ff3b89c37f319c194ccf5f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1319,7 +1319,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSecurityExtraBundle/zipball/9e9a697fd39c8cd2f6af73fbe4762227848f8e31",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSecurityExtraBundle/zipball/75bd0f773b1c645d70eb6174fff67ba5779a291e",
                 "reference": "9e9a697fd39c8cd2f6af73fbe4762227848f8e31",
                 "shasum": ""
             },
@@ -1450,6 +1450,62 @@
                 "minification"
             ],
             "time": "2014-12-12 05:04:05"
+        },
+        {
+            "name": "leaseweb/secure-controller-bundle",
+            "version": "v1.0.4",
+            "target-dir": "Lsw/SecureControllerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LeaseWeb/LswSecureControllerBundle.git",
+                "reference": "5b23e6c0eeaf8b5f70ccca7fdb3e48b424d13b3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LeaseWeb/LswSecureControllerBundle/zipball/5b23e6c0eeaf8b5f70ccca7fdb3e48b424d13b3d",
+                "reference": "5b23e6c0eeaf8b5f70ccca7fdb3e48b424d13b3d",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "@stable",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.1",
+                "symfony/security-bundle": ">=2.1"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "@stable"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Lsw\\SecureControllerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maurits van der Schee",
+                    "email": "m.vanderschee@leaseweb.com"
+                }
+            ],
+            "description": "Provide '@Secure' annotation to secure actions in controllers by specifying required roles",
+            "homepage": "http://www.leaseweblabs.com",
+            "keywords": [
+                "Symfony2",
+                "annotation",
+                "controller",
+                "secure",
+                "security"
+            ],
+            "time": "2014-03-22 00:21:44"
         },
         {
             "name": "michelf/php-markdown",
