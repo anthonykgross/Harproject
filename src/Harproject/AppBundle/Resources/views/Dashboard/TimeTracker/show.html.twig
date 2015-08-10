@@ -1,0 +1,75 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body_title %}TimeTracker{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-clock-o fa-fw"></i>
+
+                {% if  app.user|hasRole("TIMETRACKER_VIEW", app.session.get("project_id")) 
+                    or app.user|hasRole("TIMETRACKER_ADD", app.session.get("project_id"))
+                    or app.user|hasRole("TIMETRACKER_DELETE", app.session.get("project_id")) 
+                    or app.user|hasRole("TIMETRACKER_EDIT", app.session.get("project_id"))%}
+                    
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            {% if app.user|hasRole("TIMETRACKER_VIEW", app.session.get("project_id")) %}
+                            <li>
+                                <a href="{{ path("harproject_app_dashboard_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTracker</a>
+                            </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TIMETRACKER_ADD", app.session.get("project_id")) %}
+                            <li>
+                                <a href="{{ path("harproject_app_dashboard_timetracker_new") }}"><i class="fa fa-plus fa-fw"></i> New timetracker</a>
+                            </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TIMETRACKER_EDIT", app.session.get("project_id")) %}
+                            <li>
+                                <a href="{{ path("harproject_app_dashboard_timetracker_edit" , {"id": entity.id}) }}"><i class="fa fa-edit fa-fw"></i> Edit</a>
+                            </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TIMETRACKER_DELETE", app.session.get("project_id")) %}
+                            <li>
+                                <a href="{{ path("harproject_app_dashboard_timetracker_delete" , {"id": entity.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Comment</div>
+                    <div class="col-lg-10">{{ entity.comment }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Description</div>
+                    <div class="col-lg-10">{{ entity.description }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Tag</div>
+                    <div class="col-lg-10">
+                        {% for tht in entity.ticketHasTags %}
+                            {{ tht.label }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Created at</div>
+                    <div class="col-lg-10">{{ entity.createdat|date('Y-m-d H:i:s') }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Updated at</div>
+                    <div class="col-lg-10">{{ entity.updatedat|date('Y-m-d H:i:s') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                       
+{% endblock %}

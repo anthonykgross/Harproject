@@ -24,8 +24,8 @@ class UserExtension extends \Twig_Extension
         );
     }
 
-    public function hasRoleFilter(User $user, $role){
-        return $this->container->get('harproject_app.user')->userHasRole($user, $role);
+    public function hasRoleFilter(User $user, $role, $project_id){
+        return $this->container->get('harproject_app.user')->userHasRole($user, $role, $project_id);
     }
 
     public function getName(){

@@ -7,17 +7,21 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-graduation-cap fa-fw"></i>
+                    
+                    {% if app.user|hasRole("MEMBER_ADD", app.session.get("project_id")) %}
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
 
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu slidedown">
-                            <li>
-                                <a href="{{ path("harproject_app_management_member_new") }}"><i class="fa fa-plus fa-fw"></i> New member</a>
-                            </li>
-                        </ul>
-                    </div>
+                            <ul class="dropdown-menu slidedown">
+                                <li>
+                                    <a href="{{ path("harproject_app_dashboard_member_new") }}"><i class="fa fa-plus fa-fw"></i> New member</a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    
                 </div>
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
@@ -43,9 +47,15 @@
                                     <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
                                     <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
                                     <td>
-                                        <a class="btn btn-default" href="{{ path('harproject_app_management_member_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
-                                        <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_management_member_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
-                                        <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_management_member_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                        {% if app.user|hasRole("MEMBER_VIEW", app.session.get("project_id")) %}
+                                            <a class="btn btn-default" href="{{ path('harproject_app_dashboard_member_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
+                                        {% endif %}
+                                        {% if app.user|hasRole("MEMBER_EDIT", app.session.get("project_id")) %}
+                                            <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_dashboard_member_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
+                                        {% endif %}
+                                        {% if app.user|hasRole("MEMBER_DELETE", app.session.get("project_id")) %}
+                                            <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_dashboard_member_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}

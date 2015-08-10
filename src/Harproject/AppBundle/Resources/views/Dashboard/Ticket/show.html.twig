@@ -1,0 +1,75 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body_title %}Ticket{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-ticket fa-fw"></i>
+
+                {% if  app.user|hasRole("TICKET_VIEW", app.session.get("project_id")) 
+                    or app.user|hasRole("TICKET_ADD", app.session.get("project_id"))
+                    or app.user|hasRole("TICKET_DELETE", app.session.get("project_id")) 
+                    or app.user|hasRole("TICKET_EDIT", app.session.get("project_id"))%}
+                    
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            {% if app.user|hasRole("TICKET_VIEW", app.session.get("project_id")) %}
+                                <li>
+                                    <a href="{{ path("harproject_app_dashboard_ticket") }}"><i class="fa fa-list-ul fa-fw"></i> Ticket</a>
+                                </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TICKET_ADD", app.session.get("project_id")) %}
+                                <li>
+                                    <a href="{{ path("harproject_app_dashboard_ticket_new") }}"><i class="fa fa-plus fa-fw"></i> New ticket</a>
+                                </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TICKET_EDIT", app.session.get("project_id")) %}
+                                <li>
+                                    <a href="{{ path("harproject_app_dashboard_ticket_edit" , {"id": entity.id}) }}"><i class="fa fa-edit fa-fw"></i> Edit</a>
+                                </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TICKET_DELETE", app.session.get("project_id")) %}
+                                <li>
+                                    <a href="{{ path("harproject_app_dashboard_ticket_delete" , {"id": entity.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Member</div>
+                    <div class="col-lg-10">{{ entity.member.id }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Description</div>
+                    <div class="col-lg-10">{{ entity.description }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Tag</div>
+                    <div class="col-lg-10">
+                        {% for tht in entity.ticketHasTags %}
+                            {{ tht.label }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Created at</div>
+                    <div class="col-lg-10">{{ entity.createdat|date('Y-m-d H:i:s') }}</div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">Updated at</div>
+                    <div class="col-lg-10">{{ entity.updatedat|date('Y-m-d H:i:s') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                       
+{% endblock %}

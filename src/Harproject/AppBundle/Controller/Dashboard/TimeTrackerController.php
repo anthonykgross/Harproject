@@ -1,9 +1,10 @@
 <?php
 
-namespace Harproject\AppBundle\Controller\Management;
+namespace Harproject\AppBundle\Controller\Dashboard;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Harproject\AppBundle\Request\HarprojectRole;
 
 use Harproject\AppBundle\Entity\TimeTracker;
 use Harproject\AppBundle\Form\TimeTrackerType;
@@ -16,25 +17,31 @@ class TimeTrackerController extends Controller
 
     /**
      * Lists all TimeTracker entities.
-     *
+     * @HarprojectRole(role="TIMETRACKER_VIEW")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
+        $project_id = $this->get('session')->get('project_id');
         $entities = $em->getRepository('HarprojectAppBundle:TimeTracker')->findAll();
-
-        return $this->render('HarprojectAppBundle:Management\TimeTracker:index.html.twig', array(
+        
+        return $this->render('HarprojectAppBundle:Dashboard\TimeTracker:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
      * Creates a new TimeTracker entity.
-     *
+     * @HarprojectRole(role="TIMETRACKER_ADD")
      */
     public function createAction(Request $request)
     {
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
+        
         $entity = new TimeTracker();
+        
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -43,10 +50,10 @@ class TimeTrackerController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('harproject_app_management_timetracker_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('harproject_app_dashboard_timetracker_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('HarprojectAppBundle:Management\TimeTracker:new.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\TimeTracker:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -62,7 +69,7 @@ class TimeTrackerController extends Controller
     private function createCreateForm(TimeTracker $entity)
     {
         $form = $this->createForm(new TimeTrackerType(), $entity, array(
-            'action' => $this->generateUrl('harproject_app_management_timetracker_create'),
+            'action' => $this->generateUrl('harproject_app_dashboard_timetracker_create'),
             'method' => 'POST',
         ));
 
@@ -73,14 +80,18 @@ class TimeTrackerController extends Controller
 
     /**
      * Displays a form to create a new TimeTracker entity.
-     *
+     * @HarprojectRole(role="TIMETRACKER_ADD")
      */
     public function newAction()
     {
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
+        
         $entity = new TimeTracker();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('HarprojectAppBundle:Management\TimeTracker:new.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\TimeTracker:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -88,11 +99,13 @@ class TimeTrackerController extends Controller
 
     /**
      * Finds and displays a TimeTracker entity.
-     *
+     * @HarprojectRole(role="TIMETRACKER_VIEW")
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
 
         $entity = $em->getRepository('HarprojectAppBundle:TimeTracker')->find($id);
 
@@ -100,18 +113,20 @@ class TimeTrackerController extends Controller
             throw $this->createNotFoundException('Unable to find TimeTracker entity.');
         }
 
-        return $this->render('HarprojectAppBundle:Management\TimeTracker:show.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\TimeTracker:show.html.twig', array(
             'entity'      => $entity
         ));
     }
 
     /**
      * Displays a form to edit an existing TimeTracker entity.
-     *
+     * @HarprojectRole(role="TIMETRACKER_EDIT")
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
 
         $entity = $em->getRepository('HarprojectAppBundle:TimeTracker')->find($id);
 
@@ -121,7 +136,7 @@ class TimeTrackerController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('HarprojectAppBundle:Management\TimeTracker:edit.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\TimeTracker:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView()
         ));
@@ -137,7 +152,7 @@ class TimeTrackerController extends Controller
     private function createEditForm(TimeTracker $entity)
     {
         $form = $this->createForm(new TimeTrackerType(), $entity, array(
-            'action' => $this->generateUrl('harproject_app_management_timetracker_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('harproject_app_dashboard_timetracker_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -147,11 +162,13 @@ class TimeTrackerController extends Controller
     }
     /**
      * Edits an existing TimeTracker entity.
-     *
+     * @HarprojectRole(role="TIMETRACKER_EDIT")
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
 
         $entity = $em->getRepository('HarprojectAppBundle:TimeTracker')->find($id);
 
@@ -165,21 +182,24 @@ class TimeTrackerController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('harproject_app_management_timetracker_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('harproject_app_dashboard_timetracker_edit', array('id' => $id)));
         }
 
-        return $this->render('HarprojectAppBundle:Management\TimeTracker:edit.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\TimeTracker:edit.html.twig', array(
             'entity'        => $entity,
             'form'          => $editForm->createView()
         ));
     }
     /**
      * Deletes a TimeTracker entity.
-     *
+     * @HarprojectRole(role="TIMETRACKER_DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
+        
         $entity = $em->getRepository('HarprojectAppBundle:TimeTracker')->find($id);
 
         if (!$entity) {
@@ -189,6 +209,6 @@ class TimeTrackerController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('harproject_app_management_timetracker'));
+        return $this->redirect($this->generateUrl('harproject_app_dashboard_timetracker'));
     }
 }

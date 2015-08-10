@@ -1,30 +1,30 @@
 harproject_app_management_project:
     path:     /
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:index" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:index' }
 
 harproject_app_management_project_show:
     path:     /{id}/show
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:show" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:show' }
 
 harproject_app_management_project_new:
     path:     /new
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:new" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:new' }
 
 harproject_app_management_project_create:
     path:     /create
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:create" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:create' }
     requirements: { _method: post }
 
 harproject_app_management_project_edit:
     path:     /{id}/edit
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:edit" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:edit' }
 
 harproject_app_management_project_update:
     path:     /{id}/update
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:update" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:update' }
     requirements: { _method: post|put }
 
 harproject_app_management_project_delete:
     path:     /{id}/delete
-    defaults: { _controller: "HarprojectAppBundle:Management\Project:delete" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Project:delete' }
     requirements: { _method: get }

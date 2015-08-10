@@ -1,47 +1,66 @@
+##### MANAGEMENT #####
 harproject_app_management_member:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/member.yml"
-    prefix:   /member
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/member.yml'
+    prefix:   /dashboard/management/member
 
 harproject_app_management_group:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/group.yml"
-    prefix:   /group
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/group.yml'
+    prefix:   /dashboard/management/group
 
 harproject_app_management_ticket:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/ticket.yml"
-    prefix:   /dashboard/ticket
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/ticket.yml'
+    prefix:   /dashboard/management/ticket
 
 harproject_app_management_timetracker:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/timetracker.yml"
-    prefix:   /dashboard/timetracker
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/timetracker.yml'
+    prefix:   /dashboard/management/timetracker
 
 harproject_app_management_user:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/user.yml"
-    prefix:   /dashboard/user
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/user.yml'
+    prefix:   /dashboard/management/user
 
 harproject_app_management_tag:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/tag.yml"
-    prefix:   /dashboard/tag
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/tag.yml'
+    prefix:   /dashboard/management/tag
 
 harproject_app_management_task:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/task.yml"
-    prefix:   /dashboard/task
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/task.yml'
+    prefix:   /dashboard/management/task
 
 harproject_app_management_project:
-    resource: "@HarprojectAppBundle/Resources/config/routing/Management/project.yml"
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/project.yml'
+    prefix:   /dashboard/management/project
+
+##### DASHBOARD #####
+harproject_app_dashboard_project:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Dashboard/project.yml'
     prefix:   /dashboard/project
 
-harproject_app_project:
-    resource: "@HarprojectAppBundle/Resources/config/routing/project.yml"
-    prefix:   /dashboard/project
+harproject_app_dashboard_member:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Dashboard/member.yml'
+    prefix:   /dashboard/member
+  
+harproject_app_dashboard_task:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Dashboard/task.yml'
+    prefix:   /dashboard/task
+  
+harproject_app_dashboard_timetracker:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Dashboard/timetracker.yml'
+    prefix:   /dashboard/timetracker
+  
+harproject_app_dashboard_ticket:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Dashboard/ticket.yml'
+    prefix:   /dashboard/ticket
     
 harproject_app_dashboard_homepage:
     path:   /
-    defaults:  { _controller: HarprojectAppBundle:Dashboard:homepage }
+    defaults:  { _controller: 'HarprojectAppBundle:Dashboard:homepage' }
     
 harproject_app_dashboard_index:
     path:   /dashboard
-    defaults:  { _controller: HarprojectAppBundle:Dashboard:index }
+    defaults:  { _controller: 'HarprojectAppBundle:Dashboard:index' }
     
+##### API #####    
 api_test:
     path:   /api/test
-    defaults:  { _controller: HarprojectAppBundle:Api:test }
+    defaults:  { _controller: 'HarprojectAppBundle:Api:test' }

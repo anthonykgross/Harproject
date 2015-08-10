@@ -1,9 +1,10 @@
 <?php
 
-namespace Harproject\AppBundle\Controller\Management;
+namespace Harproject\AppBundle\Controller\Dashboard;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Harproject\AppBundle\Request\HarprojectRole;
 
 use Harproject\AppBundle\Entity\Task;
 use Harproject\AppBundle\Form\TaskType;
@@ -16,25 +17,32 @@ class TaskController extends Controller
 
     /**
      * Lists all Task entities.
-     *
+     * @HarprojectRole(role="TASK_VIEW")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('HarprojectAppBundle:Task')->findAll();
-
-        return $this->render('HarprojectAppBundle:Management\Task:index.html.twig', array(
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $entities   = $em->getRepository('HarprojectAppBundle:Task')->findBy(array(
+            "project" => $em->getRepository('HarprojectAppBundle:Project')->find($project_id)
+        ));
+        
+        return $this->render('HarprojectAppBundle:Dashboard\Task:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
      * Creates a new Task entity.
-     *
+     * @HarprojectRole(role="TASK_ADD")
      */
     public function createAction(Request $request)
     {
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
+
         $entity = new Task();
+        $entity->setProject($project);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -43,10 +51,10 @@ class TaskController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('harproject_app_management_task_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('harproject_app_dashboard_task_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('HarprojectAppBundle:Management\Task:new.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\Task:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -62,7 +70,7 @@ class TaskController extends Controller
     private function createCreateForm(Task $entity)
     {
         $form = $this->createForm(new TaskType(), $entity, array(
-            'action' => $this->generateUrl('harproject_app_management_task_create'),
+            'action' => $this->generateUrl('harproject_app_dashboard_task_create'),
             'method' => 'POST',
         ));
 
@@ -73,14 +81,20 @@ class TaskController extends Controller
 
     /**
      * Displays a form to create a new Task entity.
-     *
+     * @HarprojectRole(role="TASK_ADD")
      */
     public function newAction()
     {
+        $em         = $this->getDoctrine()->getManager();
+        $project_id = $this->get('session')->get('project_id');
+        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($project_id);
+        
         $entity = new Task();
+        $entity->setProject($project);
+        
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('HarprojectAppBundle:Management\Task:new.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\Task:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -88,7 +102,7 @@ class TaskController extends Controller
 
     /**
      * Finds and displays a Task entity.
-     *
+     * @HarprojectRole(role="TASK_VIEW")
      */
     public function showAction($id)
     {
@@ -100,28 +114,32 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
-        return $this->render('HarprojectAppBundle:Management\Task:show.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\Task:show.html.twig', array(
             'entity'      => $entity
         ));
     }
 
     /**
      * Displays a form to edit an existing Task entity.
-     *
+     * @HarprojectRole(role="TASK_EDIT")
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('HarprojectAppBundle:Task')->find($id);
-
+        
+        $project_id = $this->get('session')->get('project_id');
+        $entity   = $em->getRepository('HarprojectAppBundle:Task')->findOneBy(array(
+            "project"   => $em->getRepository('HarprojectAppBundle:Project')->find($project_id),
+            "id"        => $id
+        ));
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('HarprojectAppBundle:Management\Task:edit.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\Task:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView()
         ));
@@ -137,7 +155,7 @@ class TaskController extends Controller
     private function createEditForm(Task $entity)
     {
         $form = $this->createForm(new TaskType(), $entity, array(
-            'action' => $this->generateUrl('harproject_app_management_task_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('harproject_app_dashboard_task_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -147,13 +165,17 @@ class TaskController extends Controller
     }
     /**
      * Edits an existing Task entity.
-     *
+     * @HarprojectRole(role="TASK_EDIT")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('HarprojectAppBundle:Task')->find($id);
+        $project_id = $this->get('session')->get('project_id');
+        $entity   = $em->getRepository('HarprojectAppBundle:Task')->findOneBy(array(
+            "project"   => $em->getRepository('HarprojectAppBundle:Project')->find($project_id),
+            "id"        => $id
+        ));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
@@ -165,23 +187,28 @@ class TaskController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('harproject_app_management_task_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('harproject_app_dashboard_task_edit', array('id' => $id)));
         }
 
-        return $this->render('HarprojectAppBundle:Management\Task:edit.html.twig', array(
+        return $this->render('HarprojectAppBundle:Dashboard\Task:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView()
         ));
     }
     /**
      * Deletes a Task entity.
-     *
+     * @HarprojectRole(role="TASK_DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('HarprojectAppBundle:Task')->find($id);
+        
+        $project_id = $this->get('session')->get('project_id');
+        $entity   = $em->getRepository('HarprojectAppBundle:Task')->findOneBy(array(
+            "project"   => $em->getRepository('HarprojectAppBundle:Project')->find($project_id),
+            "id"        => $id
+        ));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
@@ -190,7 +217,7 @@ class TaskController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('harproject_app_management_task'));
+        return $this->redirect($this->generateUrl('harproject_app_dashboard_task'));
     }
 
     /**
@@ -203,7 +230,7 @@ class TaskController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('harproject_app_management_task_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('harproject_app_dashboard_task_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

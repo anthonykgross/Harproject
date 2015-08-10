@@ -1,0 +1,30 @@
+harproject_app_dashboard_member:
+    path:     /
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:index' }
+
+harproject_app_dashboard_member_show:
+    path:     /{id}/show
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:show' }
+
+harproject_app_dashboard_member_new:
+    path:     /new
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:new' }
+
+harproject_app_dashboard_member_create:
+    path:     /create
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:create' }
+    requirements: { _method: post }
+
+harproject_app_dashboard_member_edit:
+    path:     /{id}/edit
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:edit' }
+
+harproject_app_dashboard_member_update:
+    path:     /{id}/update
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:update' }
+    requirements: { _method: post|put }
+
+harproject_app_dashboard_member_delete:
+    path:     /{id}/delete
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Member:delete' }
+    requirements: { _method: get }

@@ -79,7 +79,7 @@ class HarprojectRoleListener
                     throw new UnauthorizedHttpException('', "This user isn't a member of the Project");
                 }
                 
-                if(!$this->container->get('harproject_app.user')->userHasRole($user, $annotation->getRole())){
+                if(!$this->container->get('harproject_app.user')->userHasRole($user, $annotation->getRole(), $members[0]->getProject()->getId())){
                     throw new AccessDeniedException("Acces denied for this user");
                 }
             }

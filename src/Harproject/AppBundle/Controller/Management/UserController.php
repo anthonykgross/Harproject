@@ -11,7 +11,6 @@ use Harproject\AppBundle\Form\UserType;
 
 /**
  * User controller.
- * @Secure(roles="ROLE_MANAGER")
  */
 class UserController extends Controller
 {

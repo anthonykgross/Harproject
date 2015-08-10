@@ -1,6 +1,6 @@
 <?php
 
-namespace Harproject\AppBundle\Controller;
+namespace Harproject\AppBundle\Controller\Dashboard;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

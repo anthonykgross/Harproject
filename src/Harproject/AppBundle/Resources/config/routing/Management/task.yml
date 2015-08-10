@@ -1,30 +1,30 @@
 harproject_app_management_task:
     path:     /
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:index" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:index' }
 
 harproject_app_management_task_show:
     path:     /{id}/show
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:show" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:show' }
 
 harproject_app_management_task_new:
     path:     /new
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:new" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:new' }
 
 harproject_app_management_task_create:
     path:     /create
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:create" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:create' }
     requirements: { _method: post }
 
 harproject_app_management_task_edit:
     path:     /{id}/edit
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:edit" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:edit' }
 
 harproject_app_management_task_update:
     path:     /{id}/update
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:update" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:update' }
     requirements: { _method: post|put }
 
 harproject_app_management_task_delete:
     path:     /{id}/delete
-    defaults: { _controller: "HarprojectAppBundle:Management\Task:delete" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Task:delete' }
     requirements: { _method: get }

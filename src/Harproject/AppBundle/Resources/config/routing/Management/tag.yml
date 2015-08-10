@@ -1,30 +1,30 @@
 harproject_app_management_tag:
     path:     /
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:index" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:index' }
 
 harproject_app_management_tag_show:
     path:     /{id}/show
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:show" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:show' }
 
 harproject_app_management_tag_new:
     path:     /new
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:new" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:new' }
 
 harproject_app_management_tag_create:
     path:     /create
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:create" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:create' }
     requirements: { _method: post }
 
 harproject_app_management_tag_edit:
     path:     /{id}/edit
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:edit" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:edit' }
 
 harproject_app_management_tag_update:
     path:     /{id}/update
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:update" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:update' }
     requirements: { _method: post|put }
 
 harproject_app_management_tag_delete:
     path:     /{id}/delete
-    defaults: { _controller: "HarprojectAppBundle:Management\Tag:delete" }
+    defaults: { _controller: 'HarprojectAppBundle:Management\Tag:delete' }
     requirements: { _method: get }

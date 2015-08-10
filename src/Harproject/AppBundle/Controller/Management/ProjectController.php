@@ -4,41 +4,24 @@ namespace Harproject\AppBundle\Controller\Management;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Lsw\SecureControllerBundle\Annotation\Secure;
 
 use Harproject\AppBundle\Entity\Project;
 use Harproject\AppBundle\Form\ProjectType;
 
 /**
  * Project controller.
- * @Secure(roles="ROLE_MANAGER")
  */
 class ProjectController extends Controller
 {
 
     /**
-     * Let the user choose it project
-     * @param Integer $id
-     */
-    public function chooseAction($id){
-        $em         = $this->getDoctrine()->getManager();
-        $user       = $this->get('security.context')->getToken()->getUser();
-        $project    = $em->getRepository('HarprojectAppBundle:Project')->find($id);
-        
-        $this->get("harproject_app.project")->chooseProject($user, $project);
-        
-        return $this->redirect($this->generateUrl('harproject_app_management_dashboard_index'));
-    }
-    
-    /**
      * Lists all Project entities.
      */
     public function indexAction()
     {
-        $em     = $this->getDoctrine()->getManager();
-        $user   = $this->get('security.context')->getToken()->getUser();
+        $em         = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('HarprojectAppBundle:Project')->findAll();
+        $entities   = $em->getRepository('HarprojectAppBundle:Project')->findAll();
 
         return $this->render('HarprojectAppBundle:Management\Project:index.html.twig', array(
             'entities' => $entities,

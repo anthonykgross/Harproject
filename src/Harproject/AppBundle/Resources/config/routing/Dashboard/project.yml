@@ -1,0 +1,4 @@
+harproject_app_dashboard_project_choose:
+    path:     /{id}/choose
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Project:choose' }
+    requirements: { _method: get }

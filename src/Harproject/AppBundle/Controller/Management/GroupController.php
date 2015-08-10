@@ -4,14 +4,12 @@ namespace Harproject\AppBundle\Controller\Management;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Lsw\SecureControllerBundle\Annotation\Secure;
 
 use Harproject\AppBundle\Entity\Group;
 use Harproject\AppBundle\Form\GroupType;
 
 /**
  * Group controller.
- * @Secure(roles="ROLE_MANAGER")
  */
 class GroupController extends Controller
 {

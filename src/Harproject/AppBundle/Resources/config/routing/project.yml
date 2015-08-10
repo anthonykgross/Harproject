@@ -1,4 +1,0 @@
-harproject_app_project_choose:
-    path:     /{id}/choose
-    defaults: { _controller: "HarprojectAppBundle:Project:choose" }
-    requirements: { _method: get }

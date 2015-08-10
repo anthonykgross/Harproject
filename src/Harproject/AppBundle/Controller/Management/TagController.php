@@ -4,14 +4,12 @@ namespace Harproject\AppBundle\Controller\Management;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Lsw\SecureControllerBundle\Annotation\Secure;
 
 use Harproject\AppBundle\Entity\Tag;
 use Harproject\AppBundle\Form\TagType;
 
 /**
  * Tag controller.
- * @Secure(roles="ROLE_MANAGER")
  */
 class TagController extends Controller
 {

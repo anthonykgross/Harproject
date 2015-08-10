@@ -273,13 +273,15 @@
                                           {% if not app.session.get('project_id') %}
                                               Projects 
                                           {% else %}
-                                              {{ (app.session.get('project_id')|getProject).name }}
+                                              {% if app.session.get('project_id')|getProject is not null %}
+                                                {{ (app.session.get('project_id')|getProject).name }}
+                                              {% endif %}
                                           {% endif %}
                                           <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
                                             {% for p in app.user|findProjects %}
-                                                <li><a href="{{ path("harproject_app_project_choose", {"id": p.id }) }} ">{{p.name}}</a></li>
+                                                <li><a href="{{ path("harproject_app_dashboard_project_choose", {"id": p.id }) }} ">{{p.name}}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </div>
@@ -288,22 +290,30 @@
                             <!-- /input-group -->
                         </li>
                         {% if app.session.get('project_id') %}
-                            <li class="side-title">PROJECT : {{ (app.session.get('project_id')|getProject).name }}</li>
+                            <li class="side-title">PROJECT : {% if app.session.get('project_id')|getProject is not null %}{{ (app.session.get('project_id')|getProject).name }}{% endif %}</li>
                             <li>
                                 <a href="{{  path("harproject_app_dashboard_index") }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
+                            {% if app.user|hasRole("TASK_VIEW", app.session.get('project_id')) %}
                             <li>                                
-                                <a href="{{  path("harproject_app_management_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
+                                <a href="{{  path("harproject_app_dashboard_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
                             </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TIMETRACKER_VIEW", app.session.get('project_id')) %}
                             <li>                                
-                                <a href="{{  path("harproject_app_management_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
+                                <a href="{{  path("harproject_app_dashboard_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
                             </li>
+                            {% endif %}
+                            {% if app.user|hasRole("TICKET_VIEW", app.session.get('project_id')) %}
                             <li>                                
-                                <a href="{{  path("harproject_app_management_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
+                                <a href="{{  path("harproject_app_dashboard_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
                             </li>
+                            {% endif %}
+                            {% if app.user|hasRole("MEMBER_VIEW", app.session.get('project_id')) %}
                             <li>                                
-                                <a href="{{  path("harproject_app_management_member") }}"> <i class="fa fa-graduation-cap fa-fw"></i> Members</a>
+                                <a href="{{  path("harproject_app_dashboard_member") }}"> <i class="fa fa-graduation-cap fa-fw"></i> Members</a>
                             </li>
+                            {% endif %}
                         {% endif %}
                         {% if is_granted("ROLE_MANAGER") %}
                             <li class="side-title">MANAGEMENT</li>

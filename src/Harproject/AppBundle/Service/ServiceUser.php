@@ -88,11 +88,11 @@ class ServiceUser {
      * @param String $role
      * @return boolean
      */
-    public function userHasRole(User $user, $role){
+    public function userHasRole(User $user, $role, $project_id){
         $bOk = false;
         
         foreach($user->getMembers() as $member){
-            if(!$bOk){
+            if(!$bOk && $member->getProject()->getId() == $project_id){
                 $bOk = $this->hasRole($member, $role);
             }
         }

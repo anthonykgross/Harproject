@@ -17,8 +17,37 @@ class ServiceGroup {
     
     public function initDefaultGroup(){
         $roles      = Group::$basic_roles;
+
         
-        $developer  = $roles;
+        $developer  = array(
+            "MEMBER_VIEW",
+
+            "TICKET_VIEW",
+            "TICKET_ADD",
+            "TICKET_DELETE",
+            "TICKET_EDIT",
+
+            "TASK_VIEW",
+            "TASK_ADD",
+            "TASK_DELETE",
+            "TASK_EDIT",
+
+            "STATUS_VIEW",
+            "STATUS_ADD",
+            "STATUS_DELETE",
+            "STATUS_EDIT",
+
+            "TIMETRACKER_VIEW",
+            "TIMETRACKER_ADD",
+            "TIMETRACKER_DELETE",
+            "TIMETRACKER_EDIT",
+
+            "RELATION_VIEW",
+            "RELATION_ADD",
+            "RELATION_DELETE",
+            "RELATION_EDIT",
+        );
+        
         $customer   = array(
             "PROJECT_VIEW",
             "MEMBER_VIEW",
