@@ -1,0 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 août 2015, 14:35:55
+    Author     : Anthony K GROSS <anthony.k.gross@gmail.com>
+*/
+
+#side-menu .side-title {
+    color: #FF5B5B;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
