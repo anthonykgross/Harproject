@@ -2,6 +2,7 @@
 
 namespace Harproject\AppBundle\Entity;
 
+use Harproject\AppBundle\Entity\HarprojectInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Harproject\OverrideBundle\Entity\FOSUserBundle\User as BaseUser;
 
@@ -9,7 +10,7 @@ use Harproject\OverrideBundle\Entity\FOSUserBundle\User as BaseUser;
  * @ORM\Entity
  * @ORM\Table(name="harp_User")
  */
-class User extends BaseUser {
+class User extends BaseUser implements HarprojectInterface {
     
     /**
      * @ORM\Id
@@ -32,6 +33,14 @@ class User extends BaseUser {
      * @ORM\OneToMany(targetEntity="Member", mappedBy="user", cascade={"remove", "persist"})
      */
     private $members;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deleted_at;
+
     /**
      * Constructor
      */
@@ -128,5 +137,38 @@ class User extends BaseUser {
     public function getMembers()
     {
         return $this->members;
+    }
+
+    /**
+     * Set deleted_at
+     *
+     * @param \DateTime $deletedAt
+     * @return Harproject
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deleted_at = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted_at
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deleted_at;
+    }
+
+    /**
+     * Check if this entity is deleted or not
+     *
+     * @return boolean 
+     */
+    public function isDeleted()
+    {
+        return $this->deleted_at != null;
     }
 }

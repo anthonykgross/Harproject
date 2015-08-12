@@ -31,15 +31,19 @@ class ServiceUser {
      * @return User
      */
     public function addUser($email, $password) {
-        $user = $this->em->getRepository("HarprojectAppBundle:User")->findOneBy(array(
+        $user = $this->em->getRepository("HarprojectAppBundle:User")->rawFindOneBy(array(
             "email" => $email
         ));
 
-        if ($user) {
+        // If an user with this email exist AND if this user is not deleted 
+        if ($user && ! $user->isDeleted() ) {
             throw new Exception("This user is already registered");
         }
 
-        $user = new User();
+        if( ! $user ) {
+            $user = new User();
+        }
+
         $user->setEmail($email);
         $user->setPlainPassword($password);
         $user->setUsername($email);

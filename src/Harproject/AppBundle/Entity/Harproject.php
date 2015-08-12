@@ -7,12 +7,13 @@
 namespace Harproject\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Harproject\AppBundle\Entity\HarprojectInterface;
 
 
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class Harproject {
+abstract class Harproject implements HarprojectInterface {
     
     /**
      * @var integer
@@ -38,7 +39,7 @@ abstract class Harproject {
     private $updated_at;
     
     /**
-     * @var boolean
+     * @var datetime
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
@@ -126,5 +127,15 @@ abstract class Harproject {
     public function getDeletedAt()
     {
         return $this->deleted_at;
+    }
+
+    /**
+     * Check if this entity is deleted or not
+     *
+     * @return boolean 
+     */
+    public function isDeleted()
+    {
+        return $this->deleted_at != null;
     }
 }

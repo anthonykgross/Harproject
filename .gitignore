@@ -11,5 +11,7 @@
 /web/bundles/
 /nbproject
 /web/libs/
+/node_modules/
+/install.sh
 
 src/Harproject/AppBundle/Resources/doc/*.bak

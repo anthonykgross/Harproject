@@ -59,7 +59,8 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
-        
+        default_repository_class:  Harproject\OverrideBundle\Doctrine\EntityRepository
+
 # JMS SECURITY EXTRA
 jms_security_extra:
     secure_all_services: true

@@ -1,4 +1,2 @@
-services:
-#    harproject_override.example:
-#        class: Harproject\OverrideBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+parameters:
+    doctrine.orm.entity_manager.class: Harproject\OverrideBundle\Doctrine\EntityManager

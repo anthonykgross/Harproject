@@ -46,6 +46,7 @@ class TicketController extends Controller
             return $this->redirect($this->generateUrl('harproject_app_management_ticket_show', array('id' => $entity->getId())));
         }
 
+           
         return $this->render('HarprojectAppBundle:Management\Ticket:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
