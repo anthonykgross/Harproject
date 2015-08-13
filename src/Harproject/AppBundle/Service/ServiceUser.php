@@ -50,6 +50,7 @@ class ServiceUser {
         $user->setApiKey("apiKey");
         $user->setApiSecret("apiSecret");
         $user->setEnabled(True);
+        $user->setDeletedAt(null);
         $this->em->persist($user);
         $this->em->flush();
 
