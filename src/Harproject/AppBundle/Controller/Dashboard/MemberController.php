@@ -207,9 +207,9 @@ class MemberController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em         = $this->getDoctrine()->getManager();
         $project_id = $this->get('session')->get('project_id');
-        
+
         $entity     = $em->getRepository('HarprojectAppBundle:Member')->findOneBy(array(
             "project"   => $em->getRepository('HarprojectAppBundle:Project')->find($project_id),
             "id"        => $id
@@ -218,10 +218,8 @@ class MemberController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Member entity.');
         }
-
-        $em->remove($entity);
-        $em->flush();
         
+        $this->get('harproject_app.user')->deleteMember($entity);
         return $this->redirect($this->generateUrl('harproject_app_dashboard_member'));
     }
 }

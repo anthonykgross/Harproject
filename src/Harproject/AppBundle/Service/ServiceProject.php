@@ -39,4 +39,12 @@ class ServiceProject {
         
         return $members;
     }
+    
+    /**
+     * Unset into User session the project_id.
+     */
+    public function resetSession(){
+        $session = $this->container->get('session');
+        $session->set('project_id', null);
+    }
 }

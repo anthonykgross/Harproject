@@ -49,8 +49,7 @@ class ServiceTask {
      * @param Task $task
      */
     public function deleteTask(Task $task) {
-        $task->setDeletedAt(new \DateTime());
-        $this->em->persist($task);
+        $this->em->remove($task);
         $this->em->flush();
     }
     

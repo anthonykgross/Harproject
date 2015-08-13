@@ -1,12 +1,12 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block body_title %}Ticket{% endblock %}
+{% block body_title %}RelationType{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-ticket fa-fw"></i>
+                <i class="fa fa-link fa-fw"></i>
 
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -14,23 +14,18 @@
                     </button>
                     <ul class="dropdown-menu slidedown">
                         <li>
-                            <a href="{{ path("harproject_app_management_ticket") }}"><i class="fa fa-ticket fa-fw"></i> Ticket</a>
+                            <a href="{{ path("harproject_app_management_relation_type") }}"><i class="fa fa-ticket fa-fw"></i> RelationType</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="panel-body">
-                <form action="{{ path('harproject_app_management_ticket_create') }}" {{ form_enctype(form) }} method="POST">
+                <form action="{{ path('harproject_app_management_relation_type_create') }}" {{ form_enctype(form) }} method="POST">
                     <fieldset>
                         <div class="form-group">
-                            {{ form_label(form.description) }}
-                            {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
-                            {% if form.description.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.description)}}</div>{% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.member) }}
-                            {{ form_widget(form.member, { 'attr': {'class': 'form-control'} }) }}
-                            {% if form.member.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.member)}}</div>{% endif %}
+                            {{ form_label(form.label) }}
+                            {{ form_widget(form.label, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.label.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.label)}}</div>{% endif %}
                         </div>
                     </fieldset>
                     {{ form_widget(form._token) }}

@@ -45,7 +45,9 @@
                                     <td>
                                         <a class="btn btn-default" href="{{ path('harproject_app_management_group_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
                                         <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_management_group_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
+                                        {% if not entity.isLocked %}
                                         <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_management_group_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}

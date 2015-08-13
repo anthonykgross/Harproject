@@ -1,12 +1,12 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block body_title %}TimeTracker{% endblock %}
+{% block body_title %}Status{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-clock-o fa-fw"></i>
+                <i class="fa fa-bookmark fa-fw"></i>
 
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -14,18 +14,18 @@
                     </button>
                     <ul class="dropdown-menu slidedown">
                         <li>
-                            <a href="{{ path("harproject_app_management_timetracker") }}"><i class="fa fa-list-ul fa-fw"></i> TimeTracker</a>
+                            <a href="{{ path("harproject_app_management_status") }}"><i class="fa fa-ticket fa-fw"></i> Status</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="panel-body">
-                <form action="{{ path('harproject_app_management_timetracker_create') }}" {{ form_enctype(form) }} method="POST">
+                <form action="{{ path('harproject_app_management_status_create') }}" {{ form_enctype(form) }} method="POST">
                     <fieldset>
                         <div class="form-group">
-                            {{ form_label(form.comment) }}
-                            {{ form_widget(form.comment, { 'attr': {'class': 'form-control'} }) }}
-                            {% if form.comment.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.comment)}}</div>{% endif %}
+                            {{ form_label(form.label) }}
+                            {{ form_widget(form.label, { 'attr': {'class': 'form-control'} }) }}
+                            {% if form.label.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.label)}}</div>{% endif %}
                         </div>
                     </fieldset>
                     {{ form_widget(form._token) }}

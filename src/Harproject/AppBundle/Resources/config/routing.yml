@@ -1,20 +1,8 @@
 ##### MANAGEMENT #####
-harproject_app_management_member:
-    resource: '@HarprojectAppBundle/Resources/config/routing/Management/member.yml'
-    prefix:   /dashboard/management/member
-
 harproject_app_management_group:
     resource: '@HarprojectAppBundle/Resources/config/routing/Management/group.yml'
     prefix:   /dashboard/management/group
-
-harproject_app_management_ticket:
-    resource: '@HarprojectAppBundle/Resources/config/routing/Management/ticket.yml'
-    prefix:   /dashboard/management/ticket
-
-harproject_app_management_timetracker:
-    resource: '@HarprojectAppBundle/Resources/config/routing/Management/timetracker.yml'
-    prefix:   /dashboard/management/timetracker
-
+    
 harproject_app_management_user:
     resource: '@HarprojectAppBundle/Resources/config/routing/Management/user.yml'
     prefix:   /dashboard/management/user
@@ -23,13 +11,17 @@ harproject_app_management_tag:
     resource: '@HarprojectAppBundle/Resources/config/routing/Management/tag.yml'
     prefix:   /dashboard/management/tag
 
-harproject_app_management_task:
-    resource: '@HarprojectAppBundle/Resources/config/routing/Management/task.yml'
-    prefix:   /dashboard/management/task
-
 harproject_app_management_project:
     resource: '@HarprojectAppBundle/Resources/config/routing/Management/project.yml'
     prefix:   /dashboard/management/project
+
+harproject_app_management_status:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/status.yml'
+    prefix:   /dashboard/management/status
+
+harproject_app_management_relation_type:
+    resource: '@HarprojectAppBundle/Resources/config/routing/Management/relation_type.yml'
+    prefix:   /dashboard/management/relation_type
 
 ##### DASHBOARD #####
 harproject_app_dashboard_project:

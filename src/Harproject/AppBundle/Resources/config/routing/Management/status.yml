@@ -1,0 +1,30 @@
+harproject_app_management_status:
+    path:     /
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:index' }
+
+harproject_app_management_status_show:
+    path:     /{id}/show
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:show' }
+
+harproject_app_management_status_new:
+    path:     /new
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:new' }
+
+harproject_app_management_status_create:
+    path:     /create
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:create' }
+    requirements: { _method: post }
+
+harproject_app_management_status_edit:
+    path:     /{id}/edit
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:edit' }
+
+harproject_app_management_status_update:
+    path:     /{id}/update
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:update' }
+    requirements: { _method: post|put }
+
+harproject_app_management_status_delete:
+    path:     /{id}/delete
+    defaults: { _controller: 'HarprojectAppBundle:Management\Status:delete' }
+    requirements: { _method: get }

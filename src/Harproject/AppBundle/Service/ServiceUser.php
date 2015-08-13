@@ -175,10 +175,13 @@ class ServiceUser {
      * @return Member
      */
     public function deleteMember(Member $member) {
-        $member->setDeletedAt(new \DateTime());
-        $this->em->persist($member);
-        $this->em->flush();
+        $user       = $this->container->get('security.context')->getToken()->getUser();
+        if ($member->getUser()->getId() === $user->getId() && $member->getGroup()->getIsLocked()) {
+             throw new Exception("Unable to delete Member entity.");
+        }
         
+        $this->em->remove($member);
+        $this->em->flush();
         return $member;
     }
     

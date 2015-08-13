@@ -187,6 +187,10 @@ class GroupController extends Controller
             throw $this->createNotFoundException('Unable to find Group entity.');
         }
 
+        if ($entity->getIsLocked()) {
+            throw $this->createNotFoundException('Unable to delete Group entity.');
+        }
+        
         $em->remove($entity);
         $em->flush();
 

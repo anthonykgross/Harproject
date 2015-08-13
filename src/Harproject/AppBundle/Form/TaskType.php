@@ -5,6 +5,7 @@ namespace Harproject\AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Harproject\AppBundle\Entity\Repository\Project;
 
 class TaskType extends AbstractType
 {
@@ -14,18 +15,20 @@ class TaskType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entity = $builder->getData();
+        
         $builder
             ->add('name')
             ->add('description')
             ->add('estimated_time')
             ->add('spent_time')
             ->add('project', 'entity', array(
-                "class" => 'HarprojectAppBundle:Project',
-                "property" => 'name',
+                "class"         => 'HarprojectAppBundle:Project',
+                "property"      => 'name'
             ))
             ->add('author', 'entity', array(
-                "class" => 'HarprojectAppBundle:Member',
-                "property" => 'id',
+                "class"         => 'HarprojectAppBundle:Member',
+                "property"      => 'LabelForm'
             ))
         ;
     }

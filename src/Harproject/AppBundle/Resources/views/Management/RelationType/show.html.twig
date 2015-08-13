@@ -1,12 +1,12 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block body_title %}Ticket{% endblock %}
+{% block body_title %}RelationType{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-ticket fa-fw"></i>
+                <i class="fa fa-link fa-fw"></i>
 
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -14,36 +14,24 @@
                     </button>
                     <ul class="dropdown-menu slidedown">
                         <li>
-                            <a href="{{ path("harproject_app_management_ticket") }}"><i class="fa fa-list-ul fa-fw"></i> Ticket</a>
+                            <a href="{{ path("harproject_app_management_relation_type") }}"><i class="fa fa-list-ul fa-fw"></i> RelationType</a>
                         </li>
                         <li>
-                            <a href="{{ path("harproject_app_management_ticket_new") }}"><i class="fa fa-plus fa-fw"></i> New ticket</a>
+                            <a href="{{ path("harproject_app_management_relation_type_new") }}"><i class="fa fa-plus fa-fw"></i> New relation type</a>
                         </li>
                         <li>
-                            <a href="{{ path("harproject_app_management_ticket_edit" , {"id": entity.id}) }}"><i class="fa fa-edit fa-fw"></i> Edit</a>
+                            <a href="{{ path("harproject_app_management_relation_type_edit" , {"id": entity.id}) }}"><i class="fa fa-edit fa-fw"></i> Edit</a>
                         </li>
                         <li>
-                            <a href="{{ path("harproject_app_management_ticket_delete" , {"id": entity.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete</a>
+                            <a href="{{ path("harproject_app_management_relation_type_delete" , {"id": entity.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="col-lg-12">
-                    <div class="col-lg-2">Member</div>
-                    <div class="col-lg-10">{{ entity.member.id }}</div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="col-lg-2">Description</div>
-                    <div class="col-lg-10">{{ entity.description }}</div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="col-lg-2">Tag</div>
-                    <div class="col-lg-10">
-                        {% for tht in entity.ticketHasTags %}
-                            {{ tht.label }}
-                        {% endfor %}
-                    </div>
+                    <div class="col-lg-2">Label</div>
+                    <div class="col-lg-10">{{ entity.label }}</div>
                 </div>
                 <div class="col-lg-12">
                     <div class="col-lg-2">Created at</div>

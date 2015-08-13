@@ -239,4 +239,8 @@ class Member extends Harproject
     {
         return $this->tickets;
     }
+    
+    public function getLabelForm(){
+        return "[".$this->getGroup()->getLabel()."] ".$this->user->getEmail();
+    }
 }

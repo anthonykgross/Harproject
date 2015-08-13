@@ -12,6 +12,39 @@ class EntityRepository extends BaseEntityRepository
 {
     
     /**
+     * Creates a new QueryBuilder instance that is prepopulated for this entity name.
+     *
+     * @param string $alias
+     *
+     * @return QueryBuilder
+     */
+    public function createQueryBuilder($alias)
+    {
+        $query_builder = $this->_em->createQueryBuilder()
+            ->select($alias)
+            ->from($this->_entityName, $alias);
+        
+        if(is_subclass_of($this->getClassName(),  "Harproject\AppBundle\Entity\HarprojectInterface")) {
+            $query_builder->andWhere($alias.".deleted_at is NULL");
+        }
+        return $query_builder;
+    }
+    
+    /**
+     * Creates a new QueryBuilder instance that is prepopulated for this entity name.
+     *
+     * @param string $alias
+     *
+     * @return QueryBuilder
+     */
+    public function rawCreateQueryBuilder($alias)
+    {
+        return $this->_em->createQueryBuilder()
+            ->select($alias)
+            ->from($this->_entityName, $alias);
+    }
+    
+    /**
      * Finds an entity by its primary key / identifier.
      *
      * @param mixed    $id          The identifier.

@@ -27,4 +27,12 @@ class ProjectController extends Controller
         
         return $this->redirect($this->generateUrl('harproject_app_dashboard_index'));
     }
+    
+    /**
+     * Let the user reset session
+     */
+    public function resetAction(){
+        $this->get("harproject_app.project")->resetSession();
+        return $this->redirect($this->generateUrl('harproject_app_dashboard_index'));
+    }
 }

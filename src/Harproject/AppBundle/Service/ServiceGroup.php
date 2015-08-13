@@ -67,6 +67,15 @@ class ServiceGroup {
         $this->em->persist($developer_group);
         $this->em->persist($customer_group);
         $this->em->flush();
+        
+        $this->initLockedGroup();
+    }
+    
+    public function initLockedGroup(){
+        $manager_group       = new Group();
+        $manager_group->setLabel("Manager")->setRoles(Group::$basic_roles)->setIsLocked(true);
+        $this->em->persist($manager_group);
+        $this->em->flush();
     }
     
     /**

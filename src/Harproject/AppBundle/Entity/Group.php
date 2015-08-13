@@ -53,6 +53,13 @@ class Group extends Harproject
     private $label;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_locked", type="boolean")
+     */
+    private $is_locked;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="roles", type="array")
@@ -70,7 +77,8 @@ class Group extends Harproject
     public function __construct()
     {
         parent::__construct();
-        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->is_locked    = false;
+        $this->members      = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -94,6 +102,29 @@ class Group extends Harproject
     public function getLabel()
     {
         return $this->label;
+    }
+    
+    /**
+     * Set is_locked
+     *
+     * @param boolean $is_locked
+     * @return Group
+     */
+    public function setIsLocked($is_locked)
+    {
+        $this->is_locked = $is_locked;
+
+        return $this;
+    }
+
+    /**
+     * Get is_locked
+     *
+     * @return boolean 
+     */
+    public function getIsLocked()
+    {
+        return $this->is_locked;
     }
 
     /**

@@ -1,12 +1,12 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block body_title %}Member{% endblock %}
+{% block body_title %}RelationType{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-graduation-cap fa-fw"></i>
+                    <i class="fa fa-link fa-fw"></i>
 
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -14,7 +14,7 @@
                         </button>
                         <ul class="dropdown-menu slidedown">
                             <li>
-                                <a href="{{ path("harproject_app_management_member_new") }}"><i class="fa fa-plus fa-fw"></i> New member</a>
+                                <a href="{{ path("harproject_app_management_relation_type_new") }}"><i class="fa fa-plus fa-fw"></i> New relation type</a>
                             </li>
                         </ul>
                     </div>
@@ -25,27 +25,19 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>User</th>
-                                    <th>Project</th>
-                                    <th>Group</th>
-                                    <th>Created_at</th>
-                                    <th>Updated_at</th>
+                                    <th>Label</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for entity in entities %}
                                 <tr>
-                                    <td>{{ entity.id }}</td>
-                                    <td>{{ entity.user.email }}</td>
-                                    <td>{{ entity.project.name }}</td>
-                                    <td>{{ entity.group.label }}</td>
-                                    <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                    <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td><a href="{{ path('harproject_app_management_relation_type_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                    <td>{{ entity.label }}</td>
                                     <td>
-                                        <a class="btn btn-default" href="{{ path('harproject_app_management_member_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
-                                        <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_management_member_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
-                                        <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_management_member_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                        <a class="btn btn-default" href="{{ path('harproject_app_management_relation_type_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
+                                        <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_management_relation_type_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
+                                        <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_management_relation_type_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}

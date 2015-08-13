@@ -39,6 +39,16 @@ class ProjectController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+            
+            $user           = $this->get('security.context')->getToken()->getUser();
+            //Get the manager Group or create it if inexiste
+            $group_manager  = $em->getRepository("HarprojectAppBundle:Group")->findOneBy(array("is_locked" => true));
+            if(!$group_manager){
+                $this->container->get("harproject_app.group")->initLockedGroup();
+                $group_manager  = $em->getRepository("HarprojectAppBundle:Group")->findOneBy(array("is_locked" => true));
+            }
+            $this->container->get("harproject_app.user")->addMember($user, $entity, $group_manager);
+                    
             $em->flush();
 
             return $this->redirect($this->generateUrl('harproject_app_management_project_show', array('id' => $entity->getId())));

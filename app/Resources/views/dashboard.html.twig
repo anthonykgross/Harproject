@@ -205,23 +205,6 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
-                {% if is_granted("ROLE_MANAGER") %}
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-list-ul fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="{{ path("harproject_app_management_project") }}"><i class="fa fa-list fa-fw"></i> All projects</a>
-                        </li>
-                        <li>
-                            <a href="{{ path("harproject_app_management_project_new") }}"><i class="fa fa-plus fa-fw"></i> New project</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                {% endif %}
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -235,10 +218,7 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="{{ path("fos_user_profile_show") }}"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
+                        <li><a href="{{ path("fos_user_profile_show") }}"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ path("fos_user_security_logout") }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
@@ -269,12 +249,20 @@
                             <form action="" method="GET" role="search">
                                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                     <div class="btn-group" role="group">
+                                        {% if app.session.get('project_id') %}
+                                              {% if app.session.get('project_id')|getProject is not null %}
+                                                    {% if (app.session.get('project_id')|getProject).deletedAt %}
+                                                        <a class="btn btn-warning form-control" href="{{ path("harproject_app_dashboard_project_reset") }} ">Refresh</a>
+                                                    {% endif %}
+                                              {% endif %}
+                                        {% endif %}
+                                        
                                         <button class="btn btn-default btn-sm dropdown-toggle form-control" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           {% if not app.session.get('project_id') %}
                                               Projects 
                                           {% else %}
                                               {% if app.session.get('project_id')|getProject is not null %}
-                                                {{ (app.session.get('project_id')|getProject).name }}
+                                                    {{ (app.session.get('project_id')|getProject).name }}
                                               {% endif %}
                                           {% endif %}
                                           <span class="caret"></span>
@@ -317,8 +305,8 @@
                         {% endif %}
                         {% if is_granted("ROLE_MANAGER") %}
                             <li class="side-title">MANAGEMENT</li>
-                            <li>                                
-                                <a href="{{  path("harproject_app_management_task") }}"><i class="fa fa-tasks fa-fw"></i> Tasks</a>
+                            <li>
+                                <a href="{{ path("harproject_app_management_project") }}"><i class="fa fa-list fa-fw"></i> Projects</a>
                             </li>
                             <li>                                
                                 <a href="{{  path("harproject_app_management_tag") }}"><i class="fa fa-tags fa-fw"></i> Tags</a>
@@ -327,16 +315,13 @@
                                 <a href="{{  path("harproject_app_management_user") }}"><i class="fa fa-user fa-fw"></i> Users</a>
                             </li>
                             <li>                                
-                                <a href="{{  path("harproject_app_management_timetracker") }}"><i class="fa fa-clock-o fa-fw"></i> TimeTrackers</a>
-                            </li>
-                            <li>                                
-                                <a href="{{  path("harproject_app_management_ticket") }}"> <i class="fa fa-ticket fa-fw"></i> Tickets</a>
-                            </li>
-                            <li>                                
-                                <a href="{{  path("harproject_app_management_member") }}"> <i class="fa fa-graduation-cap fa-fw"></i> Members</a>
-                            </li>
-                            <li>                                
                                 <a href="{{  path("harproject_app_management_group") }}"> <i class="fa fa-group fa-fw"></i> Groups</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_status") }}"> <i class="fa fa-bookmark fa-fw"></i> Status</a>
+                            </li>
+                            <li>                                
+                                <a href="{{  path("harproject_app_management_relation_type") }}"> <i class="fa fa-link fa-fw"></i> Relation type</a>
                             </li>
                         {% endif %}
                         <li class="side-title">HARPROJECT</li>

@@ -4,7 +4,7 @@
  */
 namespace Harproject\AppBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Harproject\OverrideBundle\Doctrine\EntityRepository;
 
 class Task extends EntityRepository {
     

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TicketType extends AbstractType
+class RelationTypeType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,11 +15,7 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description')
-            ->add('member', 'entity', array(
-                "class"         => 'HarprojectAppBundle:Member',
-                "property"      => 'LabelForm'
-            ))
+            ->add('label')
         ;
     }
     
@@ -29,7 +25,7 @@ class TicketType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Harproject\AppBundle\Entity\Ticket'
+            'data_class' => 'Harproject\AppBundle\Entity\RelationType'
         ));
     }
 
@@ -38,6 +34,6 @@ class TicketType extends AbstractType
      */
     public function getName()
     {
-        return 'harproject_appbundle_ticket';
+        return 'harproject_appbundle_relation_type';
     }
 }

@@ -4,7 +4,7 @@
  */
 namespace Harproject\AppBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Harproject\OverrideBundle\Doctrine\EntityRepository;
 use Harproject\AppBundle\Entity\User;
 
 class Project extends EntityRepository {
@@ -17,7 +17,8 @@ class Project extends EntityRepository {
                             JOIN p.members m 
                             JOIN m.user u
                         WHERE u.id = :user_id
-                        AND m.deleted_at IS NULL'
+                        AND m.deleted_at IS NULL
+                        AND p.deleted_at IS NULL'
                 )
                 ->setParameter(":user_id", $user->getId())
                 ->getResult();
