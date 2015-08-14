@@ -8,6 +8,7 @@ namespace Harproject\AppBundle\Service;
 
 use \Harproject\AppBundle\Entity\MemberHasTask;
 use \Harproject\AppBundle\Entity\TimeTracker;
+use Harproject\AppBundle\Exception\Exception;
 
 class ServiceTimeTracker {
     
@@ -28,15 +29,26 @@ class ServiceTimeTracker {
     public function runTimeTracker(MemberHasTask $memberHasTask, $comment = null){
         //Check if a timetracker is running
         $timetracker = $this->em->getRepository("HarprojectAppBundle:TimeTracker")->findOneBy(array(
-            "MemberHasTask" => $memberHasTask,
-            "endDate"       => null
+            "memberHasTask"     => $memberHasTask,
+            "finished_at"       => null
         ));
+        
+        $timetrackers_pending = $this->em->getRepository("HarprojectAppBundle:TimeTracker")->findTimetrackerExceptOne($memberHasTask->getTask()->getId(), $memberHasTask->getMember()->getUser());
+        
+        if(count($timetrackers_pending)>0){
+            throw new Exception("Member can run only one tracker at the same time.");
+        }
         
         if($timetracker){
             $timetracker->setFinishedAt(new \DateTime());
+            
+            $task = $memberHasTask->getTask();
+            $task->setSpentTime($task->getSpentTime()+($timetracker->getFinishedAt()->getTimestamp() - $timetracker->getCreatedAt()->getTimestamp()));
+            $this->em->persist($task);
         }
         else{
             $timetracker = new TimeTracker();
+            $timetracker->setMemberHasTask($memberHasTask);
         }
         
         if(!is_null($comment)){

@@ -18,7 +18,7 @@ class TicketType extends AbstractType
             ->add('description')
             ->add('member', 'entity', array(
                 "class"         => 'HarprojectAppBundle:Member',
-                "property"      => 'LabelForm'
+                "property"      => 'group.label'
             ))
         ;
     }

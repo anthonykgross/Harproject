@@ -34,26 +34,26 @@
                             <tbody>
                                 {% for entity in entities %}
                                 <tr>
-                                    <td>{{ entity.id }}</td>
-                                    <td>{{ entity.name }}</td>
+                                    <td>{{ entity.task.id }}</td>
+                                    <td>{{ entity.task.name }}</td>
                                     <td>
                                         {% if app.user|hasRole("TASK_VIEW", app.session.get("project_id")) %}
-                                            <a class="btn btn-default" href="{{ path('harproject_app_dashboard_task_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
+                                            <a class="btn btn-default" href="{{ path('harproject_app_dashboard_task_show', { 'id': entity.task.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
                                         {% endif %}
                                         {% if app.user|hasRole("TASK_EDIT", app.session.get("project_id")) %}
-                                            <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_dashboard_task_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
+                                            <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_dashboard_task_edit', { 'id': entity.task.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
                                         {% endif %}
                                         {% if app.user|hasRole("TASK_DELETE", app.session.get("project_id")) %}
-                                            <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_dashboard_task_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                            <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_dashboard_task_delete', { 'id': entity.task.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
                                         {% endif %}
                                         
-                                        {% if not entity|getSelecter %}
-                                            <a class="btn btn-outline btn-success" href="{{ path('harproject_app_dashboard_task_select', { 'id': entity.id }) }}"><i class="fa fa-toggle-off fa-fw"></i></a>
+                                        {% if not entity.task|getSelecter %}
+                                            <a class="btn btn-outline btn-success" href="{{ path('harproject_app_dashboard_task_select', { 'id': entity.task.id }) }}"><i class="fa fa-toggle-off fa-fw"></i></a>
                                         {% else %}
-                                            {% if entity|getSelecter.user == app.user %}
-                                                <a class="btn btn-outline btn-success" href="{{ path('harproject_app_dashboard_task_deselect', { 'id': entity.id }) }}"><i class="fa fa-toggle-on fa-fw"></i></a>
+                                            {% if entity.task|getSelecter.user == app.user %}
+                                                <a class="btn btn-outline btn-success" href="{{ path('harproject_app_dashboard_task_deselect', { 'id': entity.task.id }) }}"><i class="fa fa-toggle-on fa-fw"></i></a>
                                             {% else %}
-                                                <span class="label label-success">{{entity|getSelecter.user.email}}</span>
+                                                <span class="label label-success">{{entity.task|getSelecter.user.email}}</span>
                                             {% endif %}
                                         {% endif %}
                                     </td>

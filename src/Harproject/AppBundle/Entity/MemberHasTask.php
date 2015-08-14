@@ -8,7 +8,7 @@ use Harproject\AppBundle\Entity\Harproject;
 /**
  * MemberHasTask
  *
- * @ORM\Table(name="harp_Member_has_Task", uniqueConstraints={@ORM\UniqueConstraint(name="idxUnique", columns={"Member_id", "Task_id"})})
+ * @ORM\Table(name="harp_Member_has_Task")
  * @ORM\Entity
  */
 class MemberHasTask extends Harproject

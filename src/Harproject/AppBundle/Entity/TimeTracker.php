@@ -9,14 +9,14 @@ use Harproject\AppBundle\Entity\Harproject;
  * TimeTracker
  *
  * @ORM\Table(name="harp_TimeTracker")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Harproject\AppBundle\Entity\Repository\TimeTracker")
  */
 class TimeTracker extends Harproject
 {
     /**
      * @var datetime
      *
-     * @ORM\Column(name="finished_at", type="datetime")
+     * @ORM\Column(name="finished_at", type="datetime", nullable=true)
      */
     private $finished_at;
 
@@ -35,7 +35,7 @@ class TimeTracker extends Harproject
      *   @ORM\JoinColumn(name="Member_has_Task_id", referencedColumnName="id", nullable=false)
      * })
      */
-    private $memberHasTasks;
+    private $memberHasTask;
     
     /**
      * @ORM\OneToMany(targetEntity="TimeTrackerHasTag", mappedBy="timeTracker", cascade={"remove", "persist"})
@@ -98,26 +98,26 @@ class TimeTracker extends Harproject
     }
 
     /**
-     * Set memberHasTasks
+     * Set memberHasTask
      *
-     * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks
+     * @param \Harproject\AppBundle\Entity\MemberHasTask $memberHasTask
      * @return TimeTracker
      */
-    public function setMemberHasTasks(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTasks)
+    public function setMemberHasTask(\Harproject\AppBundle\Entity\MemberHasTask $memberHasTask)
     {
-        $this->memberHasTasks = $memberHasTasks;
+        $this->memberHasTask = $memberHasTask;
 
         return $this;
     }
 
     /**
-     * Get memberHasTasks
+     * Get memberHasTask
      *
      * @return \Harproject\AppBundle\Entity\MemberHasTask 
      */
-    public function getMemberHasTasks()
+    public function getMemberHasTask()
     {
-        return $this->memberHasTasks;
+        return $this->memberHasTask;
     }
 
     /**

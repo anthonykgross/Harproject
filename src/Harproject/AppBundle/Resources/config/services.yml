@@ -38,3 +38,8 @@ services:
         arguments: [@service_container]
         tags:
             -  { name: twig.extension}
+    harproject_app.twig.task:
+        class: Harproject\AppBundle\Twig\TaskExtension
+        arguments: [@service_container]
+        tags:
+            -  { name: twig.extension}

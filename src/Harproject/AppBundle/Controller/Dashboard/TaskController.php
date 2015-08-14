@@ -5,6 +5,7 @@ namespace Harproject\AppBundle\Controller\Dashboard;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Harproject\AppBundle\Request\HarprojectRole;
+use Symfony\Component\HttpFoundation\Response;
 
 use Harproject\AppBundle\Entity\Task;
 use Harproject\AppBundle\Form\TaskType;
@@ -235,5 +236,101 @@ class TaskController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+    
+    /**
+     * Select a task and add it in MemberHasTask
+     */
+    public function selectAction($id){
+        $em         = $this->getDoctrine()->getManager();
+        $user       = $this->get('security.context')->getToken()->getUser();
+        $project_id = $this->get('session')->get('project_id');
+        
+        $entity   = $em->getRepository('HarprojectAppBundle:Task')->findOneBy(array(
+            "project"   => $em->getRepository('HarprojectAppBundle:Project')->find($project_id),
+            "id"        => $id
+        ));
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+        
+        $this->get('harproject_app.task')->selectTask($entity, $user);
+        return $this->redirect($this->generateUrl('harproject_app_dashboard_task'));
+    }
+    
+    /**
+     * Deselect a task and add it in MemberHasTask
+     */
+    public function deselectAction($id){
+        $em         = $this->getDoctrine()->getManager();
+        $user       = $this->get('security.context')->getToken()->getUser();
+        $project_id = $this->get('session')->get('project_id');
+        
+        $entity   = $em->getRepository('HarprojectAppBundle:Task')->findOneBy(array(
+            "project"   => $em->getRepository('HarprojectAppBundle:Project')->find($project_id),
+            "id"        => $id
+        ));
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Task entity.');
+        }
+        
+        $this->get('harproject_app.task')->deselectTask($entity, $user);
+        return $this->redirect($this->generateUrl('harproject_app_dashboard_task'));
+    }
+    
+    /**
+     * List taskes which was selected by user
+     */
+    public function selectedTasksAction(){
+        $em         = $this->getDoctrine()->getManager();
+        $user       = $this->get('security.context')->getToken()->getUser();
+        
+        $entities   = $em->getRepository('HarprojectAppBundle:Task')->findSelectedTasks($user);
+        
+        return $this->render('HarprojectAppBundle:Dashboard\Task:selected_tasks.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
+    
+    public function widgetSelectedTasksAction(){
+        $em         = $this->getDoctrine()->getManager();
+        $user       = $this->get('security.context')->getToken()->getUser();
+        
+        $entities   = $em->getRepository('HarprojectAppBundle:Task')->findSelectedTasks($user);
+        
+        return $this->render('HarprojectAppBundle:Widgets\Dashboard\Task:selected_tasks.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
+    
+    /**
+     * Show selected task
+     */
+    public function selectedTaskAction($id){
+        $em         = $this->getDoctrine()->getManager();
+        $user       = $this->get('security.context')->getToken()->getUser();
+        
+        $entity         = $em->getRepository('HarprojectAppBundle:Task')->findSelectedTask($user, $id);
+        $timetrackers   = $em->getRepository('HarprojectAppBundle:Timetracker')->findTimeTrackerForTask($entity->getTask()->getId(), $user);
+        
+        return $this->render('HarprojectAppBundle:Dashboard\Task:show_selected_task.html.twig', array(
+            'entity' => $entity,
+            'timetrackers' => $timetrackers
+        ));
+    }
+    
+    /**
+     * tracker selected task
+     */
+    public function trackerAction($id){
+        $em         = $this->getDoctrine()->getManager();
+        $user       = $this->get('security.context')->getToken()->getUser();
+        
+        $entity         = $em->getRepository('HarprojectAppBundle:Task')->findSelectedTask($user, $id);
+        $this->get('harproject_app.timetracker')->runTimeTracker($entity);
+        
+        return new Response();
     }
 }

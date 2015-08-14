@@ -28,3 +28,28 @@ harproject_app_dashboard_task_delete:
     path:     /{id}/delete
     defaults: { _controller: 'HarprojectAppBundle:Dashboard\Task:delete' }
     requirements: { _method: get }
+
+harproject_app_dashboard_task_select:
+    path:     /{id}/select
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Task:select' }
+    requirements: { _method: get }
+    
+harproject_app_dashboard_task_deselect:
+    path:     /{id}/deselect
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Task:deselect' }
+    requirements: { _method: get }
+    
+harproject_app_dashboard_task_selected_tasks:
+    path:     /selected-tasks
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Task:selectedTasks' }
+    requirements: { _method: get }
+    
+harproject_app_dashboard_task_selected_task:
+    path:     /{id}/selected-task
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Task:selectedTask' }
+    requirements: { _method: get }
+    
+harproject_app_dashboard_task_tracker:
+    path:     /{id}/selected-task/tracker
+    defaults: { _controller: 'HarprojectAppBundle:Dashboard\Task:tracker' }
+    requirements: { _method: get }

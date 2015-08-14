@@ -57,16 +57,6 @@
                             {% if form.estimated_time.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.estimated_time)}}</div>{% endif %}
                         </div>
                         <div class="form-group">
-                            {{ form_label(form.spent_time) }}
-                            {{ form_widget(form.spent_time, { 'attr': {'class': 'form-control'} }) }}
-                            {% if form.spent_time.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.spent_time)}}</div>{% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.project) }}
-                            {{ form_widget(form.project, { 'attr': {'class': 'form-control'} }) }}
-                            {% if form.project.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.project)}}</div>{% endif %}
-                        </div>
-                        <div class="form-group">
                             {{ form_label(form.author) }}
                             {{ form_widget(form.author, { 'attr': {'class': 'form-control'} }) }}
                             {% if form.author.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.author)}}</div>{% endif %}

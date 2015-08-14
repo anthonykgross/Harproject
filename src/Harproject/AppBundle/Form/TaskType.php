@@ -21,14 +21,9 @@ class TaskType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('estimated_time')
-            ->add('spent_time')
-            ->add('project', 'entity', array(
-                "class"         => 'HarprojectAppBundle:Project',
-                "property"      => 'name'
-            ))
             ->add('author', 'entity', array(
                 "class"         => 'HarprojectAppBundle:Member',
-                "property"      => 'LabelForm'
+                "property"      => 'group.label'
             ))
         ;
     }

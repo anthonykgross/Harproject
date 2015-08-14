@@ -41,7 +41,7 @@
                                             <a class="btn btn-default" href="{{ path('harproject_app_dashboard_timetracker_show', { 'id': entity.id }) }}"><i class="fa fa-eye fa-fw"></i></a>
                                         {% endif %}
                                         {% if app.user|hasRole("TIMETRACKER_EDIT", app.session.get("project_id")) %}
-                                            <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_dashboard_timetracker_edit', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
+                                            <a class="btn btn-outline btn-primary" href="{{ path('harproject_app_dashboard_timetracker_edit', { 'id': entity.id }) }}"><i class="fa fa-edit fa-fw"></i></a>
                                         {% endif %}
                                         {% if app.user|hasRole("TIMETRACKER_DELETE", app.session.get("project_id")) %}
                                             <a class="btn btn-outline btn-danger" href="{{ path('harproject_app_dashboard_timetracker_delete', { 'id': entity.id }) }}"><i class="fa fa-trash fa-fw"></i></a>
