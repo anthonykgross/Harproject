@@ -9,6 +9,9 @@
 
         <title>{% block title %}Harproject!{% endblock %}</title>
 
+        <!-- Spectrum CSS -->
+        <link href="{{ asset('libs/spectrum/spectrum.css') }}" rel="stylesheet">
+        
         <!-- Bootstrap Core CSS -->
         <link href="{{ asset('libs/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -69,9 +72,15 @@
         <!-- Custom Theme JavaScript -->
         <script src="{{ asset('libs/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js') }}"></script>
 
+        <!-- Spectrum JavaScript -->
+        <script src="{{ asset('libs/spectrum/spectrum.js') }}"></script>
+
          <!-- DataTables JavaScript -->
         <script src="{{ asset('libs/datatables/media/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('libs/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
+
+
+        <script src="{{ asset('bundles/harprojectapp/js/color-pickers.js') }}"></script>
 
         <!-- Custom JavaScript -->
         {% block javascripts %}{% endblock %}

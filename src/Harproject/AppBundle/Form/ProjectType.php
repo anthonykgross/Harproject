@@ -2,6 +2,7 @@
 
 namespace Harproject\AppBundle\Form;
 
+use Harproject\AppBundle\Form\Type\ColorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,6 +17,7 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('site_url')
+            ->add('color', new ColorType() )
             ->add('git')
             ->add('svn')
             ->add('name')

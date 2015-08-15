@@ -60,7 +60,14 @@ class Project extends Harproject
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-    
+        
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="text", nullable=true)
+     */
+    private $color;
+
     /**
      * Constructor
      */
@@ -184,6 +191,29 @@ class Project extends Harproject
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return Project
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 
     /**
