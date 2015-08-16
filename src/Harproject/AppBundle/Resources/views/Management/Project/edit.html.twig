@@ -45,6 +45,11 @@
                             {% if form.site_url.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.site_url)}}</div>{% endif %}
                         </div>
                         <div class="form-group">
+                            {{ form_label(form.color) }}
+                            {{ form_widget(form.color, { 'attr': {'class': 'form-control', 'id':'color'} }) }}
+                            {% if form.color.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.color)}}</div>{% endif %}
+                        </div>
+                        <div class="form-group">
                             {{ form_label(form.git) }}
                             {{ form_widget(form.git, { 'attr': {'class': 'form-control'} }) }}
                             {% if form.git.vars.errors|length %}<div class="alert alert-danger">{{ form_errors(form.git)}}</div>{% endif %}
