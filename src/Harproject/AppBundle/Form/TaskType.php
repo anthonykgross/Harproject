@@ -19,6 +19,7 @@ class TaskType extends AbstractType
             ->add('description')
             ->add('estimated_time')
             ->add('spent_time')
+            ->add('color', new ColorType() )
             ->add('project', 'entity', array(
                 "class" => 'HarprojectAppBundle:Project',
                 "property" => 'name',

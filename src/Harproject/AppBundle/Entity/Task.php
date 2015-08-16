@@ -64,6 +64,13 @@ class Task extends Harproject{
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", nullable=true)
+     */
+    private $color;
+
+    /**
      * Estimated task duration in hour or fraction of hour
      * 
      * @var float
@@ -155,6 +162,29 @@ class Task extends Harproject{
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return Task
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 
     /**
