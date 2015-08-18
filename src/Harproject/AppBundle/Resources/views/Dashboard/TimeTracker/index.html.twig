@@ -27,6 +27,8 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Task</th>
+                                    <th>User</th>
                                     <th>Comment</th>
                                     <th>Actions</th>
                                 </tr>
@@ -35,6 +37,8 @@
                                 {% for entity in entities %}
                                 <tr>
                                     <td>{{ entity.id }}</td>
+                                    <td>{{ entity.memberHasTask.task.name }}</td>
+                                    <td>[{{ entity.memberHasTask.member.group.label }}] {{ entity.memberHasTask.member.user.email }}</td>
                                     <td>{{ entity.comment }}</td>
                                     <td>
                                         {% if app.user|hasRole("TIMETRACKER_VIEW", app.session.get("project_id")) %}

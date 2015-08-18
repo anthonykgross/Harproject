@@ -121,6 +121,7 @@ class ServiceTask {
      * @param Task $task
      * @param \Harproject\AppBundle\Service\User $user
      * @throws Exception
+     * @return MemberHasTask
      */
     public function deselectTask(Task $task, User $user){
         $members = $this->container->get('harproject_app.user')->getMembers($user, $task->getProject());
@@ -142,5 +143,7 @@ class ServiceTask {
         
         $this->em->remove($memberHasTask);
         $this->em->flush();
+        
+        return $memberHasTask;
     }
 }

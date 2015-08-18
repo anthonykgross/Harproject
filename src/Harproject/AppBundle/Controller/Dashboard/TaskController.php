@@ -276,7 +276,9 @@ class TaskController extends Controller
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
         
-        $this->get('harproject_app.task')->deselectTask($entity, $user);
+        $memberHasTask = $this->get('harproject_app.task')->deselectTask($entity, $user);
+        $this->get('harproject_app.timetracker')->clearTimetracker($memberHasTask);
+        
         return $this->redirect($this->generateUrl('harproject_app_dashboard_task'));
     }
     

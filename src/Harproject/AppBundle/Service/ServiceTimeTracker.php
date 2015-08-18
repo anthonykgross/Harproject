@@ -32,19 +32,9 @@ class ServiceTimeTracker {
             "memberHasTask"     => $memberHasTask,
             "finished_at"       => null
         ));
-        
-        $timetrackers_pending = $this->em->getRepository("HarprojectAppBundle:TimeTracker")->findTimetrackerExceptOne($memberHasTask->getTask()->getId(), $memberHasTask->getMember()->getUser());
-        
-        if(count($timetrackers_pending)>0){
-            throw new Exception("Member can run only one tracker at the same time.");
-        }
-        
+
         if($timetracker){
-            $timetracker->setFinishedAt(new \DateTime());
-            
-            $task = $memberHasTask->getTask();
-            $task->setSpentTime($task->getSpentTime()+($timetracker->getFinishedAt()->getTimestamp() - $timetracker->getCreatedAt()->getTimestamp()));
-            $this->em->persist($task);
+            $this->clearTimetracker($memberHasTask);
         }
         else{
             $timetracker = new TimeTracker();
@@ -59,5 +49,28 @@ class ServiceTimeTracker {
         $this->em->flush();
         
         return $timetracker;
+    }
+    
+    
+    /**
+     * Clear timetrackers. Return True if timetracker was found.
+     * @param MemberHasTask $memberHasTask
+     * @return Boolean
+     */
+    public function clearTimetracker(MemberHasTask $memberHasTask){
+        $timetracker = $this->em->getRepository("HarprojectAppBundle:TimeTracker")->findOneBy(array(
+            "memberHasTask"     => $memberHasTask,
+            "finished_at"       => null
+        ));
+
+        if($timetracker){
+            $timetracker->setFinishedAt(new \DateTime());
+            
+            $task = $memberHasTask->getTask();
+            $task->setSpentTime($task->getSpentTime()+($timetracker->getFinishedAt()->getTimestamp() - $timetracker->getCreatedAt()->getTimestamp()));
+            $this->em->persist($task);
+        }
+        
+        return ($timetracker);
     }
 }

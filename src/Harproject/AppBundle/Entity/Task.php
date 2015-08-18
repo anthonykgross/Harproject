@@ -78,7 +78,7 @@ class Task extends Harproject{
      * 
      * @var float
      *
-     * @ORM\Column(name="spent_time", type="float", nullable=true)
+     * @ORM\Column(name="spent_time", type="float")
      */
     private $spent_time;
 
@@ -109,6 +109,7 @@ class Task extends Harproject{
         $this->taskHasStatuss   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTickets   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->taskHasTags      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->spent_time       = 0;
     }
 
     /**
